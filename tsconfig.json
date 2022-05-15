@@ -1,0 +1,51 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist",
+    "baseUrl": "./src/",
+    "paths": {
+      "@common/*": ["common/*"],
+      "@constants/*": ["constants/*"],
+      "@decorators/*": ["decorators/*"],
+      "@exceptions/*": ["exceptions/*"],
+      "@filters/*": ["filters/*"],
+      "@guards/*": ["guards/*"],
+      "@i18n/*": ["i18n/*"],
+      "@interceptors/*": ["interceptors/*"],
+      "@interfaces/*": ["interfaces/*"],
+      "@middlewares/*": ["middlewares/*"],
+      "@modules/*": ["modules/*"],
+      "@providers/*": ["providers/*"],
+      "@shared/*": ["shared/*"],
+      "@views/*": ["views/*"]
+    },
+    "declaration": true,
+    "esModuleInterop": true,
+    "incremental": true,
+    "isolatedModules": true,
+    "module": "CommonJS",
+    "moduleResolution": "Node",
+    "removeComments": true,
+    "target": "ESNext",
+
+    "strict": true,
+    "alwaysStrict": true,
+    "noImplicitThis": false,
+    "noImplicitAny": false,
+    "strictPropertyInitialization": false,
+
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "noUncheckedIndexedAccess": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+
+    "allowUnreachableCode": false,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true
+  }
+}
