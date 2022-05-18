@@ -1,5 +1,12 @@
 NestJS Rocket Changelog
 
+# [1.1.0](https://github.com/Notekunn/flex-library-backend/compare/v1.0.0...v1.1.0) (2022-05-18)
+
+
+### Features
+
+* migrate typeorm 0.3.x ([#1](https://github.com/Notekunn/flex-library-backend/issues/1)) ([4137853](https://github.com/Notekunn/flex-library-backend/commit/41378533575cda41c9772a781d2ca7dd205ad9e2))
+
 # 1.0.0 (2022-05-15)
 
 
