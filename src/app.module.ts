@@ -8,6 +8,7 @@ import { env } from 'process';
 import { SharedModule } from 'shared.module';
 
 import { ConfigService } from './shared/services/config.service';
+import { UserModule } from '@modules/user/user.module';
 
 @Module({
   imports: [
@@ -32,6 +33,7 @@ import { ConfigService } from './shared/services/config.service';
     }),
     SharedModule,
     HealthcheckModule,
+    UserModule,
   ],
 })
 export class AppModule {}
