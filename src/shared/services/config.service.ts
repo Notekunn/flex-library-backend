@@ -1,10 +1,8 @@
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
-import dotenv from 'dotenv';
+import * as dotenv from 'dotenv';
+import { env } from 'process';
 
-import typeormConfig from '../../../ormconfig';
-
-dotenv.config();
-const { env } = process;
+import { typeormConfig } from '../../ormconfig';
 
 export class ConfigService {
   constructor() {
