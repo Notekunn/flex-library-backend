@@ -17,8 +17,6 @@ jobs:
       - uses: actions/setup-node@v2.1.5
         with:
           node-version: '16'
-          registry-url: https://npm.pkg.github.com/
-          scope: '@ahiho'
       - name: Build
         run: yarn && yarn build
         env:
