@@ -3,6 +3,7 @@
     "outDir": "./dist",
     "baseUrl": "./src/",
     "paths": {
+      "@/*": ["/*"],
       "@common/*": ["common/*"],
       "@constants/*": ["constants/*"],
       "@decorators/*": ["decorators/*"],
