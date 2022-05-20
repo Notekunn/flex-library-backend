@@ -740,6 +740,11 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
+"@nestjs-architects/typed-cqrs@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@nestjs-architects/typed-cqrs/-/typed-cqrs-1.0.0.tgz#aa562f309757b20fc47c918a34a4932bd02219b3"
+  integrity sha512-AJSxL3CeWZzYhtefYTWMasHRTzjx92Ud210PZqi3IHbXnOvOBzZBW1dxbETAYjo8SCCLC57HJS1MkRQ3qa8ahg==
+
 "@nestjs/axios@^0.0.7":
   version "0.0.7"
   resolved "https://registry.yarnpkg.com/@nestjs/axios/-/axios-0.0.7.tgz#7f134636db13c2c1e8299365c7eceb73cd782b67"
@@ -796,6 +801,13 @@
     object-hash "3.0.0"
     path-to-regexp "3.2.0"
     tslib "2.3.1"
+    uuid "8.3.2"
+
+"@nestjs/cqrs@^8.0.4":
+  version "8.0.4"
+  resolved "https://registry.yarnpkg.com/@nestjs/cqrs/-/cqrs-8.0.4.tgz#f2d6eaf678aeff015fc445b31b84003afbe0b405"
+  integrity sha512-m9xAWwHC7pDcD9vCI/X7ugDvWwDDbgwES3mHAb+31gU/qr+Jifs7pMMP3Shb90gDHOS9DYihTsSvKgHseqoVRw==
+  dependencies:
     uuid "8.3.2"
 
 "@nestjs/jwt@^8.0.0":
@@ -859,10 +871,10 @@
   dependencies:
     md5 "^2.2.1"
 
-"@nestjs/typeorm@^8.0.3":
-  version "8.0.3"
-  resolved "https://registry.yarnpkg.com/@nestjs/typeorm/-/typeorm-8.0.3.tgz#e62feb1f3ec7fa0d1353f774f3f6915594c34a4e"
-  integrity sha512-tf9rTXP6LeFInkwd+tktQhtLRsKp4RRYImprqT8gcHcJDx+xMP1IygnXELOKwF5vo2/mnhrGtBlRQ/iiS6170g==
+"@nestjs/typeorm@^9.0.0-next.2":
+  version "9.0.0-next.2"
+  resolved "https://registry.yarnpkg.com/@nestjs/typeorm/-/typeorm-9.0.0-next.2.tgz#657cdb908200656541e7e8089e1640ac049ab79c"
+  integrity sha512-2sb4fHH21SBCOrwvv9hyamUCgAc23eXA+/uyAeu7/VhOUnce8Iw7apNJQKK5PxbBWOCC4vXoIc5P8sDML5yNGA==
   dependencies:
     uuid "8.3.2"
 
