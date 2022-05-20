@@ -1,5 +1,12 @@
 NestJS Rocket Changelog
 
+# [1.2.0](https://github.com/Notekunn/flex-library-backend/compare/v1.1.0...v1.2.0) (2022-05-20)
+
+
+### Features
+
+* add user module ([#2](https://github.com/Notekunn/flex-library-backend/issues/2)) ([7d83622](https://github.com/Notekunn/flex-library-backend/commit/7d83622f5cc01bdedf39c8fe318f8dce82bd9d29))
+
 # [1.1.0](https://github.com/Notekunn/flex-library-backend/compare/v1.0.0...v1.1.0) (2022-05-18)
 
 
