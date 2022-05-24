@@ -11,15 +11,12 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
   }
 
   async validate(email: string, password: string) {
-    console.log(email, password);
-
     const user = await this.commandBus.execute(
       new LoginWithEmailCommand({
         email,
         password,
       }),
     );
-    console.log(user);
 
     return user;
   }
