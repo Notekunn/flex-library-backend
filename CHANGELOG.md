@@ -1,5 +1,12 @@
 NestJS Rocket Changelog
 
+# [1.3.0](https://github.com/Notekunn/flex-library-backend/compare/v1.2.0...v1.3.0) (2022-05-24)
+
+
+### Features
+
+* add auth module with passport local and passport jwt ([#3](https://github.com/Notekunn/flex-library-backend/issues/3)) ([e9ad44b](https://github.com/Notekunn/flex-library-backend/commit/e9ad44b92902c1ec6fff004c3280942f141e1e24))
+
 # [1.2.0](https://github.com/Notekunn/flex-library-backend/compare/v1.1.0...v1.2.0) (2022-05-20)
 
 
