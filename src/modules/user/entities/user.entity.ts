@@ -21,4 +21,9 @@ export class UserEntity extends BaseEntity {
 
   @Column({ type: 'varchar', nullable: true })
   avatar?: string;
+
+  constructor(partial: Partial<UserEntity>) {
+    super();
+    Object.assign(this, partial);
+  }
 }
