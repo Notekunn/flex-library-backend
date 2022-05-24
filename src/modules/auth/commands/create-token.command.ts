@@ -16,16 +16,12 @@ export class CreateTokenCommandHandler implements ICommandHandler<CreateTokenCom
   constructor(private readonly jwtService: JwtService, private readonly configService: ConfigService) {}
   async execute(command: CreateTokenCommand): Promise<TokenPayloadDto> {
     const { user } = command;
-    const accessToken = this.jwtService.sign(
-      {
-        id: user.id,
-        email: user.email,
-      },
-      { expiresIn: this.configService.get('JWT_EXPIRATION_TIME') },
-    );
+    const accessToken = this.jwtService.sign({
+      id: user.id,
+      email: user.email,
+    });
 
-    const { iat, exp } = this.jwtService.verify(accessToken);
-    console.log(iat, exp);
+    const { exp } = this.jwtService.verify(accessToken);
 
     return new TokenPayloadDto({
       accessToken,

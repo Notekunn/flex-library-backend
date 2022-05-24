@@ -12,10 +12,10 @@ export function setupSwagger(app: INestApplication): void {
   const customOptions: SwaggerCustomOptions = {
     swaggerOptions: {
       persistAuthorization: true,
-      requestInterceptor: (req) => {
-        req.credentials = 'include';
-        return req;
-      },
+      // requestInterceptor: (req) => {
+      //   req.credentials = 'include';
+      //   return req;
+      // },
     },
     customSiteTitle: 'Flex Library API Docs',
   };
