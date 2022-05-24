@@ -1,6 +1,8 @@
-import { Controller, Get, Post } from '@nestjs/common';
+import { LocalAuthGuard } from '@guards/local-auth.guard';
+import { Controller, Get, Post, Request, UseGuards } from '@nestjs/common';
 import { CommandBus } from '@nestjs/cqrs';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { LoginRequestDto } from './dto/login-request.dto';
 import { LoginResponseDto } from './dto/login-response.dto';
 
 @Controller('auth')
@@ -24,6 +26,8 @@ export class AuthController {
   // }
 
   @Post('/login')
+  @UseGuards(LocalAuthGuard)
+  @ApiBody({ type: LoginRequestDto })
   @ApiResponse({
     type: LoginResponseDto,
     description: 'User info with access token',
@@ -32,7 +36,7 @@ export class AuthController {
   @ApiOperation({
     summary: 'Login to system',
   })
-  login() {
-    return 'login';
+  login(@Request() req) {
+    return req.user;
   }
 }
