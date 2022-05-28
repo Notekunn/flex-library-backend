@@ -10,6 +10,9 @@ import { SharedModule } from 'shared.module';
 import { ConfigService } from './shared/services/config.service';
 import { UserModule } from '@modules/user/user.module';
 import { AuthModule } from './modules/auth/auth.module';
+import { StoreModule } from './modules/store/store.module';
+import { BookModule } from './modules/book/book.module';
+import { CategoryModule } from './modules/category/category.module';
 
 @Module({
   imports: [
@@ -36,6 +39,9 @@ import { AuthModule } from './modules/auth/auth.module';
     HealthcheckModule,
     UserModule,
     AuthModule,
+    StoreModule,
+    BookModule,
+    CategoryModule,
   ],
 })
 export class AppModule {}
