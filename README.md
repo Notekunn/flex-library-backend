@@ -1,7 +1,5 @@
 ## Description
 
-[NestJS Rocket](https://github.com/ahiho/nestjs-rocket) TypeScript backend starter repository.
-
 ## Installation
 
 ```bash

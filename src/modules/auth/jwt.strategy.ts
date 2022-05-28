@@ -17,13 +17,16 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     });
   }
 
-  async validate({ id: userId }) {
+  async validate({ id: userId }): Promise<JwtClaimsDto> {
     this.logger.debug(`Claim token userId ${userId}`);
 
     //TODO: add redis to handle this
     const user = await this.queryBus.execute(new GetOneUserQuery(userId));
     if (!user) throw new UnauthorizedException('User is not valid');
 
-    return user;
+    return {
+      id: user.id,
+      role: user.role,
+    };
   }
 }
