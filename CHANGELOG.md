@@ -1,5 +1,12 @@
 NestJS Rocket Changelog
 
+# [1.5.0](https://github.com/Notekunn/flex-library-backend/compare/v1.4.0...v1.5.0) (2022-05-28)
+
+
+### Features
+
+* add model store book category ([#4](https://github.com/Notekunn/flex-library-backend/issues/4)) ([feae124](https://github.com/Notekunn/flex-library-backend/commit/feae124de8019e8251991bb52c5642feafb50ecb))
+
 # [1.4.0](https://github.com/Notekunn/flex-library-backend/compare/v1.3.0...v1.4.0) (2022-05-28)
 
 
