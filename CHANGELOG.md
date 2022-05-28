@@ -1,5 +1,12 @@
 NestJS Rocket Changelog
 
+# [1.4.0](https://github.com/Notekunn/flex-library-backend/compare/v1.3.0...v1.4.0) (2022-05-28)
+
+
+### Features
+
+* add basic role-based access control ([#5](https://github.com/Notekunn/flex-library-backend/issues/5)) ([2292db4](https://github.com/Notekunn/flex-library-backend/commit/2292db4e56eddce961219987e7b406e9d111b7db))
+
 # [1.3.0](https://github.com/Notekunn/flex-library-backend/compare/v1.2.0...v1.3.0) (2022-05-24)
 
 
@@ -27,4 +34,3 @@ NestJS Rocket Changelog
 ### Bug Fixes
 
 * commit lint missing cli dependences ([aefbcc3](https://github.com/Notekunn/flex-library-backend/commit/aefbcc3fee20a6113a010624f13c13a1fbbf9320))
-
