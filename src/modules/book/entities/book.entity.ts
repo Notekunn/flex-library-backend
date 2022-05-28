@@ -1,19 +1,28 @@
 import { BaseEntity } from '@common/base.entity';
-import { UserEntity } from '@modules/user/entities/user.entity';
-import { Column, Entity, ManyToOne } from 'typeorm';
+import { CategoryEntity } from '@modules/category/entity/category.entity';
+import { StoreBookEntity } from '@modules/store/entities/store-book.entity';
+import { Column, Entity, OneToMany } from 'typeorm';
 
 @Entity({ name: 'book' })
 export class BookEntity extends BaseEntity {
-  @ManyToOne(() => UserEntity, (user) => user.id)
-  storeId: number;
+  @OneToMany(() => StoreBookEntity, (storeBook) => storeBook.id)
+  storeBooks: StoreBookEntity[];
+
   @Column()
   name: string;
+
   @Column()
   price: number;
-  @Column()
+
+  @Column({ default: false })
+  imageUrl: string;
+
+  @Column({ default: 0 })
   quantity: number;
-  @Column()
+
+  @OneToMany(() => CategoryEntity, (category) => category.id)
   categoryId: number;
+
   constructor(partial: Partial<BookEntity>) {
     super();
     Object.assign(this, partial);

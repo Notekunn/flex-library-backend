@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { UserRepository } from './../repositories/user.repository';
 import { QueryHandler, IQueryHandler } from '@nestjs/cqrs';
 import { Query } from '@nestjs-architects/typed-cqrs';
-export class GetOneUserQuery extends Query<UserEntity | null> {
+export class GetOneUserQuery extends Query<UserEntity> {
   constructor(public readonly id: number) {
     super();
   }
@@ -15,8 +15,8 @@ export class GetOneUserQueryHandler implements IQueryHandler<GetOneUserQuery, Us
     @InjectRepository(UserEntity)
     private readonly userRepository: UserRepository,
   ) {}
-  execute(query: GetOneUserQuery) {
+  async execute(query: GetOneUserQuery) {
     const { id } = query;
-    return this.userRepository.findOne({ where: { id } });
+    return await this.userRepository.findOne({ where: { id } });
   }
 }

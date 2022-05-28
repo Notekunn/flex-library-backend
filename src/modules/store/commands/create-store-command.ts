@@ -20,12 +20,13 @@ export class CreateStoreCommandHandler implements ICommandHandler<CreateStoreCom
   ) {}
   async execute(command: CreateStoreCommand) {
     const { dto } = command;
-    const user = await this.queryBus.execute(new GetOneUserQuery(dto.ownerId));
+    const { ownerId, ...dataCreate } = dto;
+    const user = await this.queryBus.execute(new GetOneUserQuery(ownerId));
     if (!user) {
       throw new NotFoundException('User not found');
     }
-    const store = this.storeRepository.create(dto);
-    await this.storeRepository.save(store);
-    return store;
+    const store = this.storeRepository.create(dataCreate);
+    store.owner = user;
+    return await this.storeRepository.save(store);
   }
 }
