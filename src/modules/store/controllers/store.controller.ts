@@ -15,13 +15,13 @@ import {
 } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { ApiTags } from '@nestjs/swagger';
-import { CreateStoreCommand } from './commands/create-store-command';
-import { DeleteStoreCommand } from './commands/delete-store-command';
-import { UpdateStoreCommand } from './commands/update-store-command';
+import { CreateStoreCommand } from '../commands/create-store-command';
+import { DeleteStoreCommand } from '../commands/delete-store-command';
+import { UpdateStoreCommand } from '../commands/update-store-command';
 
-import { CreateStoreDto } from './dto/create-store.dto';
-import { UpdateStoreDto } from './dto/update-store.dto';
-import { GetAllStoreQuery } from './queries/get-all-store-query';
+import { CreateStoreDto } from '../dto/create-store.dto';
+import { UpdateStoreDto } from '../dto/update-store.dto';
+import { GetAllStoreQuery } from '../queries/get-all-store-query';
 
 @ApiTags('store')
 @UseInterceptors(ClassSerializerInterceptor)

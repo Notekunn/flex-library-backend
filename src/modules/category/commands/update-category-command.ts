@@ -2,12 +2,13 @@ import { Command } from '@nestjs-architects/typed-cqrs';
 import { NotFoundException } from '@nestjs/common';
 import { CommandHandler, ICommandHandler, QueryBus } from '@nestjs/cqrs';
 import { InjectRepository } from '@nestjs/typeorm';
+import { UpdateCategoryDto } from '../dto/update-category.dto';
 import { CategoryEntity } from '../entity/category.entity';
 import { GetOneCategoryQuery } from '../queries/get-one-category-query';
 import { CategoryRepository } from '../repositories/category.repository';
 
-export class UpdateCategoryCommand extends Command<CategoryEntity> {
-  constructor(public readonly id: number, public readonly dto: CategoryEntity) {
+export class UpdateCategoryCommand extends Command<UpdateCategoryDto> {
+  constructor(public readonly id: number, public readonly dto: UpdateCategoryDto) {
     super();
   }
 }
