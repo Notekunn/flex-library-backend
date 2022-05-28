@@ -25,19 +25,26 @@ import { GetOneUserQuery } from './queries/get-one-user.query';
 import { UpdateUserCommand } from './commands/update-user.command';
 import { DeleteUserCommand } from './commands/delete-user.command';
 import { JwtAuthGuard } from '@guards/jwt-auth.guard';
+import { Roles } from '@decorators/roles.decorator';
+import { UserRole } from '@constants/user-role.enum';
+import { RolesGuard } from '@guards/roles.guard';
 
 @Controller('user')
 @ApiTags('user')
 @UseInterceptors(ClassSerializerInterceptor)
 @ApiBearerAuth()
+@UseGuards(JwtAuthGuard, RolesGuard)
 export class UserController {
   constructor(private readonly commandBus: CommandBus, private readonly queryBus: QueryBus) {}
+
   @Post()
+  @Roles(UserRole.Administrator)
   create(@Body() createUserDto: CreateUserDto) {
     return this.commandBus.execute(new CreateUserCommand(createUserDto));
   }
 
   @Get()
+  @Roles(UserRole.Administrator)
   findAll(
     @Query(new ValidationPipe({ transform: true }))
     getAllUserDto: PaginationDto,
@@ -46,9 +53,8 @@ export class UserController {
   }
 
   @Get('me')
-  @UseGuards(JwtAuthGuard)
   whoAmI(@Request() req) {
-    return req.user;
+    return this.queryBus.execute(new GetOneUserQuery(req.user.id));
   }
 
   @Get(':id')
@@ -57,11 +63,13 @@ export class UserController {
   }
 
   @Patch(':id')
+  @Roles(UserRole.Administrator)
   update(@Param('id', ParseIntPipe) id: number, @Body() updateUserDto: UpdateUserDto) {
     return this.commandBus.execute(new UpdateUserCommand(id, updateUserDto));
   }
 
   @Delete(':id')
+  @Roles(UserRole.Administrator)
   remove(@Param('id', ParseIntPipe) id: number) {
     return this.commandBus.execute(new DeleteUserCommand([id]));
   }
