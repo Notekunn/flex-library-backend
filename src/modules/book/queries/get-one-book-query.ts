@@ -2,7 +2,7 @@ import { Query } from '@nestjs-architects/typed-cqrs';
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import { InjectRepository } from '@nestjs/typeorm';
 import { BookEntity } from '../entities/book.entity';
-import { BookRepository } from '../repositories/book.entity';
+import { BookRepository } from '../repositories/book.repository';
 
 export class GetOneBookQuery extends Query<BookEntity | null> {
   constructor(public readonly id: number) {

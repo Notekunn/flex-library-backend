@@ -1,7 +1,7 @@
 import { Command } from '@nestjs-architects/typed-cqrs';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CategoryEntity } from '../entities/category.entity';
+import { CategoryEntity } from '../entity/category.entity';
 import { CategoryRepository } from '../repositories/category.repository';
 export class DeleteCategoryCommand extends Command<number> {
   constructor(public readonly id: number) {

@@ -5,7 +5,7 @@ import { CommandHandler, ICommandHandler, QueryBus } from '@nestjs/cqrs';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateStoreDto } from '../dto/create-store.dto';
 import { StoreEntity } from '../entities/store.entity';
-import { StoreRepository } from '../repositories/store.entity';
+import { StoreRepository } from '../repositories/store.repository';
 
 export class CreateStoreCommand extends Command<CreateStoreDto> {
   constructor(public readonly dto: CreateStoreDto) {

@@ -2,7 +2,7 @@ import { Command } from '@nestjs-architects/typed-cqrs';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { InjectRepository } from '@nestjs/typeorm';
 import { StoreEntity } from '../entities/store.entity';
-import { StoreRepository } from '../repositories/store.entity';
+import { StoreRepository } from '../repositories/store.repository';
 
 export class DeleteStoreCommand extends Command<string> {
   constructor(public readonly ids: number[]) {

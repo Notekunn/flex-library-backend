@@ -4,7 +4,7 @@ import { CommandHandler, ICommandHandler, QueryBus } from '@nestjs/cqrs';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UpdateBookDto } from '../dto/update-book.dto';
 import { BookEntity } from '../entities/book.entity';
-import { BookRepository } from '../repositories/book.entity';
+import { BookRepository } from '../repositories/book.repository';
 
 export class UpdateBookCommand extends Command<UpdateBookDto> {
   constructor(public readonly id: number, public readonly dto: UpdateBookDto) {

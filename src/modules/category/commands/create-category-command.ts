@@ -2,7 +2,7 @@ import { Command } from '@nestjs-architects/typed-cqrs';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateCategoryDto } from '../dto/create-category.dto';
-import { CategoryEntity } from '../entities/category.entity';
+import { CategoryEntity } from '../entity/category.entity';
 import { CategoryRepository } from '../repositories/category.repository';
 
 export class CreateCategoryCommand extends Command<CreateCategoryDto> {

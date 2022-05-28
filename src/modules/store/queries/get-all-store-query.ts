@@ -3,7 +3,7 @@ import { Query } from '@nestjs-architects/typed-cqrs';
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import { InjectRepository } from '@nestjs/typeorm';
 import { StoreEntity } from '../entities/store.entity';
-import { StoreRepository } from '../repositories/store.entity';
+import { StoreRepository } from '../repositories/store.repository';
 
 export class GetAllStoreQuery extends Query<PaginationDto> {
   constructor(public readonly dto: PaginationDto) {

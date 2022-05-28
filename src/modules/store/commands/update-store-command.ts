@@ -4,7 +4,7 @@ import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UpdateStoreDto } from '../dto/update-store.dto';
 import { StoreEntity } from '../entities/store.entity';
-import { StoreRepository } from '../repositories/store.entity';
+import { StoreRepository } from '../repositories/store.repository';
 
 export class UpdateStoreCommand extends Command<UpdateStoreDto> {
   constructor(public readonly id: number, public readonly dto: UpdateStoreDto) {
