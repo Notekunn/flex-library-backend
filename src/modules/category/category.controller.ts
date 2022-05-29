@@ -15,13 +15,13 @@ import {
 } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { ApiTags } from '@nestjs/swagger';
-import { CreateCategoryCommand } from './commands/create-category-command';
-import { DeleteCategoryCommand } from './commands/delete-category-command';
-import { UpdateCategoryCommand } from './commands/update-category-command';
+import { CreateCategoryCommand } from './commands/create-category.command';
+import { DeleteCategoryCommand } from './commands/delete-category.command';
+import { UpdateCategoryCommand } from './commands/update-category.command';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
-import { GetAllCategoryQuery } from './queries/get-all-category-query';
-import { GetOneCategoryQuery } from './queries/get-one-category-query';
+import { GetAllCategoryQuery } from './queries/get-all-category.query';
+import { GetOneCategoryQuery } from './queries/get-one-category.query';
 
 @ApiTags('category')
 @UseInterceptors(ClassSerializerInterceptor)

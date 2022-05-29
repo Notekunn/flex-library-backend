@@ -1,5 +1,5 @@
-import { GetOneCategoryQuery } from '@modules/category/queries/get-one-category-query';
-import { GetOneStoreQuery } from '@modules/store/queries/get-one-store-query';
+import { GetOneCategoryQuery } from '@modules/category/queries/get-one-category.query';
+import { GetOneStoreQuery } from '@modules/store/queries/get-one-store.query';
 import { Command } from '@nestjs-architects/typed-cqrs';
 import { NotFoundException } from '@nestjs/common';
 import { CommandHandler, ICommandHandler, QueryBus } from '@nestjs/cqrs';
