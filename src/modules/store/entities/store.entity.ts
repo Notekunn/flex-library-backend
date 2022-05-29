@@ -1,11 +1,11 @@
-import { BaseEntity } from '@common/base.entity';
+import { AbstractEntity } from '@common/abstract.entity';
 import { UserEntity } from '@modules/user/entities/user.entity';
-import { Column, Entity, OneToMany, OneToOne } from 'typeorm';
-import { StoreBookEntity } from './store-book.entity';
+import { Column, Entity, ManyToOne, OneToMany } from 'typeorm';
+import { BookshelfEntity } from './store-book.entity';
 
 @Entity({ name: 'store' })
-export class StoreEntity extends BaseEntity {
-  @OneToOne(() => UserEntity, (store) => store.id)
+export class StoreEntity extends AbstractEntity {
+  @ManyToOne(() => UserEntity, (user) => user.stores)
   owner: UserEntity;
 
   @Column({ type: 'varchar' })
@@ -14,8 +14,8 @@ export class StoreEntity extends BaseEntity {
   @Column({ type: 'varchar' })
   address: string;
 
-  @OneToMany(() => StoreBookEntity, (storeBook) => storeBook.id)
-  storeBooks: StoreBookEntity[];
+  @OneToMany(() => BookshelfEntity, (storeBook) => storeBook.book)
+  bookshelfs: BookshelfEntity[];
 
   constructor(partial: Partial<StoreEntity>) {
     super();

@@ -1,10 +1,11 @@
-import { BaseEntity } from '@common/base.entity';
+import { AbstractEntity } from '@common/abstract.entity';
 import { UserRole } from '@constants/user-role.enum';
+import { StoreEntity } from '@modules/store/entities/store.entity';
 import { Exclude } from 'class-transformer';
-import { Column, Entity } from 'typeorm';
+import { Column, Entity, OneToMany } from 'typeorm';
 
 @Entity({ name: 'user' })
-export class UserEntity extends BaseEntity {
+export class UserEntity extends AbstractEntity {
   @Column({ type: 'varchar' })
   email: string;
 
@@ -23,6 +24,9 @@ export class UserEntity extends BaseEntity {
 
   @Column({ type: 'varchar', nullable: true })
   avatar?: string;
+
+  @OneToMany(() => StoreEntity, (store) => store.owner)
+  stores: StoreEntity[];
 
   constructor(partial: Partial<UserEntity>) {
     super();

@@ -3,7 +3,7 @@ import { NotFoundException } from '@nestjs/common';
 import { CommandHandler, ICommandHandler, QueryBus } from '@nestjs/cqrs';
 import { InjectRepository } from '@nestjs/typeorm';
 import { BookEntity } from '../entities/book.entity';
-import { GetOneBookQuery } from '../queries/get-one-book-query';
+import { GetOneBookQuery } from '../queries/get-one-book.query';
 import { BookRepository } from '../repositories/book.repository';
 
 export class DeleteBookCommand extends Command<number> {

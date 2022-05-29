@@ -1,18 +1,18 @@
 import { Query } from '@nestjs-architects/typed-cqrs';
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import { InjectRepository } from '@nestjs/typeorm';
-import { StoreBookEntity } from '../entities/store-book.entity';
+import { BookshelfEntity } from '../entities/store-book.entity';
 import { StoreBookRepository } from '../repositories/storeBook.repository';
 
-export class GetOneStoreBookQuery extends Query<StoreBookEntity> {
+export class GetOneStoreBookQuery extends Query<BookshelfEntity> {
   constructor(public readonly id: number) {
     super();
   }
 }
 @QueryHandler(GetOneStoreBookQuery)
-export class GetOneStoreBookQueryHandler implements IQueryHandler<GetOneStoreBookQuery, StoreBookEntity | null> {
+export class GetOneStoreBookQueryHandler implements IQueryHandler<GetOneStoreBookQuery, BookshelfEntity | null> {
   constructor(
-    @InjectRepository(StoreBookEntity)
+    @InjectRepository(BookshelfEntity)
     private readonly storeBookRepository: StoreBookRepository,
   ) {}
   async execute(query: GetOneStoreBookQuery) {

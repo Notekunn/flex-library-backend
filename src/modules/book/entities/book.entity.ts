@@ -1,12 +1,12 @@
-import { BaseEntity } from '@common/base.entity';
-import { CategoryEntity } from '@modules/category/entity/category.entity';
-import { StoreBookEntity } from '@modules/store/entities/store-book.entity';
-import { Column, Entity, OneToMany } from 'typeorm';
+import { AbstractEntity } from '@common/abstract.entity';
+import { CategoryEntity } from '@modules/category/entities/category.entity';
+import { BookshelfEntity } from '@modules/store/entities/store-book.entity';
+import { Column, Entity, JoinTable, ManyToMany, OneToMany } from 'typeorm';
 
 @Entity({ name: 'book' })
-export class BookEntity extends BaseEntity {
-  @OneToMany(() => StoreBookEntity, (storeBook) => storeBook.id)
-  storeBooks: StoreBookEntity[];
+export class BookEntity extends AbstractEntity {
+  @OneToMany(() => BookshelfEntity, (storeBook) => storeBook.book)
+  storeBooks: BookshelfEntity[];
 
   @Column()
   name: string;
@@ -20,8 +20,11 @@ export class BookEntity extends BaseEntity {
   @Column({ default: 0 })
   quantity: number;
 
-  @OneToMany(() => CategoryEntity, (category) => category.id)
-  categoryId: number;
+  @ManyToMany(() => CategoryEntity)
+  @JoinTable({
+    name: 'book_category',
+  })
+  category: CategoryEntity;
 
   constructor(partial: Partial<BookEntity>) {
     super();

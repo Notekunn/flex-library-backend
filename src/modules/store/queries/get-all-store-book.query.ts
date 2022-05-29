@@ -2,10 +2,10 @@ import { PaginationDto } from '@common/dto/pagination.dto';
 import { Query } from '@nestjs-architects/typed-cqrs';
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import { InjectRepository } from '@nestjs/typeorm';
-import { StoreBookEntity } from '../entities/store-book.entity';
+import { BookshelfEntity } from '../entities/store-book.entity';
 import { StoreBookRepository } from '../repositories/storeBook.repository';
 
-export class GetAllStoreBookQuery extends Query<StoreBookEntity> {
+export class GetAllStoreBookQuery extends Query<BookshelfEntity> {
   constructor(public readonly dto: PaginationDto) {
     super();
   }
@@ -14,7 +14,7 @@ export class GetAllStoreBookQuery extends Query<StoreBookEntity> {
 @QueryHandler(GetAllStoreBookQuery)
 export class GetAllStoreBookQueryHandler implements IQueryHandler<GetAllStoreBookQuery> {
   constructor(
-    @InjectRepository(StoreBookEntity)
+    @InjectRepository(BookshelfEntity)
     private readonly storeBookRepository: StoreBookRepository,
   ) {}
   async execute(query: GetAllStoreBookQuery) {

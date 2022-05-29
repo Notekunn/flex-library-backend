@@ -15,12 +15,12 @@ import {
 } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { ApiTags } from '@nestjs/swagger';
-import { CreateStoreBookCommand } from '../commands/create-store-book-command';
-import { DeleteStoreBookCommand } from '../commands/delete-store-book-command';
-import { UpdateStoreBookCommand } from '../commands/update-store-book-commnad';
+import { CreateStoreBookCommand } from '../commands/create-store-book.command';
+import { DeleteStoreBookCommand } from '../commands/delete-store-book.command';
+import { UpdateStoreBookCommand } from '../commands/update-store-book.command';
 import { CreateStoreBookDto } from '../dto/create-store-book.dto';
 import { UpdateStoreBookDto } from '../dto/update-store-book.dto';
-import { GetAllStoreBookQuery } from '../queries/get-all-store-book-query';
+import { GetAllStoreBookQuery } from '../queries/get-all-store-book.query';
 
 @ApiTags('store-book')
 @UseInterceptors(ClassSerializerInterceptor)
