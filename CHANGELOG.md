@@ -1,5 +1,12 @@
 NestJS Rocket Changelog
 
+## [1.5.2](https://github.com/Notekunn/flex-library-backend/compare/v1.5.1...v1.5.2) (2022-05-29)
+
+
+### Bug Fixes
+
+* rename file extension and update entity relation ([#7](https://github.com/Notekunn/flex-library-backend/issues/7)) ([b680668](https://github.com/Notekunn/flex-library-backend/commit/b68066891d659d02d1818b67b1089a43371c54c5))
+
 ## [1.5.1](https://github.com/Notekunn/flex-library-backend/compare/v1.5.0...v1.5.1) (2022-05-29)
 
 
