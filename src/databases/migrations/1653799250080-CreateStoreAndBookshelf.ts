@@ -1,7 +1,7 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
-export class CreateStore1653797998999 implements MigrationInterface {
-  name = 'CreateStore1653797998999';
+export class CreateStoreAndBookshelf1653799250080 implements MigrationInterface {
+  name = 'CreateStoreAndBookshelf1653799250080';
 
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(`
@@ -27,7 +27,7 @@ export class CreateStore1653797998999 implements MigrationInterface {
             )
         `);
     await queryRunner.query(`
-            CREATE TABLE "store_book" (
+            CREATE TABLE "bookshelf" (
                 "created_at" TIMESTAMP NOT NULL DEFAULT now(),
                 "updated_at" TIMESTAMP NOT NULL DEFAULT now(),
                 "deleted_at" TIMESTAMP,
@@ -35,7 +35,7 @@ export class CreateStore1653797998999 implements MigrationInterface {
                 "barcode" character varying NOT NULL,
                 "store_id" integer,
                 "book_id" integer,
-                CONSTRAINT "PK_d58d9bfd52ec34da502ec3ab321" PRIMARY KEY ("id")
+                CONSTRAINT "PK_4f83bc8f46bc42b64a15a74ed91" PRIMARY KEY ("id")
             )
         `);
     await queryRunner.query(`
@@ -69,12 +69,12 @@ export class CreateStore1653797998999 implements MigrationInterface {
             ADD CONSTRAINT "FK_8ce7c0371b6fca43a17f523ce44" FOREIGN KEY ("owner_id") REFERENCES "user"("id") ON DELETE NO ACTION ON UPDATE NO ACTION
         `);
     await queryRunner.query(`
-            ALTER TABLE "store_book"
-            ADD CONSTRAINT "FK_17f80b28290c169d4bb8dc1893f" FOREIGN KEY ("store_id") REFERENCES "store"("id") ON DELETE NO ACTION ON UPDATE NO ACTION
+            ALTER TABLE "bookshelf"
+            ADD CONSTRAINT "FK_b79a2e26e7b82421c7b97aac549" FOREIGN KEY ("store_id") REFERENCES "store"("id") ON DELETE NO ACTION ON UPDATE NO ACTION
         `);
     await queryRunner.query(`
-            ALTER TABLE "store_book"
-            ADD CONSTRAINT "FK_23588fd2b8637a053208a4d16bb" FOREIGN KEY ("book_id") REFERENCES "book"("id") ON DELETE NO ACTION ON UPDATE NO ACTION
+            ALTER TABLE "bookshelf"
+            ADD CONSTRAINT "FK_32228a59121bff3f0fb688af590" FOREIGN KEY ("book_id") REFERENCES "book"("id") ON DELETE NO ACTION ON UPDATE NO ACTION
         `);
     await queryRunner.query(`
             ALTER TABLE "book_category"
@@ -94,10 +94,10 @@ export class CreateStore1653797998999 implements MigrationInterface {
             ALTER TABLE "book_category" DROP CONSTRAINT "FK_0ec321d0940e2eac32698e854a0"
         `);
     await queryRunner.query(`
-            ALTER TABLE "store_book" DROP CONSTRAINT "FK_23588fd2b8637a053208a4d16bb"
+            ALTER TABLE "bookshelf" DROP CONSTRAINT "FK_32228a59121bff3f0fb688af590"
         `);
     await queryRunner.query(`
-            ALTER TABLE "store_book" DROP CONSTRAINT "FK_17f80b28290c169d4bb8dc1893f"
+            ALTER TABLE "bookshelf" DROP CONSTRAINT "FK_b79a2e26e7b82421c7b97aac549"
         `);
     await queryRunner.query(`
             ALTER TABLE "store" DROP CONSTRAINT "FK_8ce7c0371b6fca43a17f523ce44"
@@ -115,7 +115,7 @@ export class CreateStore1653797998999 implements MigrationInterface {
             DROP TABLE "book"
         `);
     await queryRunner.query(`
-            DROP TABLE "store_book"
+            DROP TABLE "bookshelf"
         `);
     await queryRunner.query(`
             DROP TABLE "store"

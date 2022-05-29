@@ -3,7 +3,7 @@ import { NotFoundException } from '@nestjs/common';
 import { CommandHandler, ICommandHandler, QueryBus } from '@nestjs/cqrs';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateStoreBookDto } from '../dto/create-store-book.dto';
-import { StoreBookEntity } from '../entities/store-book.entity';
+import { BookshelfEntity } from '../entities/store-book.entity';
 import { GetOneStoreQuery } from '../queries/get-one-store-query';
 import { StoreBookRepository } from '../repositories/storeBook.repository';
 
@@ -15,7 +15,7 @@ export class CreateStoreBookCommand extends Command<CreateStoreBookDto> {
 @CommandHandler(CreateStoreBookCommand)
 export class CreateStoreBookHandler implements ICommandHandler<CreateStoreBookCommand> {
   constructor(
-    @InjectRepository(StoreBookEntity) private readonly storeBookRepository: StoreBookRepository,
+    @InjectRepository(BookshelfEntity) private readonly storeBookRepository: StoreBookRepository,
     private readonly queryBus: QueryBus,
   ) {}
   async execute(command: CreateStoreBookCommand) {
