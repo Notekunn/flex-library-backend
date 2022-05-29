@@ -1,5 +1,12 @@
 NestJS Rocket Changelog
 
+## [1.5.1](https://github.com/Notekunn/flex-library-backend/compare/v1.5.0...v1.5.1) (2022-05-29)
+
+
+### Bug Fixes
+
+* local auth guard message ([#6](https://github.com/Notekunn/flex-library-backend/issues/6)) ([0ab81c4](https://github.com/Notekunn/flex-library-backend/commit/0ab81c40c51d98cca6ed2a0c1282595d49f01b1e))
+
 # [1.5.0](https://github.com/Notekunn/flex-library-backend/compare/v1.4.0...v1.5.0) (2022-05-28)
 
 
