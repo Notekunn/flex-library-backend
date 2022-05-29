@@ -3,7 +3,7 @@ import { NotFoundException } from '@nestjs/common';
 import { CommandHandler, ICommandHandler, QueryBus } from '@nestjs/cqrs';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UpdateCategoryDto } from '../dto/update-category.dto';
-import { CategoryEntity } from '../entity/category.entity';
+import { CategoryEntity } from '../entities/category.entity';
 import { GetOneCategoryQuery } from '../queries/get-one-category-query';
 import { CategoryRepository } from '../repositories/category.repository';
 

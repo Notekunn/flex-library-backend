@@ -2,7 +2,7 @@ import { PaginationDto } from '@common/dto/pagination.dto';
 import { Query } from '@nestjs-architects/typed-cqrs';
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CategoryEntity } from '../entity/category.entity';
+import { CategoryEntity } from '../entities/category.entity';
 import { CategoryRepository } from '../repositories/category.repository';
 
 export class GetAllCategoryQuery extends Query<CategoryEntity[]> {

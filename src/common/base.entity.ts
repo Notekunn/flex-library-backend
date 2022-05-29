@@ -1,9 +1,6 @@
-import { CreateDateColumn, DeleteDateColumn, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { CreateDateColumn, DeleteDateColumn, UpdateDateColumn } from 'typeorm';
 
 export class BaseEntity {
-  @PrimaryGeneratedColumn({ type: 'integer' })
-  id: number;
-
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
 
