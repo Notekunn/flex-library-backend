@@ -25,7 +25,7 @@ import { GetAllStoreQuery } from '../queries/get-all-store.query';
 
 @ApiTags('store')
 @UseInterceptors(ClassSerializerInterceptor)
-@Controller('store')
+@Controller('stores')
 export class StoreController {
   // eslint-disable-next-line prettier/prettier
   constructor(private readonly commandBus: CommandBus, private readonly queryBus: QueryBus) {}

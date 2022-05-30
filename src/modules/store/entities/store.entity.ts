@@ -1,7 +1,7 @@
 import { AbstractEntity } from '@common/abstract.entity';
 import { UserEntity } from '@modules/user/entities/user.entity';
 import { Column, Entity, ManyToOne, OneToMany } from 'typeorm';
-import { BookshelfEntity } from './store-book.entity';
+import { BookshelfEntity } from './bookshelf.entity';
 
 @Entity({ name: 'store' })
 export class StoreEntity extends AbstractEntity {
