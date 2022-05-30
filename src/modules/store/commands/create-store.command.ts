@@ -8,7 +8,7 @@ import { StoreEntity } from '../entities/store.entity';
 import { StoreRepository } from '../repositories/store.repository';
 
 export class CreateStoreCommand extends Command<CreateStoreDto> {
-  constructor(public readonly dto: CreateStoreDto) {
+  constructor(public readonly ownerId: number, public readonly dto: CreateStoreDto) {
     super();
   }
 }
@@ -19,13 +19,12 @@ export class CreateStoreCommandHandler implements ICommandHandler<CreateStoreCom
     private readonly queryBus: QueryBus,
   ) {}
   async execute(command: CreateStoreCommand) {
-    const { dto } = command;
-    const { ownerId, ...dataCreate } = dto;
+    const { dto, ownerId } = command;
     const user = await this.queryBus.execute(new GetOneUserQuery(ownerId));
     if (!user) {
       throw new NotFoundException('User not found');
     }
-    const store = this.storeRepository.create(dataCreate);
+    const store = this.storeRepository.create(dto);
     store.owner = user;
     return await this.storeRepository.save(store);
   }
