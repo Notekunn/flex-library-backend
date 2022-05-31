@@ -18,6 +18,6 @@ export class GetOneStoreQueryHandler implements IQueryHandler<GetOneStoreQuery, 
   ) {}
   async execute(query: GetOneStoreQuery) {
     const { id } = query;
-    return this.storeRepository.findOne({ where: { id } });
+    return this.storeRepository.findOne({ where: { id }, relations: ['owner'] });
   }
 }

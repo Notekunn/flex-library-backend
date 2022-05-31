@@ -54,8 +54,12 @@ export class StoreController {
     return this.queryBus.execute(new GetAllStoreQuery(getAllStoreDto));
   }
   @Patch(':id')
-  async update(@Param('id', ParseIntPipe) id: number, @Body() updateStoreDto: UpdateStoreDto) {
-    return this.commandBus.execute(new UpdateStoreCommand(id, updateStoreDto));
+  async update(
+    @AuthUser() user: JwtClaimsDto,
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateStoreDto: UpdateStoreDto,
+  ) {
+    return this.commandBus.execute(new UpdateStoreCommand(user.id, id, updateStoreDto));
   }
 
   @Delete(':id')
