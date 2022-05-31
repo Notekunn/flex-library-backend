@@ -11,7 +11,6 @@ import {
   Post,
   Body,
   Query,
-  ValidationPipe,
   Param,
   ParseIntPipe,
   Patch,
@@ -29,6 +28,7 @@ import { UpdateStoreCommand } from '../commands/update-store.command';
 import { CreateStoreDto } from '../dto/create-store.dto';
 import { UpdateStoreDto } from '../dto/update-store.dto';
 import { GetAllStoreQuery } from '../queries/get-all-store.query';
+import { GetOneStoreQuery } from '../queries/get-one-store.query';
 
 @ApiTags('store')
 @UseInterceptors(ClassSerializerInterceptor)
@@ -38,7 +38,6 @@ import { GetAllStoreQuery } from '../queries/get-all-store.query';
 @UseGuards(JwtAuthGuard, RolesGuard)
 @Roles(UserRole.Administrator, UserRole.Owner)
 export class StoreController {
-  // eslint-disable-next-line prettier/prettier
   constructor(private readonly commandBus: CommandBus, private readonly queryBus: QueryBus) {}
 
   @Post()
@@ -48,11 +47,17 @@ export class StoreController {
 
   @Get()
   async getAll(
-    @Query(new ValidationPipe({ transform: true }))
+    @Query()
     getAllStoreDto: PaginationDto,
   ) {
     return this.queryBus.execute(new GetAllStoreQuery(getAllStoreDto));
   }
+
+  @Get(':id')
+  async getOne(@Param('id', ParseIntPipe) id: number) {
+    return this.queryBus.execute(new GetOneStoreQuery(id));
+  }
+
   @Patch(':id')
   async update(
     @AuthUser() user: JwtClaimsDto,
