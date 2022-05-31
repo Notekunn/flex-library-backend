@@ -1,7 +1,7 @@
 import { Query } from '@nestjs-architects/typed-cqrs';
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import { InjectRepository } from '@nestjs/typeorm';
-import { BookshelfEntity } from '../entities/store-book.entity';
+import { BookshelfEntity } from '../entities/bookshelf.entity';
 import { StoreBookRepository } from '../repositories/storeBook.repository';
 
 export class GetOneStoreBookQuery extends Query<BookshelfEntity> {

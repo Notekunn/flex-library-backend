@@ -3,10 +3,10 @@ import { IsEmail, IsString } from 'class-validator';
 
 export class LoginRequestDto {
   @IsEmail()
-  @ApiProperty()
+  @ApiProperty({ example: 'admin@gmail.com' })
   readonly email: string;
 
   @IsString()
-  @ApiProperty()
+  @ApiProperty({ example: 'password' })
   readonly password: string;
 }

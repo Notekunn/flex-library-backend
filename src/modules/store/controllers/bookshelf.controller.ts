@@ -22,13 +22,13 @@ import { CreateStoreBookDto } from '../dto/create-store-book.dto';
 import { UpdateStoreBookDto } from '../dto/update-store-book.dto';
 import { GetAllStoreBookQuery } from '../queries/get-all-store-book.query';
 
-@ApiTags('store-book')
+@ApiTags('bookshelf')
 @UseInterceptors(ClassSerializerInterceptor)
-@Controller('store-book')
+@Controller('stores/:storeId/bookshelf')
 export class StoreBookController {
   constructor(private readonly commandBus: CommandBus, private readonly queryBus: QueryBus) {}
   @Post()
-  create(@Body() createStoreBookDto: CreateStoreBookDto) {
+  create(@Param('storeId', ParseIntPipe) storeId: number, @Body() createStoreBookDto: CreateStoreBookDto) {
     return this.commandBus.execute(new CreateStoreBookCommand(createStoreBookDto));
   }
 

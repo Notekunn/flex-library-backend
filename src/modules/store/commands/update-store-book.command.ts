@@ -3,7 +3,7 @@ import { NotFoundException } from '@nestjs/common';
 import { CommandHandler, ICommandHandler, QueryBus } from '@nestjs/cqrs';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UpdateStoreBookDto } from '../dto/update-store-book.dto';
-import { BookshelfEntity } from '../entities/store-book.entity';
+import { BookshelfEntity } from '../entities/bookshelf.entity';
 import { GetOneStoreBookQuery } from '../queries/get-one-store-book.query';
 import { GetOneStoreQuery } from '../queries/get-one-store.query';
 import { StoreBookRepository } from '../repositories/storeBook.repository';

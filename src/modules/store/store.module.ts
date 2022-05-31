@@ -5,8 +5,8 @@ import { StoreQueryHandlers } from './queries';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { CqrsModule } from '@nestjs/cqrs';
 import { StoreEntity } from './entities/store.entity';
-import { BookshelfEntity } from './entities/store-book.entity';
-import { StoreBookController } from './controllers/store-book.controller';
+import { BookshelfEntity } from './entities/bookshelf.entity';
+import { StoreBookController } from './controllers/bookshelf.controller';
 
 @Module({
   controllers: [StoreController, StoreBookController],

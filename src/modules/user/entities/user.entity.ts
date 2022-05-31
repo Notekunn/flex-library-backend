@@ -2,10 +2,11 @@ import { AbstractEntity } from '@common/abstract.entity';
 import { UserRole } from '@constants/user-role.enum';
 import { StoreEntity } from '@modules/store/entities/store.entity';
 import { Exclude } from 'class-transformer';
-import { Column, Entity, OneToMany } from 'typeorm';
+import { Column, Entity, OneToMany, Index } from 'typeorm';
 
 @Entity({ name: 'user' })
 export class UserEntity extends AbstractEntity {
+  @Index()
   @Column({ type: 'varchar' })
   email: string;
 

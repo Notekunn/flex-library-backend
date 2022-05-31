@@ -1,6 +1,6 @@
 import { AbstractEntity } from '@common/abstract.entity';
 import { CategoryEntity } from '@modules/category/entities/category.entity';
-import { BookshelfEntity } from '@modules/store/entities/store-book.entity';
+import { BookshelfEntity } from '@modules/store/entities/bookshelf.entity';
 import { Column, Entity, JoinTable, ManyToMany, OneToMany } from 'typeorm';
 
 @Entity({ name: 'book' })
