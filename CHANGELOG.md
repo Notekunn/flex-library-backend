@@ -1,5 +1,12 @@
 NestJS Rocket Changelog
 
+# [1.6.0](https://github.com/Notekunn/flex-library-backend/compare/v1.5.2...v1.6.0) (2022-05-31)
+
+
+### Features
+
+* update store module ([#8](https://github.com/Notekunn/flex-library-backend/issues/8)) ([ed64b9d](https://github.com/Notekunn/flex-library-backend/commit/ed64b9d391c0ae8c12e5d39c37408e4d568bfcc8))
+
 ## [1.5.2](https://github.com/Notekunn/flex-library-backend/compare/v1.5.1...v1.5.2) (2022-05-29)
 
 
