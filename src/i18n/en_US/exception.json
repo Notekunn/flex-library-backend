@@ -1,0 +1,6 @@
+{
+  "storeNotFound": "Store is not found",
+  "notStoreOwner": "You are not store's owner",
+  "bookNotFound": "Book is not found",
+  "duplicateBarcode": "duplicateBarcode"
+}

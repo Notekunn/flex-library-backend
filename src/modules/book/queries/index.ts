@@ -1,4 +1,4 @@
-import { GetAllBookQuery } from './get-all-book.query';
-import { GetOneBookQuery } from './get-one-book.query';
+import { GetAllBookQueryHandler } from './get-all-book.query';
+import { GetOneBookQueryHandler } from './get-one-book.query';
 
-export const BookQueryHandlers = [GetAllBookQuery, GetOneBookQuery];
+export const BookQueryHandlers = [GetAllBookQueryHandler, GetOneBookQueryHandler];

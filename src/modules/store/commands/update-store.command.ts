@@ -2,6 +2,7 @@ import { Command } from '@nestjs-architects/typed-cqrs';
 import { ForbiddenException, NotFoundException } from '@nestjs/common';
 import { CommandHandler, ICommandHandler, QueryBus } from '@nestjs/cqrs';
 import { InjectRepository } from '@nestjs/typeorm';
+import { I18nService } from 'nestjs-i18n';
 import { UpdateStoreDto } from '../dto/update-store.dto';
 import { StoreEntity } from '../entities/store.entity';
 import { CheckOwnerStoreQuery } from '../queries/check-owner-store.query';
@@ -19,17 +20,18 @@ export class UpdateStoreCommandHandler implements ICommandHandler<UpdateStoreCom
     @InjectRepository(StoreEntity)
     private readonly storeRepository: StoreRepository,
     private readonly queryBus: QueryBus,
+    private readonly i18n: I18nService,
   ) {}
   async execute(command: UpdateStoreCommand) {
     const { dto, storeId, userId } = command;
     const store = await this.queryBus.execute(new GetOneStoreQuery(storeId));
     if (!store) {
-      throw new NotFoundException('Store not found');
+      throw new NotFoundException(this.i18n.t('exception.storeNotFound'));
     }
     const isOwnerStore = await this.queryBus.execute(new CheckOwnerStoreQuery(store, userId));
 
     if (!isOwnerStore) {
-      throw new ForbiddenException(`You are not store owner`);
+      throw new ForbiddenException(this.i18n.t('exception.notStoreOwner'));
     }
 
     const updatedStore = this.storeRepository.create({

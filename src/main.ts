@@ -43,7 +43,7 @@ async function bootstrap(): Promise<void> {
   });
 
   app.use(compression());
-  // app.use(morgan('combined'));
+  app.use(morgan('combined'));
 
   app.setGlobalPrefix('v1');
 
