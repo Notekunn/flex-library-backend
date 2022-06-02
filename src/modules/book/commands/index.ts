@@ -1,5 +1,5 @@
-import { CreateBookCommand } from './create-book.command';
-import { DeleteBookCommand } from './delete-book.command';
-import { UpdateBookCommand } from './update-book.command';
+import { CreateBookCommandHandler } from './create-book.command';
+import { DeleteBookCommandHandler } from './delete-book.command';
+import { UpdateBookCommandHandler } from './update-book.command';
 
-export const BookCommandHandlers = [UpdateBookCommand, DeleteBookCommand, CreateBookCommand];
+export const BookCommandHandlers = [CreateBookCommandHandler, DeleteBookCommandHandler, UpdateBookCommandHandler];
