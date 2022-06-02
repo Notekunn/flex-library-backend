@@ -19,7 +19,7 @@ export class GetAllStoreQueryHandler implements IQueryHandler<GetAllStoreQuery> 
   ) {}
   async execute(query: GetAllStoreQuery): Promise<any> {
     const { dto } = query;
-    const stores = await this.storeRepository.find({ ...dto });
+    const stores = await this.storeRepository.find({ ...dto, relations: ['owner'] });
     return stores;
   }
 }

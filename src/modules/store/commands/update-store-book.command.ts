@@ -6,7 +6,7 @@ import { UpdateStoreBookDto } from '../dto/update-store-book.dto';
 import { BookshelfEntity } from '../entities/bookshelf.entity';
 import { GetOneStoreBookQuery } from '../queries/get-one-store-book.query';
 import { GetOneStoreQuery } from '../queries/get-one-store.query';
-import { StoreBookRepository } from '../repositories/storeBook.repository';
+import { BookshelfRepository } from '../repositories/bookshelf.repository';
 
 export class UpdateStoreBookCommand extends Command<UpdateStoreBookDto> {
   constructor(public readonly id: number, public readonly dto: UpdateStoreBookDto) {
@@ -17,7 +17,7 @@ export class UpdateStoreBookCommand extends Command<UpdateStoreBookDto> {
 @CommandHandler(UpdateStoreBookCommand)
 export class UpdateStoreBookHandler implements ICommandHandler<UpdateStoreBookCommand> {
   constructor(
-    @InjectRepository(BookshelfEntity) private readonly storeBookRepository: StoreBookRepository,
+    @InjectRepository(BookshelfEntity) private readonly storeBookRepository: BookshelfRepository,
     private readonly queryBus: QueryBus,
   ) {}
   async execute(command: UpdateStoreBookCommand) {
@@ -26,7 +26,7 @@ export class UpdateStoreBookHandler implements ICommandHandler<UpdateStoreBookCo
     if (!storeBook) {
       throw new NotFoundException('StoreBook not found');
     }
-    const store = await this.queryBus.execute(new GetOneStoreQuery(dto.storeId));
+    const store = await this.queryBus.execute(new GetOneStoreQuery(id));
     if (!store) {
       throw new NotFoundException('Store not found');
     }

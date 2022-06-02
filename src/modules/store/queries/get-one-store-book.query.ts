@@ -2,7 +2,7 @@ import { Query } from '@nestjs-architects/typed-cqrs';
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import { InjectRepository } from '@nestjs/typeorm';
 import { BookshelfEntity } from '../entities/bookshelf.entity';
-import { StoreBookRepository } from '../repositories/storeBook.repository';
+import { BookshelfRepository } from '../repositories/bookshelf.repository';
 
 export class GetOneStoreBookQuery extends Query<BookshelfEntity> {
   constructor(public readonly id: number) {
@@ -13,7 +13,7 @@ export class GetOneStoreBookQuery extends Query<BookshelfEntity> {
 export class GetOneStoreBookQueryHandler implements IQueryHandler<GetOneStoreBookQuery, BookshelfEntity | null> {
   constructor(
     @InjectRepository(BookshelfEntity)
-    private readonly storeBookRepository: StoreBookRepository,
+    private readonly storeBookRepository: BookshelfRepository,
   ) {}
   async execute(query: GetOneStoreBookQuery) {
     const { id } = query;
