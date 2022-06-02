@@ -1,5 +1,12 @@
 NestJS Rocket Changelog
 
+# [1.7.0](https://github.com/Notekunn/flex-library-backend/compare/v1.6.0...v1.7.0) (2022-06-02)
+
+
+### Features
+
+* add bookshelf ([#9](https://github.com/Notekunn/flex-library-backend/issues/9)) ([f6e5c1f](https://github.com/Notekunn/flex-library-backend/commit/f6e5c1f00b3b52974b1d2fc1108e27c032fa65f7))
+
 # [1.6.0](https://github.com/Notekunn/flex-library-backend/compare/v1.5.2...v1.6.0) (2022-05-31)
 
 
