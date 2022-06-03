@@ -1,24 +1,27 @@
 import { AbstractEntity } from '@common/abstract.entity';
 import { CategoryEntity } from '@modules/category/entities/category.entity';
-import { BookshelfEntity } from '@modules/store/entities/bookshelf.entity';
-import { Column, Entity, JoinTable, ManyToMany, OneToMany } from 'typeorm';
+import { StoreEntity } from '@modules/store/entities/store.entity';
+import { Column, Entity, JoinTable, ManyToMany, ManyToOne } from 'typeorm';
 
 @Entity({ name: 'book' })
 export class BookEntity extends AbstractEntity {
-  @OneToMany(() => BookshelfEntity, (storeBook) => storeBook.book)
-  storeBooks: BookshelfEntity[];
+  @ManyToOne(() => StoreEntity)
+  store: StoreEntity;
 
   @Column()
   name: string;
 
-  @Column()
-  price: number;
+  @Column({ nullable: true })
+  author: string;
 
-  @Column({ default: false })
-  imageUrl: string;
+  @Column({ type: 'simple-array' })
+  images: string[];
 
-  @Column({ default: 0 })
-  quantity: number;
+  @Column({ type: 'int4' })
+  salePrice: number;
+
+  @Column({ type: 'int4' })
+  rentPrice: number;
 
   @ManyToMany(() => CategoryEntity)
   @JoinTable({

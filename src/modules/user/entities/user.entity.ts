@@ -2,7 +2,7 @@ import { AbstractEntity } from '@common/abstract.entity';
 import { UserRole } from '@constants/user-role.enum';
 import { StoreEntity } from '@modules/store/entities/store.entity';
 import { Exclude } from 'class-transformer';
-import { Column, Entity, OneToMany, Index } from 'typeorm';
+import { Column, Entity, Index, OneToOne } from 'typeorm';
 
 @Entity({ name: 'user' })
 export class UserEntity extends AbstractEntity {
@@ -26,8 +26,8 @@ export class UserEntity extends AbstractEntity {
   @Column({ type: 'varchar', nullable: true })
   avatar?: string;
 
-  @OneToMany(() => StoreEntity, (store) => store.owner)
-  stores: StoreEntity[];
+  @OneToOne(() => StoreEntity, (store) => store.owner)
+  store?: StoreEntity;
 
   constructor(partial: Partial<UserEntity>) {
     super();

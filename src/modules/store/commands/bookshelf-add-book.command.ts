@@ -56,7 +56,6 @@ export class BookshelfAddBookCommandHandler implements ICommandHandler<Bookshelf
     }
     const bookshelf = this.bookshelfRepository.create(dataToCreate);
     bookshelf.barcode = barcode;
-    bookshelf.store = store;
     bookshelf.book = book;
     await this.bookshelfRepository.save(bookshelf);
     return bookshelf;

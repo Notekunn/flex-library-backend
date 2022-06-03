@@ -1,11 +1,11 @@
 import { AbstractEntity } from '@common/abstract.entity';
+import { BookEntity } from '@modules/book/entities/book.entity';
 import { UserEntity } from '@modules/user/entities/user.entity';
-import { Column, Entity, Index, ManyToOne, OneToMany } from 'typeorm';
-import { BookshelfEntity } from './bookshelf.entity';
+import { Column, Entity, Index, OneToMany, OneToOne } from 'typeorm';
 
 @Entity({ name: 'store' })
 export class StoreEntity extends AbstractEntity {
-  @ManyToOne(() => UserEntity, (user) => user.stores)
+  @OneToOne(() => UserEntity, (user) => user.store)
   owner: UserEntity;
 
   @Index()
@@ -26,8 +26,8 @@ export class StoreEntity extends AbstractEntity {
   @Column({ nullable: true })
   provinceId?: number;
 
-  @OneToMany(() => BookshelfEntity, (storeBook) => storeBook.book)
-  bookshelfs: BookshelfEntity[];
+  @OneToMany(() => BookEntity, (book) => book.store)
+  books: BookEntity[];
 
   constructor(partial: Partial<StoreEntity>) {
     super();

@@ -3,21 +3,11 @@ import { BookStatus } from '@constants/book-status.enum';
 import { BookType } from '@constants/book-type.enum';
 import { BookEntity } from '@modules/book/entities/book.entity';
 import { Column, Entity, ManyToOne } from 'typeorm';
-import { StoreEntity } from './store.entity';
 
 @Entity('bookshelf')
 export class BookshelfEntity extends AbstractEntity {
-  @ManyToOne(() => StoreEntity, (store) => store.bookshelfs)
-  store: StoreEntity;
-
   @ManyToOne(() => BookEntity)
   book: BookEntity;
-
-  @Column({ type: 'int4' })
-  salePrice: number;
-
-  @Column({ type: 'int4' })
-  rentPrice: number;
 
   @Column({ type: 'varchar' })
   barcode: string;
