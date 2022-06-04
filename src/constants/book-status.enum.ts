@@ -3,4 +3,5 @@ export enum BookStatus {
   AVAILABLE = 'available',
   RENTING = 'renting',
   SOLD = 'sold',
+  LOST = 'lost',
 }
