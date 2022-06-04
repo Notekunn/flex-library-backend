@@ -1,12 +1,13 @@
 import { AbstractEntity } from '@common/abstract.entity';
 import { BookStatus } from '@constants/book-status.enum';
 import { BookType } from '@constants/book-type.enum';
-import { BookEntity } from '@modules/book/entities/book.entity';
-import { Column, Entity, ManyToOne } from 'typeorm';
+import { BookLoanEntity } from '@modules/book-loan/entities/book-loan.entity';
+import { Column, Entity, ManyToOne, OneToMany } from 'typeorm';
+import { BookEntity } from './book.entity';
 
-@Entity('bookshelf')
-export class BookshelfEntity extends AbstractEntity {
-  @ManyToOne(() => BookEntity)
+@Entity('book_copy')
+export class BookCopyEntity extends AbstractEntity {
+  @ManyToOne(() => BookEntity, (book) => book.copies)
   book: BookEntity;
 
   @Column({ type: 'varchar' })
@@ -24,8 +25,6 @@ export class BookshelfEntity extends AbstractEntity {
   })
   type: BookType;
 
-  constructor(partial: Partial<BookshelfEntity>) {
-    super();
-    Object.assign(this, partial);
-  }
+  @OneToMany(() => BookLoanEntity, (bookLoan) => bookLoan.bookCopy)
+  loans: BookLoanEntity[];
 }

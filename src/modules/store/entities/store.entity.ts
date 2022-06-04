@@ -1,11 +1,13 @@
 import { AbstractEntity } from '@common/abstract.entity';
 import { BookEntity } from '@modules/book/entities/book.entity';
+import { OrderEntity } from '@modules/order/entities/order.entity';
 import { UserEntity } from '@modules/user/entities/user.entity';
-import { Column, Entity, Index, OneToMany, OneToOne } from 'typeorm';
+import { Column, Entity, Index, JoinColumn, OneToMany, OneToOne } from 'typeorm';
 
 @Entity({ name: 'store' })
 export class StoreEntity extends AbstractEntity {
   @OneToOne(() => UserEntity, (user) => user.store)
+  @JoinColumn()
   owner: UserEntity;
 
   @Index()
@@ -28,6 +30,9 @@ export class StoreEntity extends AbstractEntity {
 
   @OneToMany(() => BookEntity, (book) => book.store)
   books: BookEntity[];
+
+  @OneToMany(() => OrderEntity, (order) => order.store)
+  orders: OrderEntity[];
 
   constructor(partial: Partial<StoreEntity>) {
     super();
