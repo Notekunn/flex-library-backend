@@ -1,5 +1,12 @@
 NestJS Rocket Changelog
 
+# [1.8.0](https://github.com/Notekunn/flex-library-backend/compare/v1.7.0...v1.8.0) (2022-06-04)
+
+
+### Features
+
+* create entities ([#10](https://github.com/Notekunn/flex-library-backend/issues/10)) ([e5935bb](https://github.com/Notekunn/flex-library-backend/commit/e5935bb102c5b86bfc173c5f6cd12079d18f28a5))
+
 # [1.7.0](https://github.com/Notekunn/flex-library-backend/compare/v1.6.0...v1.7.0) (2022-06-02)
 
 
