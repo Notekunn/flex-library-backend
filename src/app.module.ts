@@ -22,7 +22,7 @@ import { CategoryModule } from './modules/category/category.module';
       inject: [ConfigService],
     }),
     I18nModule.forRoot({
-      fallbackLanguage: 'vi_VN',
+      fallbackLanguage: 'en_US',
       loader: I18nJsonLoader,
       loaderOptions: {
         path: path.join(__dirname, './i18n/'),
