@@ -28,7 +28,7 @@ export class BookEntity extends AbstractEntity {
   @JoinTable({
     name: 'book_category',
   })
-  category: CategoryEntity;
+  categories: CategoryEntity[];
 
   @OneToMany(() => BookCopyEntity, (bookCopy) => bookCopy.book)
   copies: BookCopyEntity[];

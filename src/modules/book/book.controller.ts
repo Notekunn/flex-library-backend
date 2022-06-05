@@ -1,4 +1,10 @@
 import { PaginationDto } from '@common/dto/pagination.dto';
+import { UserRole } from '@constants/user-role.enum';
+import { AuthUser } from '@decorators/auth-user.decorator';
+import { Roles } from '@decorators/roles.decorator';
+import { JwtAuthGuard } from '@guards/jwt-auth.guard';
+import { RolesGuard } from '@guards/roles.guard';
+import { JwtClaimsDto } from '@modules/auth/dto/jwt-claims.dto';
 import {
   Controller,
   Get,
@@ -12,9 +18,10 @@ import {
   Query,
   ValidationPipe,
   ParseIntPipe,
+  UseGuards,
 } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { CreateBookCommand } from './commands/create-book.command';
 import { DeleteBookCommand } from './commands/delete-book.command';
 import { UpdateBookCommand } from './commands/update-book.command';
@@ -26,11 +33,14 @@ import { GetOneBookQuery } from './queries/get-one-book.query';
 @ApiTags('book')
 @UseInterceptors(ClassSerializerInterceptor)
 @Controller('book')
+@ApiBearerAuth()
+@Roles(UserRole.Owner, UserRole.Administrator)
+@UseGuards(JwtAuthGuard, RolesGuard)
 export class BookController {
   constructor(private readonly commandBus: CommandBus, private readonly queryBus: QueryBus) {}
   @Post()
-  create(@Body() createBookDto: CreateBookDto) {
-    return this.commandBus.execute(new CreateBookCommand(createBookDto));
+  create(@AuthUser() user: JwtClaimsDto, @Body() createBookDto: CreateBookDto) {
+    return this.commandBus.execute(new CreateBookCommand(user.id, createBookDto));
   }
   @Get()
   getAll(@Query(new ValidationPipe({ transform: true })) getAllBookDto: PaginationDto) {

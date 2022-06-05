@@ -1,15 +1,17 @@
+import { CategoryEntity } from '@modules/category/entities/category.entity';
 import { GetOneCategoryQuery } from '@modules/category/queries/get-one-category.query';
-import { GetOneStoreQuery } from '@modules/store/queries/get-one-store.query';
+import { GetStoreByOwnerQuery } from '@modules/store/queries/get-store-by-owner';
 import { Command } from '@nestjs-architects/typed-cqrs';
 import { NotFoundException } from '@nestjs/common';
 import { CommandHandler, ICommandHandler, QueryBus } from '@nestjs/cqrs';
 import { InjectRepository } from '@nestjs/typeorm';
+import { I18nService } from 'nestjs-i18n';
 import { CreateBookDto } from '../dto/create-book.dto';
 import { BookEntity } from '../entities/book.entity';
 import { BookRepository } from '../repositories/book.repository';
 
 export class CreateBookCommand extends Command<CreateBookDto> {
-  constructor(public readonly dto: CreateBookDto) {
+  constructor(public readonly userId: number, public readonly dto: CreateBookDto) {
     super();
   }
 }
@@ -17,20 +19,23 @@ export class CreateBookCommand extends Command<CreateBookDto> {
 @CommandHandler(CreateBookCommand)
 export class CreateBookCommandHandler implements ICommandHandler<CreateBookCommand> {
   constructor(
-    @InjectRepository(BookEntity) private readonly bookRepository: BookRepository,
+    @InjectRepository(BookEntity)
+    private readonly bookRepository: BookRepository,
+    private readonly i18n: I18nService,
     private readonly queryBus: QueryBus,
   ) {}
   async execute(command: CreateBookCommand) {
-    const { dto } = command;
-    const store = await this.queryBus.execute(new GetOneStoreQuery(dto.storeId));
+    const { userId, dto } = command;
+    const store = await this.queryBus.execute(new GetStoreByOwnerQuery(userId));
     if (!store) {
-      throw new NotFoundException('Store not found');
+      throw new NotFoundException(this.i18n.t('exception.notRegisterStore'));
     }
-    const categories = await this.queryBus.execute(new GetOneCategoryQuery(dto.categoryId));
-    if (!categories) {
-      throw new NotFoundException('Category not found');
-    }
-    const book = this.bookRepository.create(dto);
+    const { categoryIds, ...dataToCreate } = dto;
+    // TODO: Implement p-limit
+    const categories = await Promise.all(categoryIds.map((id) => this.queryBus.execute(new GetOneCategoryQuery(id))));
+    const book = this.bookRepository.create(dataToCreate);
+    book.categories = categories.filter((e) => !e) as CategoryEntity[];
+    book.store = store;
     await this.bookRepository.save(book);
     return book;
   }
