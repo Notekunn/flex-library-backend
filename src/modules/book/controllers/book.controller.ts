@@ -22,13 +22,13 @@ import {
 } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { CreateBookCommand } from './commands/create-book.command';
-import { DeleteBookCommand } from './commands/delete-book.command';
-import { UpdateBookCommand } from './commands/update-book.command';
-import { CreateBookDto } from './dto/create-book.dto';
-import { UpdateBookDto } from './dto/update-book.dto';
-import { GetAllBookQuery } from './queries/get-all-book.query';
-import { GetOneBookQuery } from './queries/get-one-book.query';
+import { CreateBookCommand } from '../commands/create-book.command';
+import { DeleteBookCommand } from '../commands/delete-book.command';
+import { UpdateBookCommand } from '../commands/update-book.command';
+import { CreateBookDto } from '../dto/create-book.dto';
+import { UpdateBookDto } from '../dto/update-book.dto';
+import { GetAllBookQuery } from '../queries/get-all-book.query';
+import { GetOneBookQuery } from '../queries/get-one-book.query';
 
 @ApiTags('book')
 @UseInterceptors(ClassSerializerInterceptor)

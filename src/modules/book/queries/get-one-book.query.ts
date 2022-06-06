@@ -17,7 +17,7 @@ export class GetOneBookQueryHandler implements IQueryHandler<GetOneBookQuery, Bo
   ) {}
   async execute(query: GetOneBookQuery) {
     const { id } = query;
-    const book = await this.bookRepository.findOne({ where: { id } });
+    const book = await this.bookRepository.findOne({ where: { id }, relations: ['store', 'categories'] });
     return book;
   }
 }

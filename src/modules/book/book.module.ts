@@ -1,13 +1,14 @@
 import { Module } from '@nestjs/common';
 import { CqrsModule } from '@nestjs/cqrs';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { BookController } from './book.controller';
+import { BookController } from './controllers/book.controller';
 import { BookCommandHandlers } from './commands';
 import { BookEntity } from './entities/book.entity';
 import { BookQueryHandlers } from './queries';
+import { StoreBookController } from './controllers/store-book.controller';
 
 @Module({
-  controllers: [BookController],
+  controllers: [BookController, StoreBookController],
   providers: [...BookCommandHandlers, ...BookQueryHandlers],
   imports: [TypeOrmModule.forFeature([BookEntity]), CqrsModule],
 })
