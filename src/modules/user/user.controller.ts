@@ -35,7 +35,6 @@ import { RolesGuard } from '@guards/roles.guard';
 @ApiBearerAuth()
 @UseGuards(JwtAuthGuard, RolesGuard)
 export class UserController {
-  // eslint-disable-next-line prettier/prettier
   constructor(private readonly commandBus: CommandBus, private readonly queryBus: QueryBus) {}
 
   @Post()

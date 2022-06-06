@@ -28,12 +28,12 @@ export class BookEntity extends AbstractEntity {
   @JoinTable({
     name: 'book_category',
   })
-  category: CategoryEntity;
+  categories: CategoryEntity[];
 
   @OneToMany(() => BookCopyEntity, (bookCopy) => bookCopy.book)
   copies: BookCopyEntity[];
 
-  @Column()
+  @Column({ default: 0 })
   numOfCopies: number;
 
   constructor(partial: Partial<BookEntity>) {
