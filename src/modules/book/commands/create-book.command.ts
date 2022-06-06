@@ -34,7 +34,7 @@ export class CreateBookCommandHandler implements ICommandHandler<CreateBookComma
     // TODO: Implement p-limit
     const categories = await Promise.all(categoryIds.map((id) => this.queryBus.execute(new GetOneCategoryQuery(id))));
     const book = this.bookRepository.create(dataToCreate);
-    book.categories = categories.filter((e) => !e) as CategoryEntity[];
+    book.categories = categories.filter((e) => !!e) as CategoryEntity[];
     book.store = store;
     await this.bookRepository.save(book);
     return book;
