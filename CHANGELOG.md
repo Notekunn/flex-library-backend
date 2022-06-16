@@ -1,5 +1,12 @@
 NestJS Rocket Changelog
 
+# [1.10.0](https://github.com/Notekunn/flex-library-backend/compare/v1.9.0...v1.10.0) (2022-06-16)
+
+
+### Features
+
+* add order and order-detail ([#12](https://github.com/Notekunn/flex-library-backend/issues/12)) ([1b8ac52](https://github.com/Notekunn/flex-library-backend/commit/1b8ac52b3a4dc265336e49c70d033e7176324849))
+
 # [1.9.0](https://github.com/Notekunn/flex-library-backend/compare/v1.8.0...v1.9.0) (2022-06-06)
 
 
