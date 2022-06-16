@@ -30,7 +30,7 @@ export class UserEntity extends AbstractEntity {
   @OneToOne(() => StoreEntity, (store) => store.owner, { nullable: true })
   store: StoreEntity | null;
 
-  @OneToMany(() => OrderEntity, (order) => order.owner)
+  @OneToMany(() => OrderEntity, (order) => order.user)
   orders: OrderEntity[];
 
   constructor(partial: Partial<UserEntity>) {
