@@ -13,6 +13,7 @@ import { AuthModule } from './modules/auth/auth.module';
 import { StoreModule } from './modules/store/store.module';
 import { BookModule } from './modules/book/book.module';
 import { CategoryModule } from './modules/category/category.module';
+import { OrderModule } from '@modules/order/order.module';
 
 @Module({
   imports: [
@@ -22,7 +23,7 @@ import { CategoryModule } from './modules/category/category.module';
       inject: [ConfigService],
     }),
     I18nModule.forRoot({
-      fallbackLanguage: 'en_US',
+      fallbackLanguage: 'vi_VN',
       loader: I18nJsonLoader,
       loaderOptions: {
         path: path.join(__dirname, './i18n/'),
@@ -42,6 +43,7 @@ import { CategoryModule } from './modules/category/category.module';
     StoreModule,
     BookModule,
     CategoryModule,
+    OrderModule,
   ],
 })
 export class AppModule {}

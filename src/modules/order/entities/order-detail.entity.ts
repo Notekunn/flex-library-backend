@@ -1,16 +1,13 @@
 import { AbstractEntity } from '@common/abstract.entity';
 import { BookEntity } from '@modules/book/entities/book.entity';
-import { Column, Entity, ManyToOne } from 'typeorm';
-import { OrderEntity } from './order.entity';
+import { OrderEntity } from '@modules/order/entities/order.entity';
+import { Column, ManyToOne } from 'typeorm';
 
-@Entity('order_detail')
 export class OrderDetailEntity extends AbstractEntity {
-  @ManyToOne(() => OrderEntity)
-  order: OrderEntity;
-
-  @ManyToOne(() => BookEntity)
-  book: BookEntity;
-
-  @Column({ default: 1 })
+  @Column({ default: 0 })
   quantity: number;
+  @ManyToOne(() => OrderEntity, (order) => order.id)
+  order: OrderEntity;
+  @ManyToOne(() => BookEntity, (book) => book.id)
+  book: BookEntity;
 }
