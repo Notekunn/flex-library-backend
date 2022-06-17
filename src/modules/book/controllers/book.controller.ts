@@ -38,22 +38,27 @@ import { GetOneBookQuery } from '../queries/get-one-book.query';
 @UseGuards(JwtAuthGuard, RolesGuard)
 export class BookController {
   constructor(private readonly commandBus: CommandBus, private readonly queryBus: QueryBus) {}
+
   @Post()
   create(@AuthUser() user: JwtClaimsDto, @Body() createBookDto: CreateBookDto) {
     return this.commandBus.execute(new CreateBookCommand(user.id, createBookDto));
   }
+
   @Get()
   getAll(@Query(new ValidationPipe({ transform: true })) getAllBookDto: PaginationDto) {
     return this.queryBus.execute(new GetAllBookQuery(getAllBookDto));
   }
-  @Get('id')
+
+  @Get(':id')
   getOne(@Param('id', ParseIntPipe) id: number) {
     return this.queryBus.execute(new GetOneBookQuery(id));
   }
+
   @Patch(':id')
   update(@Param('id', ParseIntPipe) id: number, @Body() updateBookDto: UpdateBookDto) {
     return this.commandBus.execute(new UpdateBookCommand(id, updateBookDto));
   }
+
   @Delete(':id')
   delete(@Param('id', ParseIntPipe) id: number) {
     return this.commandBus.execute(new DeleteBookCommand(id));
