@@ -3,7 +3,7 @@ import { UserRole } from '@constants/user-role.enum';
 import { OrderEntity } from '@modules/order/entities/order.entity';
 import { StoreEntity } from '@modules/store/entities/store.entity';
 import { Exclude } from 'class-transformer';
-import { Column, Entity, Index, OneToMany, OneToOne } from 'typeorm';
+import { Column, Entity, Index, OneToOne } from 'typeorm';
 
 @Entity({ name: 'user' })
 export class UserEntity extends AbstractEntity {
@@ -30,8 +30,8 @@ export class UserEntity extends AbstractEntity {
   @OneToOne(() => StoreEntity, (store) => store.owner, { nullable: true })
   store: StoreEntity | null;
 
-  @OneToMany(() => OrderEntity, (order) => order.user)
-  orders: OrderEntity[];
+  @OneToOne(() => OrderEntity, (order) => order.user, { nullable: true })
+  order: OrderEntity | null;
 
   constructor(partial: Partial<UserEntity>) {
     super();

@@ -30,7 +30,7 @@ import { UpdateStoreDto } from '../dto/update-store.dto';
 import { GetAllStoreQuery } from '../queries/get-all-store.query';
 import { GetOneStoreQuery } from '../queries/get-one-store.query';
 
-@ApiTags('store')
+@ApiTags('stores')
 @UseInterceptors(ClassSerializerInterceptor)
 @Controller('stores')
 @UseInterceptors(ClassSerializerInterceptor)

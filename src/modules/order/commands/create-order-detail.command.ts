@@ -5,7 +5,6 @@ import { ICommandHandler, CommandHandler, QueryBus } from '@nestjs/cqrs';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateOrderDetailDto } from '../dto/create-order-detail.dto';
 import { OrderDetailEntity } from '../entities/order-detail.entity';
-import { GetOneOrderQuery } from '../queries/get-one-order.query';
 import { GetOderByUserQuery } from '../queries/get-order-by-user.query';
 import { OrderDetailRepository } from '../repositories/oder-detail.repository';
 
@@ -29,6 +28,7 @@ export class CreateOrderDetailCommandHandler implements ICommandHandler<CreateOr
     if (!order) {
       throw new NotFoundException(`Order with id ${userId} not found`);
     }
+    console.log(order);
     const { bookId, ...dataToCreate } = dto;
     const orderDetail = this.orderDetailRepository.create(dataToCreate);
     const book = await this.queryBus.execute(new GetOneBookQuery(bookId));

@@ -1,5 +1,9 @@
-import { CreateCategoryCommand } from './create-category.command';
-import { DeleteCategoryCommand } from './delete-category.command';
-import { UpdateCategoryCommand } from './update-category.command';
+import { CreateCategoryCommandHandler } from './create-category.command';
+import { DeleteCategoryCommandHandler } from './delete-category.command';
+import { UpdateCategoryCommandHandler } from './update-category.command';
 
-export const CategoryCommandHandlers = [CreateCategoryCommand, DeleteCategoryCommand, UpdateCategoryCommand];
+export const CategoryCommandHandlers = [
+  CreateCategoryCommandHandler,
+  DeleteCategoryCommandHandler,
+  UpdateCategoryCommandHandler,
+];
