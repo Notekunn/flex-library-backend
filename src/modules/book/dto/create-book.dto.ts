@@ -29,7 +29,7 @@ export class CreateBookDto {
   @IsString()
   author: string;
 
-  @ApiProperty()
+  @ApiProperty({ type: 'array', items: { type: 'integer', example: 1 } })
   @IsNumber({}, { each: true })
   categoryIds: number[];
 

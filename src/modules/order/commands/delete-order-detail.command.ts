@@ -1,5 +1,4 @@
 import { Command } from '@nestjs-architects/typed-cqrs';
-import { NotFoundException } from '@nestjs/common';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { InjectRepository } from '@nestjs/typeorm';
 import { OrderDetailEntity } from '../entities/order-detail.entity';

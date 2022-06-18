@@ -11,7 +11,7 @@ export class GetOderByUserQuery extends Query<OrderEntity | null> {
 }
 
 @QueryHandler(GetOderByUserQuery)
-export class GetOneOrderQueryHandler implements IQueryHandler<GetOderByUserQuery, OrderEntity | null> {
+export class GetOneOrderByUserQueryHandler implements IQueryHandler<GetOderByUserQuery, OrderEntity | null> {
   constructor(
     @InjectRepository(OrderEntity)
     private readonly orderRepository: OrderRepository,

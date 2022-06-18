@@ -8,7 +8,7 @@ import { CreateOrderDto } from '../dto/create-order.dto';
 import { OrderEntity } from '../entities/order.entity';
 import { OrderRepository } from '../repositories/order.repository';
 
-export class CreateOrderCommand extends Command<CreateOrderDto> {
+export class CreateOrderCommand extends Command<OrderEntity> {
   constructor(public readonly userId: number, public readonly dto: CreateOrderDto) {
     super();
   }
@@ -23,20 +23,20 @@ export class CreateOrderCommandHandler implements ICommandHandler<CreateOrderCom
   ) {}
   async execute(command: CreateOrderCommand) {
     const { userId, dto } = command;
-    const { storeId, ...dataToCreate } = dto;
     const user = await this.queryBus.execute(new GetOneUserQuery(userId));
     if (!user) {
       throw new NotFoundException('User not found');
     }
 
-    const store = await this.queryBus.execute(new GetOneStoreQuery(storeId));
+    const store = await this.queryBus.execute(new GetOneStoreQuery(dto.storeId));
     if (!store) {
       throw new NotFoundException('Store not found');
     }
 
-    const order = this.orderRepository.create(dataToCreate);
+    const order = this.orderRepository.create(dto);
     order.user = user;
     order.store = store;
+    console.log(order);
     return this.orderRepository.save(order);
   }
 }
