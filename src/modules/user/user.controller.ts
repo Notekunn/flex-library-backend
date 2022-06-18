@@ -32,13 +32,13 @@ import { RolesGuard } from '@guards/roles.guard';
 @Controller('user')
 @ApiTags('user')
 @UseInterceptors(ClassSerializerInterceptor)
-// @ApiBearerAuth()
-// @UseGuards(JwtAuthGuard, RolesGuard)
+@ApiBearerAuth()
+@UseGuards(JwtAuthGuard, RolesGuard)
 export class UserController {
   constructor(private readonly commandBus: CommandBus, private readonly queryBus: QueryBus) {}
 
   @Post()
-  // @Roles(UserRole.Administrator)
+  @Roles(UserRole.Administrator)
   create(@Body() createUserDto: CreateUserDto) {
     return this.commandBus.execute(new CreateUserCommand(createUserDto));
   }
