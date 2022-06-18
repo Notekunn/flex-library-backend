@@ -1,5 +1,5 @@
 import { INestApplication } from '@nestjs/common';
-import { DocumentBuilder, SwaggerCustomOptions, SwaggerModule } from '@nestjs/swagger';
+import { DocumentBuilder, FastifySwaggerCustomOptions, SwaggerCustomOptions, SwaggerModule } from '@nestjs/swagger';
 
 export function setupSwagger(app: INestApplication): void {
   const options = new DocumentBuilder()
@@ -9,15 +9,10 @@ export function setupSwagger(app: INestApplication): void {
     .addTag('auth', 'Authenticate user')
     .addTag('user', 'Manage user account')
     .build();
-  const customOptions: SwaggerCustomOptions = {
-    swaggerOptions: {
+  const customOptions: FastifySwaggerCustomOptions = {
+    uiConfig: {
       persistAuthorization: true,
-      // requestInterceptor: (req) => {
-      //   req.credentials = 'include';
-      //   return req;
-      // },
     },
-    customSiteTitle: 'Flex Library API Docs',
   };
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('docs', app, document, customOptions);
