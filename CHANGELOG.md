@@ -1,5 +1,12 @@
 NestJS Rocket Changelog
 
+# [1.11.0](https://github.com/Notekunn/flex-library-backend/compare/v1.10.0...v1.11.0) (2022-06-19)
+
+
+### Features
+
+* add book copy command and queries ([#14](https://github.com/Notekunn/flex-library-backend/issues/14)) ([fdc2dfb](https://github.com/Notekunn/flex-library-backend/commit/fdc2dfb751199eb7aee7ede87b202e963043d56a))
+
 # [1.10.0](https://github.com/Notekunn/flex-library-backend/compare/v1.9.0...v1.10.0) (2022-06-16)
 
 
