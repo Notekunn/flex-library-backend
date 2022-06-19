@@ -13,7 +13,7 @@ export class HealthcheckController {
     this.logger.log('heathcheck');
 
     return {
-      version: 'v1.0.0',
+      version: '1.0.0',
     };
   }
 }

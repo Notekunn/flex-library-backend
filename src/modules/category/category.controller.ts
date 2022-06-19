@@ -1,4 +1,7 @@
 import { PaginationDto } from '@common/dto/pagination.dto';
+import { Roles } from '@decorators/roles.decorator';
+import { LocalAuthGuard } from '@guards/local-auth.guard';
+import { RolesGuard } from '@guards/roles.guard';
 import {
   Controller,
   Get,
@@ -12,9 +15,10 @@ import {
   Query,
   UseInterceptors,
   ClassSerializerInterceptor,
+  UseGuards,
 } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { CreateCategoryCommand } from './commands/create-category.command';
 import { DeleteCategoryCommand } from './commands/delete-category.command';
 import { UpdateCategoryCommand } from './commands/update-category.command';
@@ -26,6 +30,8 @@ import { GetOneCategoryQuery } from './queries/get-one-category.query';
 @ApiTags('category')
 @UseInterceptors(ClassSerializerInterceptor)
 @Controller('category')
+@ApiBearerAuth()
+@UseGuards(LocalAuthGuard, RolesGuard)
 export class CategoryController {
   constructor(private readonly queryBus: QueryBus, private readonly commandBus: CommandBus) {}
 

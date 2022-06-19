@@ -1,9 +1,8 @@
 {
-  "name": "nestjs-rocket",
-  "version": "1.0.0",
+  "name": "flex-library-backend",
+  "version": "1.10.0",
   "description": "",
   "author": "",
-  "private": true,
   "license": "UNLICENSED",
   "scripts": {
     "prepare": "husky install",
