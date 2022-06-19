@@ -3,7 +3,7 @@ import { StoreEntity } from '@modules/store/entities/store.entity';
 import { GetStoreByOwnerQuery } from '@modules/store/queries/get-store-by-owner';
 import { Command } from '@nestjs-architects/typed-cqrs';
 import { BadRequestException, ForbiddenException } from '@nestjs/common';
-import { ICommandHandler, CommandHandler, QueryBus } from '@nestjs/cqrs';
+import { ICommandHandler, CommandHandler, QueryBus, CommandBus } from '@nestjs/cqrs';
 import { InjectRepository } from '@nestjs/typeorm';
 import { I18nService } from 'nestjs-i18n';
 import { CreateBookCopyDto } from '../dto/create-book-copy.dto';
@@ -12,6 +12,7 @@ import { BookEntity } from '../entities/book.entity';
 import { GetOneBookCopyByBarcodeQuery } from '../queries/get-one-book-copy-by-barcode.query';
 import { GetOneBookQuery } from '../queries/get-one-book.query';
 import { BookCopyRepository } from '../repositories/book-copy.repository';
+import { UpdateNumberOfCopiesCommand } from './update-number-of-copies.command';
 
 export class CreateBookCopyCommand extends Command<BookCopyEntity> {
   constructor(public readonly userId: number, public readonly bookId: number, public readonly dto: CreateBookCopyDto) {
@@ -22,10 +23,11 @@ export class CreateBookCopyCommand extends Command<BookCopyEntity> {
 @CommandHandler(CreateBookCopyCommand)
 export class CreateBookCopyCommandHandler implements ICommandHandler<CreateBookCopyCommand> {
   constructor(
-    private readonly queryBus: QueryBus,
-    private readonly i18n: I18nService,
     @InjectRepository(BookCopyEntity)
     private readonly bookCopyRepository: BookCopyRepository,
+    private readonly queryBus: QueryBus,
+    private readonly commandBus: CommandBus,
+    private readonly i18n: I18nService,
   ) {}
   async execute(command: CreateBookCopyCommand) {
     const { bookId, dto, userId } = command;
@@ -43,6 +45,7 @@ export class CreateBookCopyCommandHandler implements ICommandHandler<CreateBookC
     if (bookWithSameBarcode) {
       throw new BadRequestException(this.i18n.t('exception.duplicateBarcode'));
     }
+    book.numOfCopies += 1;
     const bookCopy = this.bookCopyRepository.create({
       ...dto,
       book,
