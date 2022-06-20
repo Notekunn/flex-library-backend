@@ -1,5 +1,12 @@
 NestJS Rocket Changelog
 
+## [1.12.1](https://github.com/Notekunn/flex-library-backend/compare/v1.12.0...v1.12.1) (2022-06-20)
+
+
+### Bug Fixes
+
+* remove morgan ([#16](https://github.com/Notekunn/flex-library-backend/issues/16)) ([a8c7c33](https://github.com/Notekunn/flex-library-backend/commit/a8c7c33b24feddb86bf7c1dd7ce927aaad96ca46))
+
 # [1.12.0](https://github.com/Notekunn/flex-library-backend/compare/v1.11.0...v1.12.0) (2022-06-20)
 
 
