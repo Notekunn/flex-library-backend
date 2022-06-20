@@ -1,5 +1,12 @@
 NestJS Rocket Changelog
 
+# [1.12.0](https://github.com/Notekunn/flex-library-backend/compare/v1.11.0...v1.12.0) (2022-06-20)
+
+
+### Features
+
+* add auth register ([#15](https://github.com/Notekunn/flex-library-backend/issues/15)) ([f442620](https://github.com/Notekunn/flex-library-backend/commit/f44262007b91000f15ad6f8d6b30c8a81cbe58ed))
+
 # [1.11.0](https://github.com/Notekunn/flex-library-backend/compare/v1.10.0...v1.11.0) (2022-06-19)
 
 
