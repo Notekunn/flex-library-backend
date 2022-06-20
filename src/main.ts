@@ -4,7 +4,6 @@ import { NestFactory, Reflector } from '@nestjs/core';
 import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify';
 import compression from 'compression';
 import { fastifyHelmet } from 'fastify-helmet';
-import morgan from 'morgan';
 import { join } from 'path';
 import requestIp from 'request-ip';
 import {
@@ -43,7 +42,6 @@ async function bootstrap(): Promise<void> {
   });
 
   app.use(compression());
-  app.use(morgan('combined'));
 
   app.setGlobalPrefix('v1');
 
