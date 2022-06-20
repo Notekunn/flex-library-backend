@@ -1,9 +1,6 @@
 import { CreateUserCommand } from '@modules/user/commands/create-user.command';
-import { GetUserByEmailQuery } from '@modules/user/queries/get-user-by-email.query';
 import { Command } from '@nestjs-architects/typed-cqrs';
-import { BadRequestException } from '@nestjs/common';
-import { ICommandHandler, CommandHandler, QueryBus, CommandBus } from '@nestjs/cqrs';
-import { I18nService } from 'nestjs-i18n';
+import { ICommandHandler, CommandHandler, CommandBus } from '@nestjs/cqrs';
 import { LoginResponseDto } from '../dto/login-response.dto';
 import { RegisterRequestDto } from '../dto/register-request.dto';
 import { CreateTokenCommand } from './create-token.command';
