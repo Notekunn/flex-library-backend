@@ -7,8 +7,10 @@ import { Column, Entity, ManyToOne } from 'typeorm';
 export class OrderDetailEntity extends AbstractEntity {
   @Column({ default: 0 })
   quantity: number;
+
   @ManyToOne(() => OrderEntity, (order) => order.id)
   order: OrderEntity;
+
   @ManyToOne(() => BookEntity, (book) => book.id)
   book: BookEntity;
 }
