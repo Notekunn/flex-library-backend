@@ -5,7 +5,7 @@ import { GetAllBookCopyDto } from '../dto/get-all-book-copy.dto';
 import { BookCopyEntity } from '../entities/book-copy.entity';
 import { BookCopyRepository } from '../repositories/book-copy.repository';
 
-export class GetAllBookCopyQuery extends Query<string> {
+export class GetAllBookCopyQuery extends Query<BookCopyEntity[]> {
   constructor(public readonly bookId: number, public readonly dto: GetAllBookCopyDto) {
     super();
   }
@@ -21,12 +21,14 @@ export class GetAllBookCopyQueryHandler implements IQueryHandler<GetAllBookCopyQ
   }
   execute(query: GetAllBookCopyQuery) {
     const { bookId, dto } = query;
+    const { status, ...paginationDto } = dto;
     return this.bookCopyRepository.find({
-      ...dto,
+      ...paginationDto,
       where: {
         book: {
           id: bookId,
         },
+        ...(status ? { status } : {}),
       },
     });
   }
