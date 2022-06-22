@@ -18,7 +18,7 @@ export class GetOneOrderQueryHandler implements IQueryHandler<GetOneOrderQuery, 
   ) {}
   async execute(query: GetOneOrderQuery) {
     const { id } = query;
-    const order = await this.orderRepository.findOne({ where: { id } });
+    const order = await this.orderRepository.findOne({ where: { id }, relations: ['orderDetails'] });
     return order;
   }
 }
