@@ -3,6 +3,7 @@ import { GetAllOrderQueryHandler } from './get-all-order.query';
 import { GetOneOrderDetailHandler } from './get-one-order-detail.query';
 import { GetOneOrderQueryHandler } from './get-one-order.query';
 import { GetOneOrderByUserQueryHandler } from './get-order-by-user.query';
+import { GetOrderDetailByBookQueryHandler } from './get-order-detail-by-book';
 
 export const OrderQueryHandlers = [
   GetAllOrderQueryHandler,
@@ -11,4 +12,5 @@ export const OrderQueryHandlers = [
   GetAllOrderDetailQueryHandler,
   GetOneOrderDetailHandler,
   GetOneOrderByUserQueryHandler,
+  GetOrderDetailByBookQueryHandler,
 ];
