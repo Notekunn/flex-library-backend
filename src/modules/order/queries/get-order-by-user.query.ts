@@ -1,3 +1,4 @@
+import { OrderStatus } from '@constants/order-status.enum';
 import { Query } from '@nestjs-architects/typed-cqrs';
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -18,7 +19,18 @@ export class GetOneOrderByUserQueryHandler implements IQueryHandler<GetOderByUse
   ) {}
   async execute(query: GetOderByUserQuery) {
     const { userId } = query;
-    const order = await this.orderRepository.findOne({ where: { user: { id: userId } } });
+
+    const order = await this.orderRepository.findOne({
+      where: {
+        user: {
+          id: userId,
+        },
+        status: OrderStatus.CREATED,
+      },
+      relations: ['user'],
+    });
+    console.log(order);
+
     return order;
   }
 }

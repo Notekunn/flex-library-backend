@@ -46,7 +46,7 @@ export class OrderController {
   }
 
   @Get('')
-  async getAllOrders(@Query(new ValidationPipe({ transform: true })) paginationDto: PaginationDto) {
+  async getAllOrders(@Query() paginationDto: PaginationDto) {
     return this.queryBus.execute(new GetAllOrderQuery(paginationDto));
   }
 
