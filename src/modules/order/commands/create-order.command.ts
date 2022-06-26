@@ -7,7 +7,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { I18nService } from 'nestjs-i18n';
 import { CreateOrderDto } from '../dto/create-order.dto';
 import { OrderEntity } from '../entities/order.entity';
-import { GetOderByUserQuery, GetOneOrderByUserQueryHandler } from '../queries/get-order-by-user.query';
+import { GetOderByUserQuery } from '../queries/get-order-by-user.query';
 import { OrderRepository } from '../repositories/order.repository';
 
 export class CreateOrderCommand extends Command<OrderEntity> {

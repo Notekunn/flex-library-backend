@@ -7,9 +7,11 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { I18nService } from 'nestjs-i18n';
 import { CreateOrderDetailDto } from '../dto/create-order-detail.dto';
 import { OrderDetailEntity } from '../entities/order-detail.entity';
+import { GetOneOrderQuery } from '../queries/get-one-order.query';
 import { GetOrderDetailByBookQuery } from '../queries/get-order-detail-by-book';
 import { OrderDetailRepository } from '../repositories/oder-detail.repository';
 import { CreateOrderCommand } from './create-order.command';
+import { DeleteOrderDetailCommand } from './delete-order-detail.command';
 import { UpdateOrderDetailCommand } from './update-order-detail.command';
 
 export class CreateOrderDetailCommand extends Command<OrderDetailEntity> {
@@ -32,7 +34,12 @@ export class CreateOrderDetailCommandHandler implements ICommandHandler<CreateOr
     const { bookId, ...dataToCreate } = dto;
     const existedOrderDetail = await this.queryBus.execute(new GetOrderDetailByBookQuery(bookId));
     if (existedOrderDetail) {
-      return await this.commandBus.execute(new UpdateOrderDetailCommand(existedOrderDetail.id, dto));
+      const cmd =
+        dto.quantity > 0
+          ? new UpdateOrderDetailCommand(existedOrderDetail.id, dto)
+          : new DeleteOrderDetailCommand([existedOrderDetail.id]);
+      await this.commandBus.execute(cmd);
+      return await this.commandBus.execute(new GetOneOrderQuery(existedOrderDetail.order.id));
     }
     const book = await this.queryBus.execute(new GetOneBookQuery(bookId));
     if (!book) {
@@ -51,6 +58,7 @@ export class CreateOrderDetailCommandHandler implements ICommandHandler<CreateOr
     const orderDetail = this.orderDetailRepository.create(dataToCreate);
     orderDetail.book = book;
     orderDetail.order = order;
-    return await this.orderDetailRepository.save(orderDetail);
+    await this.orderDetailRepository.save(orderDetail);
+    return await this.commandBus.execute(new GetOneOrderQuery(order.id));
   }
 }
