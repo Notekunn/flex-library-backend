@@ -59,6 +59,7 @@ export class BorrowBookCommandHandler implements ICommandHandler<BorrowBookComma
       doPromises.push(this.bookLoanRepository.save(bookLoan));
     }
     await Promise.all(doPromises);
+    // TODO: create book command to handle this
     await this.bookCopyRepository.update(
       {
         id: In(bookCopies.map((e) => e.id)),

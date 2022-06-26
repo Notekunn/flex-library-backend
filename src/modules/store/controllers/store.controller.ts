@@ -33,7 +33,6 @@ import { GetOneStoreQuery } from '../queries/get-one-store.query';
 @ApiTags('stores')
 @UseInterceptors(ClassSerializerInterceptor)
 @Controller('stores')
-@UseInterceptors(ClassSerializerInterceptor)
 @ApiBearerAuth()
 @UseGuards(JwtAuthGuard, RolesGuard)
 @Roles(UserRole.Administrator, UserRole.Owner)
