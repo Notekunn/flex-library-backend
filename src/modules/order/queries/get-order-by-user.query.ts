@@ -32,7 +32,6 @@ export class GetOneOrderByUserQueryHandler implements IQueryHandler<GetOderByUse
       },
       relations: ['user'],
     });
-    console.log(order);
 
     return order;
   }
