@@ -1,5 +1,12 @@
 NestJS Rocket Changelog
 
+# [1.14.0](https://github.com/Notekunn/flex-library-backend/compare/v1.13.0...v1.14.0) (2022-06-26)
+
+
+### Features
+
+* add purchase and get book loans ([#18](https://github.com/Notekunn/flex-library-backend/issues/18)) ([baba2c2](https://github.com/Notekunn/flex-library-backend/commit/baba2c2e93180054e2f757131ffdf5ae14c3abcf))
+
 # [1.13.0](https://github.com/Notekunn/flex-library-backend/compare/v1.12.1...v1.13.0) (2022-06-26)
 
 
