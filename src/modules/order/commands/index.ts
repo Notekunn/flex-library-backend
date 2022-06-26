@@ -8,10 +8,13 @@ import { UpdateOrderCommandHandler } from './update-order.command';
 
 export const OrderCommandHandlers = [
   UpdateOrderCommandHandler,
-  UpdateOrderDetailCommandHandler,
   CreateOrderCommandHandler,
-  CreateOrderDetailCommandHandler,
   DeleteOrderCommandHandler,
-  DeleteOrderDetailCommandHandler,
   PurchaseOrderCommandHandler,
+];
+
+export const OrderDetailCommandHandlers = [
+  CreateOrderDetailCommandHandler,
+  UpdateOrderDetailCommandHandler,
+  DeleteOrderDetailCommandHandler,
 ];

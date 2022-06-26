@@ -11,7 +11,7 @@ export class GetOneOrderDetailQuery extends Query<OrderDetailEntity | null> {
 }
 
 @QueryHandler(GetOneOrderDetailQuery)
-export class GetOneOrderDetailHandler implements IQueryHandler<GetOneOrderDetailQuery, OrderDetailEntity | null> {
+export class GetOneOrderDetailQueryHandler implements IQueryHandler<GetOneOrderDetailQuery, OrderDetailEntity | null> {
   constructor(
     @InjectRepository(OrderDetailEntity)
     private readonly orderDetailRepository: OrderDetailRepository,

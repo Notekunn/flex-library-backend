@@ -39,7 +39,7 @@ export class CreateOrderDetailCommandHandler implements ICommandHandler<CreateOr
           ? new UpdateOrderDetailCommand(existedOrderDetail.id, dto)
           : new DeleteOrderDetailCommand([existedOrderDetail.id]);
       await this.commandBus.execute(cmd);
-      return await this.commandBus.execute(new GetOneOrderQuery(existedOrderDetail.order.id));
+      return await this.queryBus.execute(new GetOneOrderQuery(existedOrderDetail.order.id));
     }
     const book = await this.queryBus.execute(new GetOneBookQuery(bookId));
     if (!book) {
@@ -59,6 +59,6 @@ export class CreateOrderDetailCommandHandler implements ICommandHandler<CreateOr
     orderDetail.book = book;
     orderDetail.order = order;
     await this.orderDetailRepository.save(orderDetail);
-    return await this.commandBus.execute(new GetOneOrderQuery(order.id));
+    return await this.queryBus.execute(new GetOneOrderQuery(order.id));
   }
 }

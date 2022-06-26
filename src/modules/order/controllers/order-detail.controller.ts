@@ -42,9 +42,4 @@ export class OrderDetailController {
   async getOneOrderDetail(@Param('id', ParseIntPipe) id: number) {
     return this.queryBus.execute(new GetOneOrderDetailQuery(id));
   }
-
-  @Get('')
-  async getAllOrderDetails(@Query(new ValidationPipe({ transform: true })) paginationDto: PaginationDto) {
-    return this.queryBus.execute(new GetAllOrderDetailQuery(paginationDto));
-  }
 }
