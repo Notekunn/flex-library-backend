@@ -1,7 +1,7 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
-export class InitialDatabase1655531426067 implements MigrationInterface {
-  name = 'InitialDatabase1655531426067';
+export class InitialDatabase1655913716361 implements MigrationInterface {
+  name = 'InitialDatabase1655913716361';
 
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(`
@@ -32,13 +32,27 @@ export class InitialDatabase1655531426067 implements MigrationInterface {
             CREATE INDEX "IDX_e12875dfb3b1d92d7d7c5377e2" ON "user" ("email")
         `);
     await queryRunner.query(`
+            CREATE TABLE "order-detail" (
+                "created_at" TIMESTAMP NOT NULL DEFAULT now(),
+                "updated_at" TIMESTAMP NOT NULL DEFAULT now(),
+                "deleted_at" TIMESTAMP,
+                "id" SERIAL NOT NULL,
+                "quantity" integer NOT NULL DEFAULT '0',
+                "order_id" integer,
+                "book_id" integer,
+                CONSTRAINT "PK_862c7676d91b1a10fa9c938825b" PRIMARY KEY ("id")
+            )
+        `);
+    await queryRunner.query(`
             CREATE TABLE "order" (
                 "created_at" TIMESTAMP NOT NULL DEFAULT now(),
                 "updated_at" TIMESTAMP NOT NULL DEFAULT now(),
                 "deleted_at" TIMESTAMP,
                 "id" SERIAL NOT NULL,
                 "status" character varying NOT NULL DEFAULT 'created',
+                "user_id" integer,
                 "store_id" integer,
+                CONSTRAINT "REL_199e32a02ddc0f47cd93181d8f" UNIQUE ("user_id"),
                 CONSTRAINT "PK_1031171c13130102495201e3e20" PRIMARY KEY ("id")
             )
         `);
@@ -110,18 +124,6 @@ export class InitialDatabase1655531426067 implements MigrationInterface {
             )
         `);
     await queryRunner.query(`
-            CREATE TABLE "order-detail" (
-                "created_at" TIMESTAMP NOT NULL DEFAULT now(),
-                "updated_at" TIMESTAMP NOT NULL DEFAULT now(),
-                "deleted_at" TIMESTAMP,
-                "id" SERIAL NOT NULL,
-                "quantity" integer NOT NULL DEFAULT '0',
-                "order_id" integer,
-                "book_id" integer,
-                CONSTRAINT "PK_862c7676d91b1a10fa9c938825b" PRIMARY KEY ("id")
-            )
-        `);
-    await queryRunner.query(`
             CREATE TABLE "book_category" (
                 "book_id" integer NOT NULL,
                 "category_id" integer NOT NULL,
@@ -133,6 +135,18 @@ export class InitialDatabase1655531426067 implements MigrationInterface {
         `);
     await queryRunner.query(`
             CREATE INDEX "IDX_1289ac9b250e11b050b3bd2f6d" ON "book_category" ("category_id")
+        `);
+    await queryRunner.query(`
+            ALTER TABLE "order-detail"
+            ADD CONSTRAINT "FK_52df5616e636f74e8f2e6b898a2" FOREIGN KEY ("order_id") REFERENCES "order"("id") ON DELETE NO ACTION ON UPDATE NO ACTION
+        `);
+    await queryRunner.query(`
+            ALTER TABLE "order-detail"
+            ADD CONSTRAINT "FK_43b8a7691d49f21fa6303127a33" FOREIGN KEY ("book_id") REFERENCES "book"("id") ON DELETE NO ACTION ON UPDATE NO ACTION
+        `);
+    await queryRunner.query(`
+            ALTER TABLE "order"
+            ADD CONSTRAINT "FK_199e32a02ddc0f47cd93181d8fd" FOREIGN KEY ("user_id") REFERENCES "user"("id") ON DELETE NO ACTION ON UPDATE NO ACTION
         `);
     await queryRunner.query(`
             ALTER TABLE "order"
@@ -159,14 +173,6 @@ export class InitialDatabase1655531426067 implements MigrationInterface {
             ADD CONSTRAINT "FK_bc599e13e4ad88a377c89fb538a" FOREIGN KEY ("book_copy_id") REFERENCES "book_copy"("id") ON DELETE NO ACTION ON UPDATE NO ACTION
         `);
     await queryRunner.query(`
-            ALTER TABLE "order-detail"
-            ADD CONSTRAINT "FK_52df5616e636f74e8f2e6b898a2" FOREIGN KEY ("order_id") REFERENCES "order"("id") ON DELETE NO ACTION ON UPDATE NO ACTION
-        `);
-    await queryRunner.query(`
-            ALTER TABLE "order-detail"
-            ADD CONSTRAINT "FK_43b8a7691d49f21fa6303127a33" FOREIGN KEY ("book_id") REFERENCES "book"("id") ON DELETE NO ACTION ON UPDATE NO ACTION
-        `);
-    await queryRunner.query(`
             ALTER TABLE "book_category"
             ADD CONSTRAINT "FK_0ec321d0940e2eac32698e854a0" FOREIGN KEY ("book_id") REFERENCES "book"("id") ON DELETE CASCADE ON UPDATE CASCADE
         `);
@@ -182,12 +188,6 @@ export class InitialDatabase1655531426067 implements MigrationInterface {
         `);
     await queryRunner.query(`
             ALTER TABLE "book_category" DROP CONSTRAINT "FK_0ec321d0940e2eac32698e854a0"
-        `);
-    await queryRunner.query(`
-            ALTER TABLE "order-detail" DROP CONSTRAINT "FK_43b8a7691d49f21fa6303127a33"
-        `);
-    await queryRunner.query(`
-            ALTER TABLE "order-detail" DROP CONSTRAINT "FK_52df5616e636f74e8f2e6b898a2"
         `);
     await queryRunner.query(`
             ALTER TABLE "book_loan" DROP CONSTRAINT "FK_bc599e13e4ad88a377c89fb538a"
@@ -208,6 +208,15 @@ export class InitialDatabase1655531426067 implements MigrationInterface {
             ALTER TABLE "order" DROP CONSTRAINT "FK_49bee6b626107c19a15c3cf039e"
         `);
     await queryRunner.query(`
+            ALTER TABLE "order" DROP CONSTRAINT "FK_199e32a02ddc0f47cd93181d8fd"
+        `);
+    await queryRunner.query(`
+            ALTER TABLE "order-detail" DROP CONSTRAINT "FK_43b8a7691d49f21fa6303127a33"
+        `);
+    await queryRunner.query(`
+            ALTER TABLE "order-detail" DROP CONSTRAINT "FK_52df5616e636f74e8f2e6b898a2"
+        `);
+    await queryRunner.query(`
             DROP INDEX "public"."IDX_1289ac9b250e11b050b3bd2f6d"
         `);
     await queryRunner.query(`
@@ -215,9 +224,6 @@ export class InitialDatabase1655531426067 implements MigrationInterface {
         `);
     await queryRunner.query(`
             DROP TABLE "book_category"
-        `);
-    await queryRunner.query(`
-            DROP TABLE "order-detail"
         `);
     await queryRunner.query(`
             DROP TABLE "book_loan"
@@ -242,6 +248,9 @@ export class InitialDatabase1655531426067 implements MigrationInterface {
         `);
     await queryRunner.query(`
             DROP TABLE "order"
+        `);
+    await queryRunner.query(`
+            DROP TABLE "order-detail"
         `);
     await queryRunner.query(`
             DROP INDEX "public"."IDX_e12875dfb3b1d92d7d7c5377e2"

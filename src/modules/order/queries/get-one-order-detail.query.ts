@@ -11,14 +11,14 @@ export class GetOneOrderDetailQuery extends Query<OrderDetailEntity | null> {
 }
 
 @QueryHandler(GetOneOrderDetailQuery)
-export class GetOneOrderDetailHandler implements IQueryHandler<GetOneOrderDetailQuery, OrderDetailEntity | null> {
+export class GetOneOrderDetailQueryHandler implements IQueryHandler<GetOneOrderDetailQuery, OrderDetailEntity | null> {
   constructor(
     @InjectRepository(OrderDetailEntity)
     private readonly orderDetailRepository: OrderDetailRepository,
   ) {}
   async execute(query: GetOneOrderDetailQuery) {
     const { id } = query;
-    const orderDetail = await this.orderDetailRepository.findOne({ where: { id } });
+    const orderDetail = await this.orderDetailRepository.findOne({ where: { id }, relations: ['book'] });
     return orderDetail;
   }
 }
