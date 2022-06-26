@@ -47,6 +47,7 @@
     "fastify-static": "^4.6.1",
     "fastify-swagger": "^5.1.0",
     "handlebars": "^4.7.7",
+    "moment": "^2.29.3",
     "morgan": "^1.10.0",
     "nestjs-i18n": "^9.0.4",
     "passport": "^0.6.0",

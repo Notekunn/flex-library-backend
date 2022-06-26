@@ -6,6 +6,7 @@ import { ICommandHandler, CommandHandler, QueryBus, CommandBus } from '@nestjs/c
 import { I18nService } from 'nestjs-i18n';
 import { GetOneOrderQuery } from '../queries/get-one-order.query';
 import { ValidateOrderDetailQuery } from '../queries/validate-order-detail.query';
+import { UpdateOrderCommand } from './update-order.command';
 
 export class PurchaseOrderCommand extends Command<void> {
   constructor(public readonly userId: number, public readonly orderId: number) {
@@ -35,9 +36,21 @@ export class PurchaseOrderCommandHandler implements ICommandHandler<PurchaseOrde
       throw new BadRequestException(this.i18n.t('exception.orderJustComplete'));
     }
     const isValid = await this.queryBus.execute(new ValidateOrderDetailQuery(order));
-    // //TODO: Use transaction
-    // for (const orderDetail of order.orderDetails) {
-    //   await this.commandBus.execute(new BorrowBookCommand(orderDetail.id));
-    // }
+    if (!isValid) {
+      throw new BadRequestException(this.i18n.t('exception.notEnoughBook'));
+    }
+
+    // TODO: Use transaction
+    for (const orderDetail of order.orderDetails) {
+      await this.commandBus.execute(new BorrowBookCommand(orderDetail.id));
+    }
+    await this.commandBus.execute(
+      new UpdateOrderCommand(order.id, {
+        status: OrderStatus.PURCHASED,
+      }),
+    );
+    return {
+      message: 'Purchase success',
+    };
   }
 }
