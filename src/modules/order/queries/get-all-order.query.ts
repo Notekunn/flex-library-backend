@@ -6,7 +6,7 @@ import { OrderEntity } from '../entities/order.entity';
 import { OrderRepository } from '../repositories/order.repository';
 
 export class GetAllOrderQuery extends Query<OrderEntity[]> {
-  constructor(public readonly dto: PaginationDto) {
+  constructor(public readonly userId: number, public readonly dto: PaginationDto) {
     super();
   }
 }
@@ -18,9 +18,14 @@ export class GetAllOrderQueryHandler implements IQueryHandler<GetAllOrderQuery, 
     private readonly orderRepository: OrderRepository,
   ) {}
   async execute(query: GetAllOrderQuery) {
-    const { dto } = query;
+    const { dto, userId } = query;
     const orders = await this.orderRepository.find({
       ...dto,
+      where: {
+        user: {
+          id: userId,
+        },
+      },
     });
     return orders;
   }

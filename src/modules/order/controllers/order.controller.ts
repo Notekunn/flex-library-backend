@@ -15,7 +15,6 @@ import {
   Query,
   UseGuards,
   UseInterceptors,
-  ValidationPipe,
 } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
@@ -35,19 +34,19 @@ import { GetOneOrderQuery } from '../queries/get-one-order.query';
 export class OrderController {
   constructor(private readonly queryBus: QueryBus, private readonly commandBus: CommandBus) {}
 
-  @Post('')
+  @Post()
   async createOrder(@AuthUser() user: JwtClaimsDto, @Body() createOrderDto: CreateOrderDto) {
     return this.commandBus.execute(new CreateOrderCommand(user.id, createOrderDto));
+  }
+
+  @Get()
+  async getAllOrders(@AuthUser() user: JwtClaimsDto, @Query() paginationDto: PaginationDto) {
+    return this.queryBus.execute(new GetAllOrderQuery(user.id, paginationDto));
   }
 
   @Get(':id')
   async getOneOrder(@Param('id', ParseIntPipe) id: number) {
     return this.queryBus.execute(new GetOneOrderQuery(id));
-  }
-
-  @Get('')
-  async getAllOrders(@Query() paginationDto: PaginationDto) {
-    return this.queryBus.execute(new GetAllOrderQuery(paginationDto));
   }
 
   @Patch(':id')
