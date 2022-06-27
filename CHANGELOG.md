@@ -1,5 +1,17 @@
 NestJS Rocket Changelog
 
+# [1.15.0](https://github.com/Notekunn/flex-library-backend/compare/v1.14.0...v1.15.0) (2022-06-27)
+
+
+### Bug Fixes
+
+* category guard ([007cd89](https://github.com/Notekunn/flex-library-backend/commit/007cd895d96b91a5db00e5a31ac8030e2bd53659))
+
+
+### Features
+
+* add query get owner store ([#19](https://github.com/Notekunn/flex-library-backend/issues/19)) ([a7bd61f](https://github.com/Notekunn/flex-library-backend/commit/a7bd61ff196dd60ee01228ff853ed6547c997d7e))
+
 # [1.14.0](https://github.com/Notekunn/flex-library-backend/compare/v1.13.0...v1.14.0) (2022-06-26)
 
 
