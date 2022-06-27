@@ -21,6 +21,7 @@ import {
 } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { GetStoreByOwnerQuery } from '../../../../dist/modules/store/queries/get-store-by-owner';
 import { CreateStoreCommand } from '../commands/create-store.command';
 import { DeleteStoreCommand } from '../commands/delete-store.command';
 import { UpdateStoreCommand } from '../commands/update-store.command';
@@ -55,6 +56,11 @@ export class StoreController {
   @Get(':id')
   async getOne(@Param('id', ParseIntPipe) id: number) {
     return this.queryBus.execute(new GetOneStoreQuery(id));
+  }
+
+  @Get('/user')
+  async getUserStore(@AuthUser() user: JwtClaimsDto) {
+    return this.queryBus.execute(new GetStoreByOwnerQuery(user.id));
   }
 
   @Patch(':id')

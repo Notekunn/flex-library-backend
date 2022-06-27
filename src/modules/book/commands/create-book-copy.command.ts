@@ -1,6 +1,6 @@
 import { BookStatus } from '@constants/book-status.enum';
 import { StoreEntity } from '@modules/store/entities/store.entity';
-import { GetStoreByOwnerQuery } from '@modules/store/queries/get-store-by-owner';
+import { GetStoreByOwnerQuery } from '@modules/store/queries/get-store-by-owner.query';
 import { Command } from '@nestjs-architects/typed-cqrs';
 import { BadRequestException, ForbiddenException } from '@nestjs/common';
 import { ICommandHandler, CommandHandler, QueryBus, CommandBus } from '@nestjs/cqrs';

@@ -1,6 +1,6 @@
 import { CategoryEntity } from '@modules/category/entities/category.entity';
 import { GetOneCategoryQuery } from '@modules/category/queries/get-one-category.query';
-import { GetStoreByOwnerQuery } from '@modules/store/queries/get-store-by-owner';
+import { GetStoreByOwnerQuery } from '@modules/store/queries/get-store-by-owner.query';
 import { Command } from '@nestjs-architects/typed-cqrs';
 import { NotFoundException } from '@nestjs/common';
 import { CommandHandler, ICommandHandler, QueryBus } from '@nestjs/cqrs';
