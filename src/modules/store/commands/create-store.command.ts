@@ -6,7 +6,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { I18nService } from 'nestjs-i18n';
 import { CreateStoreDto } from '../dto/create-store.dto';
 import { StoreEntity } from '../entities/store.entity';
-import { GetStoreByOwnerQuery } from '../queries/get-store-by-owner';
+import { GetStoreByOwnerQuery } from '../queries/get-store-by-owner.query';
 import { StoreRepository } from '../repositories/store.repository';
 
 export class CreateStoreCommand extends Command<CreateStoreDto> {
