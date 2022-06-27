@@ -1,6 +1,5 @@
 import { PaginationDto } from '@common/dto/pagination.dto';
-import { Roles } from '@decorators/roles.decorator';
-import { LocalAuthGuard } from '@guards/local-auth.guard';
+import { JwtAuthGuard } from '@guards/jwt-auth.guard';
 import { RolesGuard } from '@guards/roles.guard';
 import {
   Controller,
@@ -31,7 +30,7 @@ import { GetOneCategoryQuery } from './queries/get-one-category.query';
 @UseInterceptors(ClassSerializerInterceptor)
 @Controller('category')
 @ApiBearerAuth()
-@UseGuards(LocalAuthGuard, RolesGuard)
+@UseGuards(JwtAuthGuard, RolesGuard)
 export class CategoryController {
   constructor(private readonly queryBus: QueryBus, private readonly commandBus: CommandBus) {}
 

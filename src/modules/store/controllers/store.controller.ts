@@ -21,7 +21,7 @@ import {
 } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { GetStoreByOwnerQuery } from '../../../../dist/modules/store/queries/get-store-by-owner';
+import { GetStoreByOwnerQuery } from '../queries/get-store-by-owner.query';
 import { CreateStoreCommand } from '../commands/create-store.command';
 import { DeleteStoreCommand } from '../commands/delete-store.command';
 import { UpdateStoreCommand } from '../commands/update-store.command';
