@@ -58,7 +58,7 @@ export class StoreController {
     return this.queryBus.execute(new GetOneStoreQuery(id));
   }
 
-  @Get('/user')
+  @Get('/my-store')
   async getUserStore(@AuthUser() user: JwtClaimsDto) {
     return this.queryBus.execute(new GetStoreByOwnerQuery(user.id));
   }
