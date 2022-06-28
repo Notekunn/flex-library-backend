@@ -1,5 +1,12 @@
 NestJS Rocket Changelog
 
+## [1.15.1](https://github.com/Notekunn/flex-library-backend/compare/v1.15.0...v1.15.1) (2022-06-28)
+
+
+### Bug Fixes
+
+* dto create book ([#21](https://github.com/Notekunn/flex-library-backend/issues/21)) ([e4d1f4f](https://github.com/Notekunn/flex-library-backend/commit/e4d1f4f8e6524095abecf9403c500fae2b651ac6))
+
 # [1.15.0](https://github.com/Notekunn/flex-library-backend/compare/v1.14.0...v1.15.0) (2022-06-27)
 
 
