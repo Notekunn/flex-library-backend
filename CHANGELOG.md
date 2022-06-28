@@ -1,5 +1,12 @@
 NestJS Rocket Changelog
 
+# [1.16.0](https://github.com/Notekunn/flex-library-backend/compare/v1.15.1...v1.16.0) (2022-06-28)
+
+
+### Features
+
+* add query add book by category ([#22](https://github.com/Notekunn/flex-library-backend/issues/22)) ([b61afea](https://github.com/Notekunn/flex-library-backend/commit/b61afea2d6312ca0a5db2d27537105147bc184be))
+
 ## [1.15.1](https://github.com/Notekunn/flex-library-backend/compare/v1.15.0...v1.15.1) (2022-06-28)
 
 

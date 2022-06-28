@@ -27,6 +27,7 @@ import { DeleteBookCommand } from '../commands/delete-book.command';
 import { UpdateBookCommand } from '../commands/update-book.command';
 import { CreateBookDto } from '../dto/create-book.dto';
 import { UpdateBookDto } from '../dto/update-book.dto';
+import { GetAllBookByCategoryQuery } from '../queries/get-all-book-by-category';
 import { GetAllBookQuery } from '../queries/get-all-book.query';
 import { GetOneBookQuery } from '../queries/get-one-book.query';
 
@@ -54,8 +55,6 @@ export class BookController {
     return this.queryBus.execute(new GetOneBookQuery(id));
   }
 
-<<<<<<< Updated upstream
-=======
   @Get('/category/:id')
   getAllByCategory(
     @Param('id', ParseIntPipe) id: number,
@@ -65,7 +64,6 @@ export class BookController {
   }
 
   @Roles(UserRole.Owner, UserRole.Administrator)
->>>>>>> Stashed changes
   @Patch(':id')
   update(@Param('id', ParseIntPipe) id: number, @Body() updateBookDto: UpdateBookDto) {
     return this.commandBus.execute(new UpdateBookCommand(id, updateBookDto));
