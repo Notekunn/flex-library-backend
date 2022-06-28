@@ -54,18 +54,7 @@ export class BookController {
     return this.queryBus.execute(new GetOneBookQuery(id));
   }
 
-<<<<<<< Updated upstream
-=======
-  @Get('/category/:id')
-  getAllByCategory(
-    @Param('id', ParseIntPipe) id: number,
-    @Query(new ValidationPipe({ transform: true })) getAllBookDto: PaginationDto,
-  ) {
-    return this.queryBus.execute(new GetAllBookByCategoryQuery(id, getAllBookDto));
-  }
-
   @Roles(UserRole.Owner, UserRole.Administrator)
->>>>>>> Stashed changes
   @Patch(':id')
   update(@Param('id', ParseIntPipe) id: number, @Body() updateBookDto: UpdateBookDto) {
     return this.commandBus.execute(new UpdateBookCommand(id, updateBookDto));
