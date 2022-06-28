@@ -1,4 +1,6 @@
 import { PaginationDto } from '@common/dto/pagination.dto';
+import { UserRole } from '@constants/user-role.enum';
+import { Roles } from '@decorators/roles.decorator';
 import { JwtAuthGuard } from '@guards/jwt-auth.guard';
 import { RolesGuard } from '@guards/roles.guard';
 import {
@@ -30,7 +32,7 @@ import { GetOneCategoryQuery } from './queries/get-one-category.query';
 @UseInterceptors(ClassSerializerInterceptor)
 @Controller('category')
 @ApiBearerAuth()
-@UseGuards(JwtAuthGuard, RolesGuard)
+@UseGuards(JwtAuthGuard)
 export class CategoryController {
   constructor(private readonly queryBus: QueryBus, private readonly commandBus: CommandBus) {}
 
@@ -44,16 +46,19 @@ export class CategoryController {
     return this.queryBus.execute(new GetOneCategoryQuery(id));
   }
 
+  @Roles(UserRole.Administrator)
   @Post()
   create(@Body() createCategoryDto: CreateCategoryDto) {
     return this.commandBus.execute(new CreateCategoryCommand(createCategoryDto));
   }
 
+  @Roles(UserRole.Administrator)
   @Patch(':id')
   update(@Param('id', ParseIntPipe) id: number, @Body() updateCategoryDto: UpdateCategoryDto) {
     return this.commandBus.execute(new UpdateCategoryCommand(id, updateCategoryDto));
   }
 
+  @Roles(UserRole.Administrator)
   @Delete(':id')
   delete(@Param('id', ParseIntPipe) id: number) {
     return this.commandBus.execute(new DeleteCategoryCommand(id));

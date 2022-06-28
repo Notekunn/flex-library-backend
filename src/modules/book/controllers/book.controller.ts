@@ -34,11 +34,11 @@ import { GetOneBookQuery } from '../queries/get-one-book.query';
 @UseInterceptors(ClassSerializerInterceptor)
 @Controller('book')
 @ApiBearerAuth()
-@Roles(UserRole.Owner, UserRole.Administrator)
-@UseGuards(JwtAuthGuard, RolesGuard)
+@UseGuards(JwtAuthGuard)
 export class BookController {
   constructor(private readonly commandBus: CommandBus, private readonly queryBus: QueryBus) {}
 
+  @Roles(UserRole.Owner, UserRole.Administrator)
   @Post()
   create(@AuthUser() user: JwtClaimsDto, @Body() createBookDto: CreateBookDto) {
     return this.commandBus.execute(new CreateBookCommand(user.id, createBookDto));
@@ -54,11 +54,24 @@ export class BookController {
     return this.queryBus.execute(new GetOneBookQuery(id));
   }
 
+<<<<<<< Updated upstream
+=======
+  @Get('/category/:id')
+  getAllByCategory(
+    @Param('id', ParseIntPipe) id: number,
+    @Query(new ValidationPipe({ transform: true })) getAllBookDto: PaginationDto,
+  ) {
+    return this.queryBus.execute(new GetAllBookByCategoryQuery(id, getAllBookDto));
+  }
+
+  @Roles(UserRole.Owner, UserRole.Administrator)
+>>>>>>> Stashed changes
   @Patch(':id')
   update(@Param('id', ParseIntPipe) id: number, @Body() updateBookDto: UpdateBookDto) {
     return this.commandBus.execute(new UpdateBookCommand(id, updateBookDto));
   }
 
+  @Roles(UserRole.Owner, UserRole.Administrator)
   @Delete(':id')
   delete(@Param('id', ParseIntPipe) id: number) {
     return this.commandBus.execute(new DeleteBookCommand(id));

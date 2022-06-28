@@ -35,11 +35,11 @@ import { GetOneStoreQuery } from '../queries/get-one-store.query';
 @UseInterceptors(ClassSerializerInterceptor)
 @Controller('stores')
 @ApiBearerAuth()
-@UseGuards(JwtAuthGuard, RolesGuard)
-@Roles(UserRole.Administrator, UserRole.Owner)
+@UseGuards(JwtAuthGuard)
 export class StoreController {
   constructor(private readonly commandBus: CommandBus, private readonly queryBus: QueryBus) {}
 
+  @Roles(UserRole.Administrator, UserRole.Owner)
   @Post()
   async create(@AuthUser() user: JwtClaimsDto, @Body() createStoreDto: CreateStoreDto) {
     return this.commandBus.execute(new CreateStoreCommand(user.id, createStoreDto));
@@ -63,6 +63,7 @@ export class StoreController {
     return this.queryBus.execute(new GetStoreByOwnerQuery(user.id));
   }
 
+  @Roles(UserRole.Administrator, UserRole.Owner)
   @Patch(':id')
   async update(
     @AuthUser() user: JwtClaimsDto,
@@ -72,6 +73,7 @@ export class StoreController {
     return this.commandBus.execute(new UpdateStoreCommand(user.id, id, updateStoreDto));
   }
 
+  @Roles(UserRole.Administrator, UserRole.Owner)
   @Delete(':id')
   async delete(@Param('id', ParseIntPipe) id: number) {
     return this.commandBus.execute(new DeleteStoreCommand([id]));
