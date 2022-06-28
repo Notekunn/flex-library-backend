@@ -18,7 +18,7 @@ export class DeleteOrderDetailCommandHandler implements ICommandHandler<DeleteOr
   ) {}
   async execute(command: DeleteOrderDetailCommand) {
     const { ids } = command;
-    const query = this.orderDetailRepository.createQueryBuilder().softDelete().where('id IN (:...ids)', { ids });
+    const query = this.orderDetailRepository.createQueryBuilder().delete().where('id IN (:...ids)', { ids });
     return query.execute();
   }
 }

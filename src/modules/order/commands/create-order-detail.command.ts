@@ -41,6 +41,7 @@ export class CreateOrderDetailCommandHandler implements ICommandHandler<CreateOr
       await this.commandBus.execute(cmd);
       return await this.queryBus.execute(new GetOneOrderQuery(existedOrderDetail.order.id));
     }
+
     const book = await this.queryBus.execute(new GetOneBookQuery(bookId));
     if (!book) {
       throw new NotFoundException(this.i18n.t('exception.bookNotFound'));
@@ -52,9 +53,15 @@ export class CreateOrderDetailCommandHandler implements ICommandHandler<CreateOr
         storeId: book.store.id,
       }),
     );
+
     if (!order) {
       throw new BadRequestException(this.i18n.t('exception.cannotCreateOrder'));
     }
+
+    if (dto.quantity <= 0) {
+      return await this.queryBus.execute(new GetOneOrderQuery(order.id));
+    }
+
     const orderDetail = this.orderDetailRepository.create(dataToCreate);
     orderDetail.book = book;
     orderDetail.order = order;
