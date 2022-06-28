@@ -13,8 +13,7 @@ import { GetAllBookCopyDto } from '../dto/get-all-book-copy.dto';
 import { GetAllBookCopyQuery } from '../queries/get-all-book-copy.query';
 
 @Controller('book/:bookId/copies')
-@UseGuards(JwtAuthGuard, RolesGuard)
-@Roles(UserRole.Administrator, UserRole.Owner)
+@UseGuards(JwtAuthGuard)
 @ApiTags('book')
 @ApiBearerAuth()
 export class BookCopyController {
@@ -24,6 +23,7 @@ export class BookCopyController {
     return this.queryBus.execute(new GetAllBookCopyQuery(bookId, dto));
   }
 
+  @Roles(UserRole.Administrator, UserRole.Owner)
   @Post()
   create(
     @AuthUser() user: JwtClaimsDto,
