@@ -8,9 +8,9 @@ export class CreateBookDto {
   name: string;
 
   @ApiProperty()
-  @IsNotEmpty()
+  @Min(0)
   @IsNumber()
-  price: number;
+  numOfCopies: number;
 
   @ApiProperty()
   @IsNumber()
