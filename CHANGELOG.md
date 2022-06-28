@@ -1,5 +1,12 @@
 NestJS Rocket Changelog
 
+## [1.17.1](https://github.com/Notekunn/flex-library-backend/compare/v1.17.0...v1.17.1) (2022-06-28)
+
+
+### Bug Fixes
+
+* change role when register store ([#26](https://github.com/Notekunn/flex-library-backend/issues/26)) ([aed3995](https://github.com/Notekunn/flex-library-backend/commit/aed3995a00947070c0d27b60daae44744fd8b9df))
+
 # [1.17.0](https://github.com/Notekunn/flex-library-backend/compare/v1.16.1...v1.17.0) (2022-06-28)
 
 
