@@ -7,7 +7,6 @@ import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CreateOrderDetailCommand } from '../commands/create-order-detail.command';
 import { CreateOrderDetailDto } from '../dto/create-order-detail.dto';
 import { OrderResponseDto } from '../dto/order-response.dto';
-import { OrderEntity } from '../entities/order.entity';
 
 @ApiTags('order-detail')
 @UseInterceptors(ClassSerializerInterceptor)
