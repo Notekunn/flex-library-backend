@@ -13,7 +13,7 @@ import { GetAllBookCopyDto } from '../dto/get-all-book-copy.dto';
 import { GetAllBookCopyQuery } from '../queries/get-all-book-copy.query';
 
 @Controller('book/:bookId/copies')
-@UseGuards(JwtAuthGuard)
+@UseGuards(JwtAuthGuard, RolesGuard)
 @ApiTags('book')
 @ApiBearerAuth()
 export class BookCopyController {

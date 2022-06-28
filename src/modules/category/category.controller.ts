@@ -32,7 +32,7 @@ import { GetOneCategoryQuery } from './queries/get-one-category.query';
 @UseInterceptors(ClassSerializerInterceptor)
 @Controller('category')
 @ApiBearerAuth()
-@UseGuards(JwtAuthGuard)
+@UseGuards(JwtAuthGuard, RolesGuard)
 export class CategoryController {
   constructor(private readonly queryBus: QueryBus, private readonly commandBus: CommandBus) {}
 

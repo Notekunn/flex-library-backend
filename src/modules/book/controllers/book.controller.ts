@@ -34,7 +34,7 @@ import { GetOneBookQuery } from '../queries/get-one-book.query';
 @UseInterceptors(ClassSerializerInterceptor)
 @Controller('book')
 @ApiBearerAuth()
-@UseGuards(JwtAuthGuard)
+@UseGuards(JwtAuthGuard, RolesGuard)
 export class BookController {
   constructor(private readonly commandBus: CommandBus, private readonly queryBus: QueryBus) {}
 
