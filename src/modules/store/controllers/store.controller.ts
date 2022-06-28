@@ -58,7 +58,7 @@ export class StoreController {
   }
 
   @Get('/mystore')
-  @Roles(UserRole.Owner)
+  @Roles(UserRole.Owner, UserRole.Administrator)
   async getUserStore(@AuthUser() user: JwtClaimsDto) {
     return this.queryBus.execute(new GetStoreByOwnerQuery(user.id));
   }

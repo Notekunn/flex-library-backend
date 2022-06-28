@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsNumber, IsOptional, IsString, IsUrl, Max, Min } from 'class-validator';
+import { IsArray, IsNotEmpty, IsNumber, IsOptional, IsString, Max, Min } from 'class-validator';
 
 export class CreateBookDto {
   @ApiProperty()
@@ -34,6 +34,6 @@ export class CreateBookDto {
   categoryIds: number[];
 
   @ApiProperty()
-  @IsUrl({}, { each: true })
+  @IsArray({})
   images: string[];
 }

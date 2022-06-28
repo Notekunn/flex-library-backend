@@ -24,7 +24,7 @@ export class GetOneOrderQueryHandler implements IQueryHandler<GetOneOrderQuery, 
       where: {
         id,
       },
-      relations: ['user'],
+      relations: ['user', 'store'],
     });
     if (order) {
       order.orderDetails = await this.queryBus.execute(new GetAllOrderDetailQuery(id));
