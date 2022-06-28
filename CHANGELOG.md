@@ -1,5 +1,12 @@
 NestJS Rocket Changelog
 
+## [1.17.2](https://github.com/Notekunn/flex-library-backend/compare/v1.17.1...v1.17.2) (2022-06-28)
+
+
+### Bug Fixes
+
+* order relation store ([#27](https://github.com/Notekunn/flex-library-backend/issues/27)) ([3572266](https://github.com/Notekunn/flex-library-backend/commit/3572266d68a3f545cfd722ba399e4e3d992170e9))
+
 ## [1.17.1](https://github.com/Notekunn/flex-library-backend/compare/v1.17.0...v1.17.1) (2022-06-28)
 
 
