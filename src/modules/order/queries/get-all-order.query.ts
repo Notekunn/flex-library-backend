@@ -26,6 +26,7 @@ export class GetAllOrderQueryHandler implements IQueryHandler<GetAllOrderQuery, 
           id: userId,
         },
       },
+      relations: ['orderDetails', 'user'],
     });
     return orders;
   }

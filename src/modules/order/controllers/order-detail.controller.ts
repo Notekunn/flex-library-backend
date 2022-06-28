@@ -6,6 +6,7 @@ import { CommandBus } from '@nestjs/cqrs';
 import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CreateOrderDetailCommand } from '../commands/create-order-detail.command';
 import { CreateOrderDetailDto } from '../dto/create-order-detail.dto';
+import { OrderResponseDto } from '../dto/order-response.dto';
 import { OrderEntity } from '../entities/order.entity';
 
 @ApiTags('order-detail')
@@ -17,7 +18,7 @@ export class OrderDetailController {
   constructor(private readonly commandBus: CommandBus) {}
   @Post()
   @ApiResponse({
-    type: OrderEntity,
+    type: OrderResponseDto,
     status: 200,
   })
   async createOrderDetail(@AuthUser() user: JwtClaimsDto, @Body() createOrderDetailDto: CreateOrderDetailDto) {

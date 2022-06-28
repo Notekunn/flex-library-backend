@@ -22,6 +22,7 @@ export class UserEntity extends AbstractEntity {
     enum: UserRole,
     default: UserRole.Member,
   })
+  @Exclude()
   role: UserRole;
 
   @Column({ type: 'varchar', nullable: true })
