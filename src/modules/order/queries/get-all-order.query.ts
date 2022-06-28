@@ -28,7 +28,7 @@ export class GetAllOrderQueryHandler implements IQueryHandler<GetAllOrderQuery, 
           id: userId,
         },
       },
-      relations: ['user'],
+      relations: ['user', 'store'],
     });
     const orderWithDetails = await Promise.all(
       orders.map(async (order) => {

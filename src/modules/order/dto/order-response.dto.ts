@@ -1,4 +1,5 @@
 import { OrderStatus } from '@constants/order-status.enum';
+import { StoreResponseDto } from '@modules/store/dto/store-response.dto';
 import { UserResponseDto } from '@modules/user/dto/user-response.dto';
 import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
@@ -16,6 +17,11 @@ export class OrderResponseDto {
   @ApiProperty({ type: UserResponseDto })
   @Type(() => UserResponseDto)
   user: UserResponseDto;
+
+  @ApiProperty({
+    type: StoreResponseDto,
+  })
+  store: StoreResponseDto;
 
   @ApiProperty({
     enum: OrderStatus,
