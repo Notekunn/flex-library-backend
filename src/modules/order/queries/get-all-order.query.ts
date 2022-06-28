@@ -1,9 +1,10 @@
 import { PaginationDto } from '@common/dto/pagination.dto';
 import { Query } from '@nestjs-architects/typed-cqrs';
-import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
+import { IQueryHandler, QueryBus, QueryHandler } from '@nestjs/cqrs';
 import { InjectRepository } from '@nestjs/typeorm';
 import { OrderEntity } from '../entities/order.entity';
 import { OrderRepository } from '../repositories/order.repository';
+import { GetAllOrderDetailQuery } from './get-all-order-detail.query';
 
 export class GetAllOrderQuery extends Query<OrderEntity[]> {
   constructor(public readonly userId: number, public readonly dto: PaginationDto) {
@@ -16,6 +17,7 @@ export class GetAllOrderQueryHandler implements IQueryHandler<GetAllOrderQuery, 
   constructor(
     @InjectRepository(OrderEntity)
     private readonly orderRepository: OrderRepository,
+    private readonly queryBus: QueryBus,
   ) {}
   async execute(query: GetAllOrderQuery) {
     const { dto, userId } = query;
@@ -26,7 +28,14 @@ export class GetAllOrderQueryHandler implements IQueryHandler<GetAllOrderQuery, 
           id: userId,
         },
       },
+      relations: ['user'],
     });
-    return orders;
+    const orderWithDetails = await Promise.all(
+      orders.map(async (order) => {
+        order.orderDetails = await this.queryBus.execute(new GetAllOrderDetailQuery(order.id));
+        return order;
+      }),
+    );
+    return orderWithDetails;
   }
 }

@@ -17,12 +17,11 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { CreateOrderCommand } from '../commands/create-order.command';
+import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { DeleteOrderCommand } from '../commands/delete-order.command';
 import { PurchaseOrderCommand } from '../commands/purchase-order.command';
 import { UpdateOrderCommand } from '../commands/update-order.command';
-import { CreateOrderDto } from '../dto/create-order.dto';
+import { OrderResponseDto } from '../dto/order-response.dto';
 import { UpdateOrderDto } from '../dto/update-order.dto';
 import { GetAllOrderQuery } from '../queries/get-all-order.query';
 import { GetOneOrderQuery } from '../queries/get-one-order.query';
@@ -35,11 +34,6 @@ import { GetOneOrderQuery } from '../queries/get-one-order.query';
 export class OrderController {
   constructor(private readonly queryBus: QueryBus, private readonly commandBus: CommandBus) {}
 
-  @Post()
-  async createOrder(@AuthUser() user: JwtClaimsDto, @Body() createOrderDto: CreateOrderDto) {
-    return this.commandBus.execute(new CreateOrderCommand(user.id, createOrderDto));
-  }
-
   @Get()
   async getAllOrders(@AuthUser() user: JwtClaimsDto, @Query() paginationDto: PaginationDto) {
     return this.queryBus.execute(new GetAllOrderQuery(user.id, paginationDto));
@@ -51,6 +45,10 @@ export class OrderController {
   }
 
   @Get(':id')
+  @ApiResponse({
+    type: OrderResponseDto,
+    status: 200,
+  })
   async getOneOrder(@Param('id', ParseIntPipe) id: number) {
     return this.queryBus.execute(new GetOneOrderQuery(id));
   }
