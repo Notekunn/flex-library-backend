@@ -12,7 +12,6 @@ import { BookEntity } from '../entities/book.entity';
 import { GetOneBookCopyByBarcodeQuery } from '../queries/get-one-book-copy-by-barcode.query';
 import { GetOneBookQuery } from '../queries/get-one-book.query';
 import { BookCopyRepository } from '../repositories/book-copy.repository';
-import { UpdateNumberOfCopiesCommand } from './update-number-of-copies.command';
 
 export class CreateBookCopyCommand extends Command<BookCopyEntity> {
   constructor(public readonly userId: number, public readonly bookId: number, public readonly dto: CreateBookCopyDto) {
@@ -35,7 +34,7 @@ export class CreateBookCopyCommandHandler implements ICommandHandler<CreateBookC
       [
         new GetOneBookQuery(bookId),
         new GetStoreByOwnerQuery(userId),
-        new GetOneBookCopyByBarcodeQuery(bookId, dto.barcode),
+        new GetOneBookCopyByBarcodeQuery(dto.barcode),
       ].map((e) => this.queryBus.execute(e)),
     )) as [BookEntity, StoreEntity, BookCopyEntity];
 
