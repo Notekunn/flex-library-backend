@@ -1,3 +1,4 @@
+import { OrderStatus } from '@constants/order-status.enum';
 import { Query } from '@nestjs-architects/typed-cqrs';
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -24,6 +25,9 @@ export class GetOrderDetailByBookQueryHandler implements IQueryHandler<GetOrderD
       where: {
         book: {
           id: bookId,
+        },
+        order: {
+          status: OrderStatus.CREATED,
         },
       },
       relations: ['book', 'order'],

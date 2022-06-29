@@ -1,4 +1,3 @@
-import { BookCopyEntity } from '@modules/book/entities/book-copy.entity';
 import { Module } from '@nestjs/common';
 import { CqrsModule } from '@nestjs/cqrs';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -9,7 +8,7 @@ import { BookLoanQueryHandlers } from './queries';
 
 @Module({
   controllers: [BookLoanController],
-  imports: [TypeOrmModule.forFeature([BookLoanEntity, BookCopyEntity]), CqrsModule],
+  imports: [TypeOrmModule.forFeature([BookLoanEntity]), CqrsModule],
   providers: [...BookLoandCommandHandlers, ...BookLoanQueryHandlers],
 })
 export class BookLoanModule {}
