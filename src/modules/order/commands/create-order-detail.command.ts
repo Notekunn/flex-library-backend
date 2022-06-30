@@ -8,6 +8,7 @@ import { I18nService } from 'nestjs-i18n';
 import { CreateOrderDetailDto } from '../dto/create-order-detail.dto';
 import { OrderDetailEntity } from '../entities/order-detail.entity';
 import { GetOneOrderQuery } from '../queries/get-one-order.query';
+import { GetOderByUserQuery } from '../queries/get-order-by-user.query';
 import { GetOrderDetailByBookQuery } from '../queries/get-order-detail-by-book';
 import { OrderDetailRepository } from '../repositories/oder-detail.repository';
 import { CreateOrderCommand } from './create-order.command';
@@ -32,40 +33,36 @@ export class CreateOrderDetailCommandHandler implements ICommandHandler<CreateOr
   async execute(command: CreateOrderDetailCommand) {
     const { userId, dto } = command;
     const { bookId, ...dataToCreate } = dto;
-    const existedOrderDetail = await this.queryBus.execute(new GetOrderDetailByBookQuery(bookId));
-    if (existedOrderDetail) {
-      const cmd =
-        dto.quantity > 0
-          ? new UpdateOrderDetailCommand(existedOrderDetail.id, dto)
-          : new DeleteOrderDetailCommand([existedOrderDetail.id]);
-      await this.commandBus.execute(cmd);
-      return await this.queryBus.execute(new GetOneOrderQuery(existedOrderDetail.order.id));
-    }
-
     const book = await this.queryBus.execute(new GetOneBookQuery(bookId));
     if (!book) {
       throw new NotFoundException(this.i18n.t('exception.bookNotFound'));
     }
-
-    const order = await this.commandBus.execute(
+    const order = await this.queryBus.execute(new GetOderByUserQuery(userId, book.store.id));
+    if (order) {
+      const existedOrderDetail = await this.queryBus.execute(new GetOrderDetailByBookQuery(bookId));
+      if (existedOrderDetail) {
+        const cmd =
+          dto.quantity > 0
+            ? new UpdateOrderDetailCommand(existedOrderDetail.id, dto)
+            : new DeleteOrderDetailCommand([existedOrderDetail.id]);
+        await this.commandBus.execute(cmd);
+        return await this.queryBus.execute(new GetOneOrderQuery(existedOrderDetail.order.id));
+      }
+      if (dto.quantity <= 0) {
+        return await this.queryBus.execute(new GetOneOrderQuery(order.id));
+      }
+    }
+    const neworder = await this.commandBus.execute(
       new CreateOrderCommand(userId, {
         status: OrderStatus.CREATED,
         storeId: book.store.id,
       }),
     );
 
-    if (!order) {
-      throw new BadRequestException(this.i18n.t('exception.cannotCreateOrder'));
-    }
-
-    if (dto.quantity <= 0) {
-      return await this.queryBus.execute(new GetOneOrderQuery(order.id));
-    }
-
     const orderDetail = this.orderDetailRepository.create(dataToCreate);
     orderDetail.book = book;
-    orderDetail.order = order;
+    orderDetail.order = neworder;
     await this.orderDetailRepository.save(orderDetail);
-    return await this.queryBus.execute(new GetOneOrderQuery(order.id));
+    return await this.queryBus.execute(new GetOneOrderQuery(neworder.id));
   }
 }
