@@ -2,7 +2,6 @@ import { PaginationDto } from '@common/dto/pagination.dto';
 import { UserRole } from '@constants/user-role.enum';
 import { Roles } from '@decorators/roles.decorator';
 import { JwtAuthGuard } from '@guards/jwt-auth.guard';
-import { RolesGuard } from '@guards/roles.guard';
 import {
   Controller,
   Get,

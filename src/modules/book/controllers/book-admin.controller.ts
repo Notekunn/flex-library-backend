@@ -16,7 +16,7 @@ import {
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
-import { CommandBus, QueryBus } from '@nestjs/cqrs';
+import { CommandBus } from '@nestjs/cqrs';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { CreateBookCommand } from '../commands/create-book.command';
 import { DeleteBookCommand } from '../commands/delete-book.command';
@@ -31,7 +31,7 @@ import { UpdateBookDto } from '../dto/update-book.dto';
 @UseGuards(JwtAuthGuard, RolesGuard)
 @Roles(UserRole.Administrator, UserRole.Owner)
 export class BookAdminController {
-  constructor(private readonly commandBus: CommandBus, private readonly queryBus: QueryBus) {}
+  constructor(private readonly commandBus: CommandBus) {}
 
   @Post()
   create(@AuthUser() user: JwtClaimsDto, @Body() createBookDto: CreateBookDto) {
