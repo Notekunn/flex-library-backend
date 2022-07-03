@@ -33,4 +33,12 @@ export class BasePageOptionsDto {
   get skip(): number {
     return (this.page - 1) * this.take;
   }
+
+  get paginationDto() {
+    return {
+      take: this.take,
+      skip: this.skip,
+      page: this.page,
+    };
+  }
 }
