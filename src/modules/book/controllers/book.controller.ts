@@ -11,6 +11,7 @@ import {
 } from '@nestjs/common';
 import { QueryBus } from '@nestjs/cqrs';
 import { ApiTags } from '@nestjs/swagger';
+import { GetAllBookDto } from '../dto/get-all-book.dto';
 import { GetAllBookByCategoryQuery } from '../queries/get-all-book-by-category';
 import { GetAllBookQuery } from '../queries/get-all-book.query';
 import { GetOneBookQuery } from '../queries/get-one-book.query';
@@ -22,7 +23,7 @@ export class BookController {
   constructor(private readonly queryBus: QueryBus) {}
 
   @Get()
-  getAll(@Query() getAllBookDto: PaginationDto) {
+  getAll(@Query() getAllBookDto: GetAllBookDto) {
     return this.queryBus.execute(new GetAllBookQuery(getAllBookDto));
   }
 

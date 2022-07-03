@@ -3,10 +3,11 @@ import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import { InjectRepository } from '@nestjs/typeorm';
 import { BookEntity } from '../entities/book.entity';
 import { BookRepository } from '../repositories/book.repository';
-import { PaginationDto } from '@common/dto/pagination.dto';
+import { GetAllBookDto } from '../dto/get-all-book.dto';
+import { FindOptionsOrder, FindOptionsWhere, Like } from 'typeorm';
 
 export class GetAllBookQuery extends Query<BookEntity[]> {
-  constructor(public readonly dto: PaginationDto) {
+  constructor(public readonly dto: GetAllBookDto) {
     super();
   }
 }
@@ -19,7 +20,30 @@ export class GetAllBookQueryHandler implements IQueryHandler<GetAllBookQuery, Bo
   ) {}
   async execute(query: GetAllBookQuery) {
     const { dto } = query;
-    const books = await this.bookRepository.find({ ...dto });
+    const { q, sort, ...paginationDto } = dto;
+
+    const where: FindOptionsWhere<BookEntity> = {};
+    if (q) {
+      where.name = Like(`%${q}%`);
+    }
+
+    const order: FindOptionsOrder<BookEntity> = {};
+    if (sort) {
+      const sortArray = Array.isArray(sort) ? sort : [sort];
+      for (const sortItem of sortArray) {
+        const [field, sortType] = sortItem.split(':');
+        if (field) {
+          order[field] = sortType || 'ASC';
+        }
+      }
+    }
+
+    const books = await this.bookRepository.find({
+      ...paginationDto,
+      where,
+      relations: ['store', 'categories'],
+      order,
+    });
     return books;
   }
 }
