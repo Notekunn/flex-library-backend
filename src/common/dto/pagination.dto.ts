@@ -1,10 +1,10 @@
-import { ApiPropertyOptional } from '@nestjs/swagger';
-import { IsNotEmpty, IsOptional } from 'class-validator';
+import { ApiProperty } from '@nestjs/swagger';
+import { IsOptional, IsString } from 'class-validator';
 import { BasePageOptionsDto } from './base-page-options.dto';
 
 export class PaginationDto extends BasePageOptionsDto {
-  @ApiPropertyOptional()
-  @IsNotEmpty()
+  @ApiProperty({ example: ['id:asc'] })
+  @IsString({ each: true })
   @IsOptional()
-  readonly sort?: string | string[];
+  readonly sort?: string[];
 }

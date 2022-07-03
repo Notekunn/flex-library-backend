@@ -8,9 +8,10 @@ import { BookEntity } from './entities/book.entity';
 import { StoreBookController } from './controllers/store-book.controller';
 import { BookCopyController } from './controllers/book-copy.controller';
 import { BookCopyEntity } from './entities/book-copy.entity';
+import { BookAdminController } from './controllers/book-admin.controller';
 
 @Module({
-  controllers: [BookController, StoreBookController, BookCopyController],
+  controllers: [BookAdminController, BookController, StoreBookController, BookCopyController],
   providers: [...BookCommandHandlers, ...BookQueryHandlers, ...BookCopyCommandHanders, ...BookCopyQueryHandlers],
   imports: [TypeOrmModule.forFeature([BookEntity, BookCopyEntity]), CqrsModule],
 })

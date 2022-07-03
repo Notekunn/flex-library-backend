@@ -6,7 +6,7 @@ import { Repository } from 'typeorm';
 import { OrderDetailEntity } from '../entities/order-detail.entity';
 
 export class GetOrderDetailByBookQuery extends Query<OrderDetailEntity> {
-  constructor(public readonly bookId: number) {
+  constructor(public readonly userId: number, public readonly bookId: number) {
     super();
   }
 }
@@ -20,7 +20,7 @@ export class GetOrderDetailByBookQueryHandler implements IQueryHandler<GetOrderD
     //
   }
   async execute(query: GetOrderDetailByBookQuery): Promise<any> {
-    const { bookId } = query;
+    const { bookId, userId } = query;
     return this.orderDetailRepository.findOne({
       where: {
         book: {
@@ -28,6 +28,9 @@ export class GetOrderDetailByBookQueryHandler implements IQueryHandler<GetOrderD
         },
         order: {
           status: OrderStatus.CREATED,
+          user: {
+            id: userId,
+          },
         },
       },
       relations: ['book', 'order'],
