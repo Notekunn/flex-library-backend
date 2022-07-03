@@ -1,5 +1,12 @@
 NestJS Rocket Changelog
 
+# [1.20.0](https://github.com/Notekunn/flex-library-backend/compare/v1.19.1...v1.20.0) (2022-07-03)
+
+
+### Features
+
+* add sort and search for all book query ([#32](https://github.com/Notekunn/flex-library-backend/issues/32)) ([628807f](https://github.com/Notekunn/flex-library-backend/commit/628807ffa219ef7691494e849dde5c540757c3fe))
+
 ## [1.19.1](https://github.com/Notekunn/flex-library-backend/compare/v1.19.0...v1.19.1) (2022-07-03)
 
 
