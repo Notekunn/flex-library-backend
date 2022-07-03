@@ -4,7 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { BookEntity } from '../entities/book.entity';
 import { BookRepository } from '../repositories/book.repository';
 import { GetAllBookDto } from '../dto/get-all-book.dto';
-import { FindOptionsOrder, FindOptionsWhere, Like } from 'typeorm';
+import { FindOptionsOrder, FindOptionsWhere, ILike } from 'typeorm';
 
 export class GetAllBookQuery extends Query<BookEntity[]> {
   constructor(public readonly dto: GetAllBookDto) {
@@ -24,7 +24,7 @@ export class GetAllBookQueryHandler implements IQueryHandler<GetAllBookQuery, Bo
 
     const where: FindOptionsWhere<BookEntity> = {};
     if (q) {
-      where.name = Like(`%${q}%`);
+      where.name = ILike(`%${q}%`);
     }
 
     const order: FindOptionsOrder<BookEntity> = {};
