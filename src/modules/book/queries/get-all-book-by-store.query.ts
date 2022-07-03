@@ -2,6 +2,7 @@ import { PaginationDto } from '@common/dto/pagination.dto';
 import { Query } from '@nestjs-architects/typed-cqrs';
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import { InjectRepository } from '@nestjs/typeorm';
+import { ILike } from 'typeorm';
 import { BookEntity } from '../entities/book.entity';
 import { BookRepository } from '../repositories/book.repository';
 
@@ -19,14 +20,21 @@ export class GetAllBookByStoreQueryHandler implements IQueryHandler<GetAllBookBy
   ) {}
   execute(query: GetAllBookByStoreQuery) {
     const { storeId, dto } = query;
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { q, sort, ...paginationDto } = dto;
+
+    const order = dto.toQueryOrder<BookEntity>();
+
     return this.bookRepository.find({
-      ...dto,
+      ...paginationDto,
       where: {
         store: {
           id: storeId,
         },
+        ...(q ? { name: ILike(`%${q}%`) } : {}),
       },
       relations: ['categories'],
+      order,
     });
   }
 }

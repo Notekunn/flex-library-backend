@@ -1,4 +1,5 @@
 import bcrypt from 'bcrypt';
+import { FindOptionsOrderValue } from 'typeorm';
 export class UtilsService {
   /**
    * generate hash from password or string
@@ -17,5 +18,13 @@ export class UtilsService {
    */
   static validateHash(password: string, hash: string): Promise<boolean> {
     return bcrypt.compare(password, hash || '');
+  }
+
+  static nomalizeSortType(sortType?: string): FindOptionsOrderValue {
+    if (sortType && ['ASC', 'DESC', 'asc', 'desc'].includes(sortType)) {
+      return sortType as FindOptionsOrderValue;
+    }
+
+    return 'ASC';
   }
 }
