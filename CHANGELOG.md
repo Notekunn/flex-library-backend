@@ -1,5 +1,12 @@
 NestJS Rocket Changelog
 
+## [1.19.1](https://github.com/Notekunn/flex-library-backend/compare/v1.19.0...v1.19.1) (2022-07-03)
+
+
+### Bug Fixes
+
+* search case-insensitive ([#31](https://github.com/Notekunn/flex-library-backend/issues/31)) ([2e7b236](https://github.com/Notekunn/flex-library-backend/commit/2e7b236c53df7f21baacbfa9c88bb6cc6548931e))
+
 # [1.19.0](https://github.com/Notekunn/flex-library-backend/compare/v1.18.1...v1.19.0) (2022-07-03)
 
 
