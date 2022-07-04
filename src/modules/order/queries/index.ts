@@ -1,3 +1,4 @@
+import { CalculateTotalAmountQueryHandler } from './calculate-total-amount.query';
 import { GetAllOrderDetailQueryHandler } from './get-all-order-detail.query';
 import { GetAllOrderQueryHandler } from './get-all-order.query';
 import { GetOneOrderDetailQueryHandler } from './get-one-order-detail.query';
@@ -13,4 +14,5 @@ export const OrderDetailQueryHandlers = [
   GetOrderDetailByBookQueryHandler,
   GetOneOrderDetailQueryHandler,
   ValidateOrderDetailQueryHandler,
+  CalculateTotalAmountQueryHandler,
 ];

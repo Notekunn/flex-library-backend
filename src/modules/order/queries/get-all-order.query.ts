@@ -21,6 +21,7 @@ export class GetAllOrderQueryHandler implements IQueryHandler<GetAllOrderQuery, 
   ) {}
   async execute(query: GetAllOrderQuery) {
     const { dto, userId } = query;
+
     const orders = await this.orderRepository.find({
       ...dto,
       where: {
@@ -30,10 +31,12 @@ export class GetAllOrderQueryHandler implements IQueryHandler<GetAllOrderQuery, 
       },
       relations: ['user', 'store'],
     });
+
     const orderWithDetails = await Promise.all(
       orders.map(async (order) => {
-        order.orderDetails = await this.queryBus.execute(new GetAllOrderDetailQuery(order.id));
-        return order;
+        const orderDetails = await this.queryBus.execute(new GetAllOrderDetailQuery(order.id));
+        order.orderDetails = orderDetails;
+        return this.orderRepository.create(order);
       }),
     );
     return orderWithDetails;

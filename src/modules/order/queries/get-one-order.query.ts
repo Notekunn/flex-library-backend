@@ -26,9 +26,10 @@ export class GetOneOrderQueryHandler implements IQueryHandler<GetOneOrderQuery, 
       },
       relations: ['user', 'store'],
     });
+
     if (order) {
       order.orderDetails = await this.queryBus.execute(new GetAllOrderDetailQuery(id));
     }
-    return order;
+    return order ? this.orderRepository.create(order) : null;
   }
 }

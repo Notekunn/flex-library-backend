@@ -28,6 +28,9 @@ export class UserEntity extends AbstractEntity {
   @Column({ type: 'varchar', nullable: true })
   avatar?: string;
 
+  @Column({ type: 'numeric', default: 0 })
+  coin: number;
+
   @OneToOne(() => StoreEntity, (store) => store.owner, { nullable: true })
   store: StoreEntity | null;
 

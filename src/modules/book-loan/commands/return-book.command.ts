@@ -47,7 +47,6 @@ export class ReturnBookCommandHandler implements ICommandHandler<ReturnBookComma
     if (!bookLoan) {
       throw new BadRequestException(this.i18n.t('exception.notBorrowThisBook'));
     }
-    console.log(bookLoan);
 
     await this.bookLoanRepository.update(
       {
