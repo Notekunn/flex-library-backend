@@ -34,4 +34,7 @@ export class OrderResponseDto {
     example: [exampleOrderDetail],
   })
   orderDetails: OrderDetailResponseDto[];
+
+  @ApiProperty()
+  totalAmount: number;
 }

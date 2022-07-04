@@ -35,6 +35,11 @@ export class OrderController {
   constructor(private readonly queryBus: QueryBus, private readonly commandBus: CommandBus) {}
 
   @Get()
+  @ApiResponse({
+    type: OrderResponseDto,
+    isArray: true,
+    status: 200,
+  })
   async getAllOrders(@AuthUser() user: JwtClaimsDto, @Query() paginationDto: PaginationDto) {
     return this.queryBus.execute(new GetAllOrderQuery(user.id, paginationDto));
   }
