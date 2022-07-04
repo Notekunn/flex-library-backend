@@ -1,5 +1,12 @@
 NestJS Rocket Changelog
 
+# [1.21.0](https://github.com/Notekunn/flex-library-backend/compare/v1.20.0...v1.21.0) (2022-07-04)
+
+
+### Features
+
+* add user coin and purchase ([#33](https://github.com/Notekunn/flex-library-backend/issues/33)) ([8a9e251](https://github.com/Notekunn/flex-library-backend/commit/8a9e2511096b4e22348950f6ce6306fa9c89f7a0))
+
 # [1.20.0](https://github.com/Notekunn/flex-library-backend/compare/v1.19.1...v1.20.0) (2022-07-03)
 
 
