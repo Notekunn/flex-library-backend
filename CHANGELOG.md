@@ -1,5 +1,12 @@
 NestJS Rocket Changelog
 
+# [1.23.0](https://github.com/Notekunn/flex-library-backend/compare/v1.22.0...v1.23.0) (2022-07-05)
+
+
+### Features
+
+* add store avatar ([#35](https://github.com/Notekunn/flex-library-backend/issues/35)) ([fbd40a2](https://github.com/Notekunn/flex-library-backend/commit/fbd40a285f7a48dc6048381746129dcac4983a97))
+
 # [1.22.0](https://github.com/Notekunn/flex-library-backend/compare/v1.21.0...v1.22.0) (2022-07-05)
 
 
