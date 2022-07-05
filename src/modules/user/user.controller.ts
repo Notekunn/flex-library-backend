@@ -9,7 +9,6 @@ import {
   ParseIntPipe,
   Patch,
   Delete,
-  Request,
   UseInterceptors,
   ClassSerializerInterceptor,
   UseGuards,
@@ -28,6 +27,8 @@ import { JwtAuthGuard } from '@guards/jwt-auth.guard';
 import { Roles } from '@decorators/roles.decorator';
 import { UserRole } from '@constants/user-role.enum';
 import { RolesGuard } from '@guards/roles.guard';
+import { AuthUser } from '@decorators/auth-user.decorator';
+import { JwtClaimsDto } from '@modules/auth/dto/jwt-claims.dto';
 
 @Controller('user')
 @ApiTags('user')
@@ -53,8 +54,13 @@ export class UserController {
   }
 
   @Get('me')
-  whoAmI(@Request() req) {
-    return this.queryBus.execute(new GetOneUserQuery(req.user.id));
+  whoAmI(@AuthUser() user: JwtClaimsDto) {
+    return this.queryBus.execute(new GetOneUserQuery(user.id));
+  }
+
+  @Post('me')
+  updateProfile(@AuthUser() user: JwtClaimsDto, @Body() updateUserDto: UpdateUserDto) {
+    return this.commandBus.execute(new UpdateUserCommand(user.id, updateUserDto));
   }
 
   @Get(':id')

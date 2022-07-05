@@ -28,6 +28,9 @@ export class StoreEntity extends AbstractEntity {
   @Column({ nullable: true })
   provinceId?: number;
 
+  @Column({ type: 'varchar', nullable: true })
+  avatarURL?: string;
+
   @OneToMany(() => BookEntity, (book) => book.store)
   books: BookEntity[];
 
