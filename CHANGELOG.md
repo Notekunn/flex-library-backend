@@ -1,5 +1,12 @@
 NestJS Rocket Changelog
 
+# [1.22.0](https://github.com/Notekunn/flex-library-backend/compare/v1.21.0...v1.22.0) (2022-07-05)
+
+
+### Features
+
+* add status for get all order ([#34](https://github.com/Notekunn/flex-library-backend/issues/34)) ([515beb5](https://github.com/Notekunn/flex-library-backend/commit/515beb5143f8fd95f265b5dd5b7e7db88ccc7d9a))
+
 # [1.21.0](https://github.com/Notekunn/flex-library-backend/compare/v1.20.0...v1.21.0) (2022-07-04)
 
 
