@@ -43,6 +43,7 @@ export class CreateStoreCommandHandler implements ICommandHandler<CreateStoreCom
     }
     const store = this.storeRepository.create(dto);
     store.owner = user;
+    store.avatarURL = user.avatar;
     return await this.storeRepository.save(store);
   }
 }

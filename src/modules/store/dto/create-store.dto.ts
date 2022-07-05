@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsOptional, IsString, IsUrl } from 'class-validator';
 
 export class CreateStoreDto {
   @ApiProperty()
@@ -26,4 +26,9 @@ export class CreateStoreDto {
   @IsOptional()
   @IsNumber()
   provinceId?: number;
+
+  @ApiProperty()
+  @IsUrl()
+  @IsNumber()
+  avatarURL?: string;
 }
