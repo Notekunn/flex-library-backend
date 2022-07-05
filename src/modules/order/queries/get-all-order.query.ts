@@ -1,13 +1,14 @@
-import { PaginationDto } from '@common/dto/pagination.dto';
+import { OrderStatus } from '@constants/order-status.enum';
 import { Query } from '@nestjs-architects/typed-cqrs';
 import { IQueryHandler, QueryBus, QueryHandler } from '@nestjs/cqrs';
 import { InjectRepository } from '@nestjs/typeorm';
+import { GetAllOrderDto } from '../dto/get-all-order.dto';
 import { OrderEntity } from '../entities/order.entity';
 import { OrderRepository } from '../repositories/order.repository';
 import { GetAllOrderDetailQuery } from './get-all-order-detail.query';
 
 export class GetAllOrderQuery extends Query<OrderEntity[]> {
-  constructor(public readonly userId: number, public readonly dto: PaginationDto) {
+  constructor(public readonly userId: number, public readonly dto: GetAllOrderDto) {
     super();
   }
 }
@@ -20,14 +21,18 @@ export class GetAllOrderQueryHandler implements IQueryHandler<GetAllOrderQuery, 
     private readonly queryBus: QueryBus,
   ) {}
   async execute(query: GetAllOrderQuery) {
-    const { dto, userId } = query;
+    const {
+      dto: { status, ...paginationDto },
+      userId,
+    } = query;
 
     const orders = await this.orderRepository.find({
-      ...dto,
+      ...paginationDto,
       where: {
         user: {
           id: userId,
         },
+        status: status || OrderStatus.CREATED,
       },
       relations: ['user', 'store'],
     });

@@ -1,4 +1,3 @@
-import { PaginationDto } from '@common/dto/pagination.dto';
 import { AuthUser } from '@decorators/auth-user.decorator';
 import { JwtAuthGuard } from '@guards/jwt-auth.guard';
 import { JwtClaimsDto } from '@modules/auth/dto/jwt-claims.dto';
@@ -21,6 +20,7 @@ import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { DeleteOrderCommand } from '../commands/delete-order.command';
 import { PurchaseOrderCommand } from '../commands/purchase-order.command';
 import { UpdateOrderCommand } from '../commands/update-order.command';
+import { GetAllOrderDto } from '../dto/get-all-order.dto';
 import { OrderResponseDto } from '../dto/order-response.dto';
 import { UpdateOrderDto } from '../dto/update-order.dto';
 import { GetAllOrderQuery } from '../queries/get-all-order.query';
@@ -40,7 +40,7 @@ export class OrderController {
     isArray: true,
     status: 200,
   })
-  async getAllOrders(@AuthUser() user: JwtClaimsDto, @Query() paginationDto: PaginationDto) {
+  async getAllOrders(@AuthUser() user: JwtClaimsDto, @Query() paginationDto: GetAllOrderDto) {
     return this.queryBus.execute(new GetAllOrderQuery(user.id, paginationDto));
   }
 
