@@ -12,16 +12,20 @@ export class PaginationDto extends BasePageOptionsDto {
   readonly sort?: string[];
 
   public toQueryOrder<T extends BaseEntity>(): FindOptionsOrder<T> {
-    const order: FindOptionsOrder<T> = {};
+    return Object.fromEntries(this.toSortEntries()) as FindOptionsOrder<T>;
+  }
+
+  public toSortEntries<T extends BaseEntity>(): Array<[keyof T, 'ASC' | 'DESC']> {
+    const sortEntries: Array<[keyof T, 'ASC' | 'DESC']> = [];
     if (this.sort) {
       const sortArray = Array.isArray(this.sort) ? this.sort : [this.sort];
       for (const sortItem of sortArray) {
         const [field, sortType] = sortItem.split(':');
         if (field) {
-          order[field] = UtilsService.nomalizeSortType(sortType);
+          sortEntries.push([field as keyof T, UtilsService.nomalizeSortType(sortType)]);
         }
       }
     }
-    return order;
+    return sortEntries;
   }
 }
