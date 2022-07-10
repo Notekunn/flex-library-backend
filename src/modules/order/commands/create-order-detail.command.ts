@@ -37,6 +37,10 @@ export class CreateOrderDetailCommandHandler implements ICommandHandler<CreateOr
       throw new NotFoundException(this.i18n.t('exception.bookNotFound'));
     }
 
+    if (book.numOfCopies < dto.quantity) {
+      throw new NotFoundException(this.i18n.t('exception.bookNotEnough'));
+    }
+
     const existedOrderDetail = await this.queryBus.execute(new GetOrderDetailByBookQuery(userId, bookId));
     if (existedOrderDetail) {
       const cmd =

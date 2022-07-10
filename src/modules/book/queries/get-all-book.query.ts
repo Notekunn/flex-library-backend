@@ -18,21 +18,10 @@ export class GetAllBookQueryHandler implements IQueryHandler<GetAllBookQuery, Bo
     @InjectRepository(BookEntity)
     private readonly bookRepository: BookRepository,
   ) {}
-  async execute(query: GetAllBookQuery) {
+  execute(query: GetAllBookQuery) {
     const { dto } = query;
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { q, sort, ...paginationDto } = dto;
+    const { q } = dto;
 
-    // const order = dto.toQueryOrder<BookEntity>();
-
-    // const books = await this.bookRepository.find({
-    //   ...paginationDto,
-    //   where: {
-    //     ...(q ? { name: ILike(`%${q}%`) } : {}),
-    //   },
-    //   relations: ['store', 'categories'],
-    //   order,
-    // });
     const builder = this.bookRepository.createQueryBuilder('book');
     builder
       .leftJoinAndSelect('book.store', 'store')
