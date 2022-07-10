@@ -15,7 +15,7 @@ export class GetBookRentCountQueryHandler implements IQueryHandler<GetBookRentCo
   async execute(query: GetBookRentCountQuery): Promise<number[]> {
     const rentCount = await this.redisService
       .getClient()
-      .mget(query.bookIds.map((bookId) => `${RedisKey.BookRentCount}:${bookId}`));
+      .mget(...query.bookIds.map((bookId) => `${RedisKey.BookRentCount}:${bookId}`));
     return rentCount.map((c) => +(c || 0));
   }
 }
