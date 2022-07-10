@@ -15,6 +15,9 @@ export class BookEntity extends AbstractEntity {
   @Column({ nullable: true })
   author: string;
 
+  @Column({ nullable: true })
+  description: string;
+
   @Column({ type: 'simple-array' })
   images: string[];
 
