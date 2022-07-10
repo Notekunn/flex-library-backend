@@ -44,7 +44,6 @@ export class CreateBookCopyCommandHandler implements ICommandHandler<CreateBookC
     if (bookWithSameBarcode) {
       throw new BadRequestException(this.i18n.t('exception.duplicateBarcode'));
     }
-    book.numOfCopies += 1;
     const bookCopy = this.bookCopyRepository.create({
       ...dto,
       book,
