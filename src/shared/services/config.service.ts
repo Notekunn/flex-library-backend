@@ -1,3 +1,4 @@
+import { RedisClientOptions } from '@liaoliaots/nestjs-redis';
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import * as dotenv from 'dotenv';
 import { env } from 'process';
@@ -22,6 +23,13 @@ export class ConfigService {
 
   get typeOrmConfig(): TypeOrmModuleOptions {
     return typeormConfig;
+  }
+
+  get redisConfig(): RedisClientOptions {
+    return {
+      host: env.REDIS_HOST || 'localhost',
+      port: +(env.REDIS_PORT || 6379),
+    };
   }
 
   public get(key: string): string {

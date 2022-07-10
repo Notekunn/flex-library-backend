@@ -13,8 +13,17 @@ services:
     restart: always
     networks:
       - db-network
+  redis:
+    image: bitnami/redis:latest
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+    volumes:
+      - redisdata:/bitnami/redis/data
+    ports:
+      - 6380:6379
 volumes:
   appdata: null
+  redisdata: null
 
 networks:
   db-network:
