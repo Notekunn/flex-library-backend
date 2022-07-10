@@ -12,6 +12,7 @@ import { BookLoanEntity } from '../entities/book-loan.entity';
 import { BookLoanRepository } from '../repositories/book-loan.repository';
 import { BookLoanStatus } from '@constants/book-loan-status.enum';
 import { UpdateBookStatusCommand } from '@modules/book/commands/update-book-status.command';
+import { IncreaseRentCountCommand } from '@modules/book/commands/increase-rentcount.command';
 
 export class BorrowBookCommand extends Command<BookLoanEntity> {
   constructor(public readonly orderDetailId: number) {
@@ -62,5 +63,6 @@ export class BorrowBookCommandHandler implements ICommandHandler<BorrowBookComma
         BookStatus.RENTING,
       ),
     );
+    await this.commandBus.execute(new IncreaseRentCountCommand(book.id, orderDetail.quantity));
   }
 }

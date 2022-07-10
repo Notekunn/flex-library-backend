@@ -10,6 +10,9 @@ export class BookResponseDto {
   @ApiProperty()
   author: string;
 
+  @ApiProperty()
+  rentCount: number;
+
   @ApiProperty({
     isArray: true,
   })

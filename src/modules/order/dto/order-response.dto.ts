@@ -11,6 +11,7 @@ const exampleOrderDetail: OrderDetailResponseDto = {
     author: 'Oda',
     images: [],
     name: 'One Piece',
+    rentCount: 1,
   },
 };
 export class OrderResponseDto {
