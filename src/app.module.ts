@@ -15,12 +15,22 @@ import { BookModule } from './modules/book/book.module';
 import { CategoryModule } from './modules/category/category.module';
 import { OrderModule } from '@modules/order/order.module';
 import { BookLoanModule } from '@modules/book-loan/book-loan.module';
+import { RedisModule } from '@liaoliaots/nestjs-redis';
 
 @Module({
   imports: [
     TypeOrmModule.forRootAsync({
       imports: [SharedModule],
       useFactory: (configService: ConfigService) => configService.typeOrmConfig,
+      inject: [ConfigService],
+    }),
+    RedisModule.forRootAsync({
+      imports: [],
+      useFactory: (configService: ConfigService) => {
+        return {
+          config: configService.redisConfig,
+        };
+      },
       inject: [ConfigService],
     }),
     I18nModule.forRoot({
