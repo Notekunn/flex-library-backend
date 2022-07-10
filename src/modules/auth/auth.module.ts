@@ -8,10 +8,11 @@ import { AuthController } from './auth.controller';
 import { AuthCommandHandler } from './commands';
 import { JwtStrategy } from './jwt.strategy';
 import { LocalStrategy } from './local.strategy';
+import { AuthQueryHandlers } from './queries';
 
 @Module({
   controllers: [AuthController],
-  providers: [LocalStrategy, JwtStrategy, ...AuthCommandHandler, ConfigService],
+  providers: [LocalStrategy, JwtStrategy, ...AuthCommandHandler, ...AuthQueryHandlers, ConfigService],
   imports: [
     CqrsModule,
     TypeOrmModule.forFeature([UserEntity]),

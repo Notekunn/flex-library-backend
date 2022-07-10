@@ -1,10 +1,10 @@
 import { QueryBus } from '@nestjs/cqrs';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { PassportStrategy } from '@nestjs/passport';
-import { Injectable, Logger, UnauthorizedException } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@shared/services/config.service';
-import { GetOneUserQuery } from '@modules/user/queries/get-one-user.query';
 import { JwtClaimsDto } from './dto/jwt-claims.dto';
+import { GetRoleRecordQuery } from './queries/get-user-role.command';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
@@ -20,13 +20,11 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   async validate({ id: userId }): Promise<JwtClaimsDto> {
     this.logger.debug(`Claim token userId ${userId}`);
 
-    //TODO: add redis to handle this
-    const user = await this.queryBus.execute(new GetOneUserQuery(userId));
-    if (!user) throw new UnauthorizedException('User is not valid');
+    const role = await this.queryBus.execute(new GetRoleRecordQuery(userId));
 
     return {
-      id: user.id,
-      role: user.role,
+      id: userId,
+      role: role,
     };
   }
 }

@@ -1,3 +1,4 @@
 export enum RedisKey {
-  bookQuantity = 'book_quantity',
+  BookQuantity = 'book_quantity',
+  Role = 'role',
 }
