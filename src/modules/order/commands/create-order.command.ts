@@ -27,6 +27,12 @@ export class CreateOrderCommandHandler implements ICommandHandler<CreateOrderCom
   async execute(command: CreateOrderCommand) {
     const { userId, dto } = command;
     const { storeId, ...dataToCreate } = dto;
+
+    const existedOrder = await this.queryBus.execute(new GetOderByUserQuery(userId, storeId));
+    if (existedOrder) {
+      return existedOrder;
+    }
+
     const user = await this.queryBus.execute(new GetOneUserQuery(userId));
     if (!user) {
       throw new NotFoundException(this.i18n.t('exception.userNotFound'));
@@ -35,11 +41,6 @@ export class CreateOrderCommandHandler implements ICommandHandler<CreateOrderCom
     const store = await this.queryBus.execute(new GetOneStoreQuery(storeId));
     if (!store) {
       throw new NotFoundException(this.i18n.t('exception.storeNotFound'));
-    }
-
-    const existedOrder = await this.queryBus.execute(new GetOderByUserQuery(userId, storeId));
-    if (existedOrder) {
-      return existedOrder;
     }
 
     const order = this.orderRepository.create(dataToCreate);

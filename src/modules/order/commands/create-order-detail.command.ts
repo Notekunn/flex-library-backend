@@ -1,3 +1,4 @@
+import { OrderDetailAction } from '@constants/order-detail-action';
 import { OrderStatus } from '@constants/order-status.enum';
 import { GetOneBookQuery } from '@modules/book/queries/get-one-book.query';
 import { Command } from '@nestjs-architects/typed-cqrs';
@@ -7,11 +8,12 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { I18nService } from 'nestjs-i18n';
 import { CreateOrderDetailDto } from '../dto/create-order-detail.dto';
 import { OrderDetailEntity } from '../entities/order-detail.entity';
-import { GetOneOrderQuery } from '../queries/get-one-order.query';
+import { GetOderByUserQuery } from '../queries/get-order-by-user.query';
 import { GetOrderDetailByBookQuery } from '../queries/get-order-detail-by-book';
 import { OrderDetailRepository } from '../repositories/oder-detail.repository';
 import { CreateOrderCommand } from './create-order.command';
 import { DeleteOrderDetailCommand } from './delete-order-detail.command';
+import { GetNewQuantityCommand } from './get-new-quantity.command';
 import { UpdateOrderDetailCommand } from './update-order-detail.command';
 
 export class CreateOrderDetailCommand extends Command<OrderDetailEntity> {
@@ -31,44 +33,48 @@ export class CreateOrderDetailCommandHandler implements ICommandHandler<CreateOr
   ) {}
   async execute(command: CreateOrderDetailCommand) {
     const { userId, dto } = command;
-    const { bookId, ...dataToCreate } = dto;
+    const { bookId, action = OrderDetailAction.SET, quantity } = dto;
     const book = await this.queryBus.execute(new GetOneBookQuery(bookId));
     if (!book) {
       throw new NotFoundException(this.i18n.t('exception.bookNotFound'));
     }
 
-    if (book.numOfCopies < dto.quantity) {
-      throw new NotFoundException(this.i18n.t('exception.bookNotEnough'));
-    }
-
     const existedOrderDetail = await this.queryBus.execute(new GetOrderDetailByBookQuery(userId, bookId));
-    if (existedOrderDetail) {
-      const cmd =
-        dto.quantity > 0
-          ? new UpdateOrderDetailCommand(existedOrderDetail.id, dto)
-          : new DeleteOrderDetailCommand([existedOrderDetail.id]);
-      await this.commandBus.execute(cmd);
-      return await this.queryBus.execute(new GetOneOrderQuery(existedOrderDetail.order.id));
-    }
 
+    const doTask = await this.commandBus.execute(new GetNewQuantityCommand(quantity, action));
+
+    if (doTask.quantity > book.numOfCopies) {
+      throw new BadRequestException(this.i18n.t('exception.bookNotEnough'));
+    }
     const order = await this.commandBus.execute(
       new CreateOrderCommand(userId, {
         status: OrderStatus.CREATED,
         storeId: book.store.id,
       }),
     );
-
     if (!order) {
       throw new BadRequestException(this.i18n.t('exception.cannotCreateOrder'));
     }
-
-    if (dto.quantity > 0) {
-      const orderDetail = this.orderDetailRepository.create(dataToCreate);
-      orderDetail.book = book;
-      orderDetail.order = order;
-      await this.orderDetailRepository.save(orderDetail);
+    switch (doTask.action) {
+      case 'delete':
+        await this.commandBus.execute(new DeleteOrderDetailCommand([existedOrderDetail.id]));
+        break;
+      case 'insert':
+        const orderDetail = this.orderDetailRepository.create({ quantity: doTask.quantity });
+        orderDetail.book = book;
+        orderDetail.order = order;
+        await this.orderDetailRepository.save(orderDetail);
+        break;
+      case 'update':
+        await this.commandBus.execute(
+          new UpdateOrderDetailCommand(existedOrderDetail.id, { quantity: doTask.quantity }),
+        );
+        break;
+      case 'donothing':
+      default:
+        break;
     }
 
-    return await this.queryBus.execute(new GetOneOrderQuery(order.id));
+    return await this.queryBus.execute(new GetOderByUserQuery(userId, book.store.id));
   }
 }
