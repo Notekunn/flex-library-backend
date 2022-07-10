@@ -18,9 +18,9 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   }
 
   async validate({ id: userId }): Promise<JwtClaimsDto> {
-    this.logger.debug(`Claim token userId ${userId}`);
-
     const role = await this.queryBus.execute(new GetRoleRecordQuery(userId));
+
+    this.logger.debug(`Claim token userId ${userId} with role ${role}`);
 
     return {
       id: userId,

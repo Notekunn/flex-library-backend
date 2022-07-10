@@ -4,6 +4,7 @@ import { RedisService } from '@liaoliaots/nestjs-redis';
 import { GetOneUserQuery } from '@modules/user/queries/get-one-user.query';
 import { Query } from '@nestjs-architects/typed-cqrs';
 import { CommandBus, IQueryHandler, QueryBus, QueryHandler } from '@nestjs/cqrs';
+import { UtilsService } from '@providers/utils.service';
 import { CreateRoleRecordCommand } from '../commands/create-role-record.command';
 
 export class GetRoleRecordQuery extends Query<UserRole> {
@@ -23,7 +24,7 @@ export class GetRoleRecordQueryHandler implements IQueryHandler<GetRoleRecordQue
     const { userId } = query;
     const role = await this.redisService.getClient().get(`${RedisKey.Role}:${userId}`);
     if (role) {
-      return UserRole[role] || UserRole.Member;
+      return UtilsService.enumFromStringValue(UserRole, role) || UserRole.Member;
     }
     const user = await this.queryBus.execute(new GetOneUserQuery(userId));
     await this.commandBus.execute(new CreateRoleRecordCommand(userId, user.role));
