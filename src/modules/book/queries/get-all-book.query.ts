@@ -32,7 +32,7 @@ export class GetAllBookQueryHandler implements IQueryHandler<GetAllBookQuery, Bo
         qb.andWhere('copies.status = :status', { status: BookStatus.AVAILABLE }),
       );
     if (q) {
-      builder.where('name ILIKE :q', { q: `%${q}%` });
+      builder.andWhere('book.name ILIKE :q', { q: `%${q}%` });
     }
     for (const sortItem of dto.toSortEntries<BookEntity>()) {
       builder.addOrderBy(`book.${sortItem[0]}`, sortItem[1]);
