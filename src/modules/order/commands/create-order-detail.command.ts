@@ -41,7 +41,9 @@ export class CreateOrderDetailCommandHandler implements ICommandHandler<CreateOr
 
     const existedOrderDetail = await this.queryBus.execute(new GetOrderDetailByBookQuery(userId, bookId));
 
-    const doTask = await this.commandBus.execute(new GetNewQuantityCommand(quantity, action));
+    const doTask = await this.commandBus.execute(
+      new GetNewQuantityCommand(quantity, action, existedOrderDetail?.quantity),
+    );
 
     if (doTask.quantity > book.numOfCopies) {
       throw new BadRequestException(this.i18n.t('exception.bookNotEnough'));
