@@ -1,5 +1,12 @@
 NestJS Rocket Changelog
 
+## [1.28.1](https://github.com/Notekunn/flex-library-backend/compare/v1.28.0...v1.28.1) (2022-07-11)
+
+
+### Bug Fixes
+
+* delete not exist order detail ([010dcca](https://github.com/Notekunn/flex-library-backend/commit/010dcca7dbd37e00bc69438bd0812f7f0c89c1f6))
+
 # [1.28.0](https://github.com/Notekunn/flex-library-backend/compare/v1.27.1...v1.28.0) (2022-07-11)
 
 
