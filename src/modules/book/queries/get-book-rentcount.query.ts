@@ -13,6 +13,7 @@ export class GetBookRentCountQuery extends Query<number[]> {
 export class GetBookRentCountQueryHandler implements IQueryHandler<GetBookRentCountQuery, number[]> {
   constructor(private readonly redisService: RedisService) {}
   async execute(query: GetBookRentCountQuery): Promise<number[]> {
+    if (query.bookIds.length == 0) return [];
     const rentCount = await this.redisService
       .getClient()
       .mget(...query.bookIds.map((bookId) => `${RedisKey.BookRentCount}:${bookId}`));
