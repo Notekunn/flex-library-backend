@@ -4,9 +4,9 @@ import { JwtClaimsDto } from '@modules/auth/dto/jwt-claims.dto';
 import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { ReturnBookCommand } from './commands/return-book.command';
-import { ReturnBookDto } from './dto/return-book.dto';
-import { GetAllBookLoanQuery } from './queries/get-all-book-loan.query';
+import { ReturnBookCommand } from '../commands/return-book.command';
+import { ReturnBookDto } from '../dto/return-book.dto';
+import { GetAllBookLoanQuery } from '../queries/get-all-book-loan.query';
 
 @ApiTags('loans')
 @Controller('loans')
