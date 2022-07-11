@@ -59,7 +59,9 @@ export class CreateOrderDetailCommandHandler implements ICommandHandler<CreateOr
     }
     switch (doTask.action) {
       case 'delete':
-        await this.commandBus.execute(new DeleteOrderDetailCommand([existedOrderDetail.id]));
+        if (existedOrderDetail?.id) {
+          await this.commandBus.execute(new DeleteOrderDetailCommand([existedOrderDetail?.id]));
+        }
         break;
       case 'insert':
         const orderDetail = this.orderDetailRepository.create({ quantity: doTask.quantity });
