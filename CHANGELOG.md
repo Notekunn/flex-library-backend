@@ -1,5 +1,12 @@
 NestJS Rocket Changelog
 
+## [1.27.1](https://github.com/Notekunn/flex-library-backend/compare/v1.27.0...v1.27.1) (2022-07-11)
+
+
+### Bug Fixes
+
+* order rental rentcount when empty result ([#40](https://github.com/Notekunn/flex-library-backend/issues/40)) ([7017d21](https://github.com/Notekunn/flex-library-backend/commit/7017d214fb1fa54bbddf233c6a497c15870f7dcb))
+
 # [1.27.0](https://github.com/Notekunn/flex-library-backend/compare/v1.26.0...v1.27.0) (2022-07-10)
 
 
