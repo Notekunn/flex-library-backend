@@ -1,5 +1,12 @@
 NestJS Rocket Changelog
 
+# [1.29.0](https://github.com/Notekunn/flex-library-backend/compare/v1.28.1...v1.29.0) (2022-07-11)
+
+
+### Features
+
+* admin confirm order ([#42](https://github.com/Notekunn/flex-library-backend/issues/42)) ([40e9b91](https://github.com/Notekunn/flex-library-backend/commit/40e9b91087314b1d4d7e63d246c39c9cf5acd17d))
+
 ## [1.28.1](https://github.com/Notekunn/flex-library-backend/compare/v1.28.0...v1.28.1) (2022-07-11)
 
 
