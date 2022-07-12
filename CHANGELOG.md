@@ -1,5 +1,12 @@
 NestJS Rocket Changelog
 
+# [1.30.0](https://github.com/Notekunn/flex-library-backend/compare/v1.29.0...v1.30.0) (2022-07-12)
+
+
+### Features
+
+* role in redis ([#43](https://github.com/Notekunn/flex-library-backend/issues/43)) ([88467e4](https://github.com/Notekunn/flex-library-backend/commit/88467e4a179017108e63fb4e3c8c6406ea240cc0))
+
 # [1.29.0](https://github.com/Notekunn/flex-library-backend/compare/v1.28.1...v1.29.0) (2022-07-11)
 
 
