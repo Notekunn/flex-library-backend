@@ -1,5 +1,12 @@
 NestJS Rocket Changelog
 
+# [1.32.0](https://github.com/Notekunn/flex-library-backend/compare/v1.31.0...v1.32.0) (2022-07-12)
+
+
+### Features
+
+* show store when login ([9cb70e4](https://github.com/Notekunn/flex-library-backend/commit/9cb70e4240679b0cf3dd363e1555fb1c8a1c47ab))
+
 # [1.31.0](https://github.com/Notekunn/flex-library-backend/compare/v1.30.0...v1.31.0) (2022-07-12)
 
 
