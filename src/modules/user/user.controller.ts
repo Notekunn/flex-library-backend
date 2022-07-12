@@ -55,7 +55,7 @@ export class UserController {
 
   @Get('me')
   whoAmI(@AuthUser() user: JwtClaimsDto) {
-    return this.queryBus.execute(new GetOneUserQuery(user.id));
+    return this.queryBus.execute(new GetOneUserQuery(user.id, true));
   }
 
   @Post('me')
