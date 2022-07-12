@@ -8,11 +8,6 @@ export class CreateBookDto {
   name: string;
 
   @ApiProperty()
-  @Min(0)
-  @IsNumber()
-  numOfCopies: number;
-
-  @ApiProperty()
   @IsNumber()
   @Min(0)
   @Max(100000000)

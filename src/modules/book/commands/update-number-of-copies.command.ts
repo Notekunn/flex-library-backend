@@ -1,11 +1,14 @@
+import { BookStatus } from '@constants/book-status.enum';
 import { Command } from '@nestjs-architects/typed-cqrs';
 import { ICommandHandler, CommandHandler } from '@nestjs/cqrs';
 import { InjectRepository } from '@nestjs/typeorm';
+import { BookCopyEntity } from '../entities/book-copy.entity';
 import { BookEntity } from '../entities/book.entity';
+import { BookCopyRepository } from '../repositories/book-copy.repository';
 import { BookRepository } from '../repositories/book.repository';
 
 export class UpdateNumberOfCopiesCommand extends Command<number> {
-  constructor(public readonly bookId: number, public readonly numberIncrease = 1) {
+  constructor(public readonly bookId: number) {
     super();
   }
 }
@@ -15,14 +18,21 @@ export class UpdateNumberOfCopiesCommandHandler implements ICommandHandler<Updat
   constructor(
     @InjectRepository(BookEntity)
     private readonly bookRepository: BookRepository,
+    @InjectRepository(BookCopyEntity)
+    private readonly bookCopyRepository: BookCopyRepository,
   ) {}
   async execute(command: UpdateNumberOfCopiesCommand): Promise<any> {
-    const { bookId, numberIncrease } = command;
+    const { bookId } = command;
+    const numOfCopies = await this.bookCopyRepository.count({
+      where: {
+        status: BookStatus.AVAILABLE,
+      },
+    });
     return this.bookRepository
       .createQueryBuilder()
       .update()
       .set({
-        numOfCopies: () => `num_of_copies ${numberIncrease > 0 ? '+' : '-'} ${Math.abs(numberIncrease)}`,
+        numOfCopies,
       })
       .where('id = :bookId', { bookId })
       .execute();

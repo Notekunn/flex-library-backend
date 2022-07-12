@@ -1,10 +1,11 @@
 import { Command } from '@nestjs-architects/typed-cqrs';
 import { NotFoundException } from '@nestjs/common';
-import { CommandHandler, ICommandHandler, QueryBus } from '@nestjs/cqrs';
+import { CommandBus, CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UpdateBookDto } from '../dto/update-book.dto';
 import { BookEntity } from '../entities/book.entity';
 import { BookRepository } from '../repositories/book.repository';
+import { UpdateNumberOfCopiesCommand } from './update-number-of-copies.command';
 
 export class UpdateBookCommand extends Command<UpdateBookDto> {
   constructor(public readonly id: number, public readonly dto: UpdateBookDto) {
@@ -16,7 +17,7 @@ export class UpdateBookCommand extends Command<UpdateBookDto> {
 export class UpdateBookCommandHandler implements ICommandHandler<UpdateBookCommand> {
   constructor(
     @InjectRepository(BookEntity) private readonly bookRepository: BookRepository,
-    private readonly queryBus: QueryBus,
+    private readonly commandBus: CommandBus,
   ) {}
   async execute(command: UpdateBookCommand) {
     const { id, dto } = command;
@@ -28,6 +29,7 @@ export class UpdateBookCommandHandler implements ICommandHandler<UpdateBookComma
       ...book,
       ...dto,
     });
+    await this.commandBus.execute(new UpdateNumberOfCopiesCommand(id));
 
     return updatedBook;
   }

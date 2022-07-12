@@ -1,4 +1,3 @@
-import { BookStatus } from '@constants/book-status.enum';
 import { Query } from '@nestjs-architects/typed-cqrs';
 import { IQueryHandler, QueryBus, QueryHandler } from '@nestjs/cqrs';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -25,11 +24,9 @@ export class GetOneBookQueryHandler implements IQueryHandler<GetOneBookQuery, Bo
     builder
       .leftJoinAndSelect('book.store', 'store')
       .leftJoinAndSelect('book.categories', 'category')
-      .loadRelationCountAndMap('book.numOfCopies', 'book.copies', 'copies', (qb) =>
-        qb.andWhere('copies.status = :status', { status: BookStatus.AVAILABLE }),
-      )
       .where('book.id = :id', { id });
     const book = await builder.getOne();
+
     if (book) {
       const [rentCount] = await this.queryBus.execute(new GetBookRentCountQuery([id]));
 

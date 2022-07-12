@@ -12,6 +12,7 @@ import { BookEntity } from '../entities/book.entity';
 import { GetOneBookCopyByBarcodeQuery } from '../queries/get-one-book-copy-by-barcode.query';
 import { GetOneBookQuery } from '../queries/get-one-book.query';
 import { BookCopyRepository } from '../repositories/book-copy.repository';
+import { UpdateNumberOfCopiesCommand } from './update-number-of-copies.command';
 
 export class CreateBookCopyCommand extends Command<BookCopyEntity> {
   constructor(public readonly userId: number, public readonly bookId: number, public readonly dto: CreateBookCopyDto) {
@@ -49,7 +50,8 @@ export class CreateBookCopyCommandHandler implements ICommandHandler<CreateBookC
       book,
       status: BookStatus.AVAILABLE,
     });
-    await this.bookCopyRepository.save(bookCopy);
+    const { id } = await this.bookCopyRepository.save(bookCopy);
+    await this.commandBus.execute(new UpdateNumberOfCopiesCommand(id));
 
     return bookCopy;
   }
