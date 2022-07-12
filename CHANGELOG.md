@@ -1,5 +1,12 @@
 NestJS Rocket Changelog
 
+# [1.31.0](https://github.com/Notekunn/flex-library-backend/compare/v1.30.0...v1.31.0) (2022-07-12)
+
+
+### Features
+
+* show store when call who am i api ([#44](https://github.com/Notekunn/flex-library-backend/issues/44)) ([f04163c](https://github.com/Notekunn/flex-library-backend/commit/f04163c420339f4a5385ead0a68cc68a981afce0))
+
 # [1.30.0](https://github.com/Notekunn/flex-library-backend/compare/v1.29.0...v1.30.0) (2022-07-12)
 
 
