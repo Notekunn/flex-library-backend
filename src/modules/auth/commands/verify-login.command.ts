@@ -21,8 +21,11 @@ export class LoginWithEmailCommandHandler implements ICommandHandler<LoginWithEm
   ) {}
   async execute(command: LoginWithEmailCommand): Promise<UserEntity> {
     const { dto } = command;
-    const user = await this.userRepository.findOneBy({
-      email: dto.email,
+    const user = await this.userRepository.findOne({
+      where: {
+        email: dto.email,
+      },
+      relations: ['store'],
     });
     if (!user) throw new UnauthorizedException('Thông tin đăng nhập không chính xác!');
     const isPasswordValid = await UtilsService.validateHash(dto.password, user.password);
