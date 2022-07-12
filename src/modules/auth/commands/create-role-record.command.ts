@@ -16,6 +16,7 @@ export class CreateRoleRecordCommandHandler implements ICommandHandler<CreateRol
 
   async execute(command: CreateRoleRecordCommand) {
     const { userId, role } = command;
-    await this.redisService.getClient().set(`${RedisKey.Role}:${userId}`, role.toString());
+    // Expired after 6h
+    await this.redisService.getClient().setex(`${RedisKey.Role}:${userId}`, 60 * 60 * 6, role.toString());
   }
 }
