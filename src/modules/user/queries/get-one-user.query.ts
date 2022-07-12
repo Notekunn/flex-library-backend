@@ -4,7 +4,7 @@ import { UserRepository } from './../repositories/user.repository';
 import { QueryHandler, IQueryHandler } from '@nestjs/cqrs';
 import { Query } from '@nestjs-architects/typed-cqrs';
 export class GetOneUserQuery extends Query<UserEntity> {
-  constructor(public readonly id: number) {
+  constructor(public readonly id: number, public readonly withStore = false) {
     super();
   }
 }
@@ -16,7 +16,10 @@ export class GetOneUserQueryHandler implements IQueryHandler<GetOneUserQuery, Us
     private readonly userRepository: UserRepository,
   ) {}
   async execute(query: GetOneUserQuery) {
-    const { id } = query;
-    return await this.userRepository.findOne({ where: { id } });
+    const { id, withStore } = query;
+    return await this.userRepository.findOne({
+      where: { id },
+      relations: withStore ? ['store'] : [],
+    });
   }
 }
