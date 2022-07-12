@@ -6,6 +6,7 @@ import { BookRepository } from '../repositories/book.repository';
 import { GetAllBookDto } from '../dto/get-all-book.dto';
 import { BookStatus } from '@constants/book-status.enum';
 import { MapBookWithCountQuery } from './map-book-with-count.query';
+import { StoreEntity } from '@modules/store/entities/store.entity';
 
 export class GetAllBookQuery extends Query<BookEntity[]> {
   constructor(public readonly dto: GetAllBookDto) {
@@ -22,23 +23,37 @@ export class GetAllBookQueryHandler implements IQueryHandler<GetAllBookQuery, Bo
   ) {}
   async execute(query: GetAllBookQuery) {
     const { dto } = query;
-    const { q } = dto;
+    const { q, store } = dto;
+    const categories = dto.categories ? (Array.isArray(dto.categories) ? dto.categories : [dto.categories]) : [];
 
     const builder = this.bookRepository.createQueryBuilder('book');
-    builder
-      .leftJoinAndSelect('book.store', 'store')
-      .leftJoinAndSelect('book.categories', 'category')
-      .loadRelationCountAndMap('book.numOfCopies', 'book.copies', 'copies', (qb) =>
-        qb.andWhere('copies.status = :status', { status: BookStatus.AVAILABLE }),
-      );
+
+    if (store) {
+      builder.innerJoinAndSelect('book.store', 'store', 'store.id = :store', { store });
+    } else {
+      builder.leftJoinAndSelect('book.store', 'store');
+    }
+
+    if (categories.length > 0) {
+      builder.innerJoinAndSelect('book.categories', 'category', 'category.id IN (:...categories)', { categories });
+    } else {
+      builder.leftJoinAndSelect('book.categories', 'category');
+    }
+
+    builder.loadRelationCountAndMap('book.numOfCopies', 'book.copies', 'copies', (qb) =>
+      qb.andWhere('copies.status = :status', { status: BookStatus.AVAILABLE }),
+    );
+
     if (q) {
       builder.andWhere('book.name ILIKE :q', { q: `%${q}%` });
     }
+
     for (const sortItem of dto.toSortEntries<BookEntity>()) {
       builder.addOrderBy(`book.${sortItem[0]}`, sortItem[1]);
     }
     builder.take(dto.take);
     builder.skip(dto.skip);
+
     const books = await builder.getMany();
 
     const booksWithCount = await this.queryBus.execute(new MapBookWithCountQuery(books));
