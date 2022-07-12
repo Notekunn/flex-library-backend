@@ -1,5 +1,12 @@
 NestJS Rocket Changelog
 
+# [1.33.0](https://github.com/Notekunn/flex-library-backend/compare/v1.32.0...v1.33.0) (2022-07-12)
+
+
+### Features
+
+* move book query by store and category to one endpoint ([#45](https://github.com/Notekunn/flex-library-backend/issues/45)) ([d6930f3](https://github.com/Notekunn/flex-library-backend/commit/d6930f36e6341cfd53cb358715e8381b4fd1e0bc))
+
 # [1.32.0](https://github.com/Notekunn/flex-library-backend/compare/v1.31.0...v1.32.0) (2022-07-12)
 
 
