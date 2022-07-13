@@ -5,7 +5,6 @@ import { BookEntity } from '../entities/book.entity';
 import { BookRepository } from '../repositories/book.repository';
 import { GetAllBookDto } from '../dto/get-all-book.dto';
 import { MapBookWithCountQuery } from './map-book-with-count.query';
-import { StoreEntity } from '@modules/store/entities/store.entity';
 
 export class GetAllBookQuery extends Query<BookEntity[]> {
   constructor(public readonly dto: GetAllBookDto) {
