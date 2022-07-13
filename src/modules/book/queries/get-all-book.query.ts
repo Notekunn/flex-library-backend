@@ -4,7 +4,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { BookEntity } from '../entities/book.entity';
 import { BookRepository } from '../repositories/book.repository';
 import { GetAllBookDto } from '../dto/get-all-book.dto';
-import { BookStatus } from '@constants/book-status.enum';
 import { MapBookWithCountQuery } from './map-book-with-count.query';
 import { StoreEntity } from '@modules/store/entities/store.entity';
 
@@ -39,10 +38,6 @@ export class GetAllBookQueryHandler implements IQueryHandler<GetAllBookQuery, Bo
     } else {
       builder.leftJoinAndSelect('book.categories', 'category');
     }
-
-    builder.loadRelationCountAndMap('book.numOfCopies', 'book.copies', 'copies', (qb) =>
-      qb.andWhere('copies.status = :status', { status: BookStatus.AVAILABLE }),
-    );
 
     if (q) {
       builder.andWhere('book.name ILIKE :q', { q: `%${q}%` });
