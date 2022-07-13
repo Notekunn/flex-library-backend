@@ -13,6 +13,7 @@ import { BookLoanRepository } from '../repositories/book-loan.repository';
 import { BookLoanStatus } from '@constants/book-loan-status.enum';
 import { UpdateBookStatusCommand } from '@modules/book/commands/update-book-status.command';
 import { IncreaseRentCountCommand } from '@modules/book/commands/increase-rentcount.command';
+import { UpdateNumberOfCopiesCommand } from '@modules/book/commands/update-number-of-copies.command';
 
 export class BorrowBookCommand extends Command<BookLoanEntity> {
   constructor(public readonly orderDetailId: number) {
@@ -63,6 +64,10 @@ export class BorrowBookCommandHandler implements ICommandHandler<BorrowBookComma
         BookStatus.RENTING,
       ),
     );
-    await this.commandBus.execute(new IncreaseRentCountCommand(book.id, orderDetail.quantity));
+    await Promise.all(
+      [new UpdateNumberOfCopiesCommand(book.id), new IncreaseRentCountCommand(book.id, orderDetail.quantity)].map(
+        (cmd) => this.commandBus.execute(cmd),
+      ),
+    );
   }
 }

@@ -2,6 +2,7 @@ import { BookLoanStatus } from '@constants/book-loan-status.enum';
 import { BookStatus } from '@constants/book-status.enum';
 import { ReturnBookType } from '@constants/return-book-type.enum';
 import { UpdateBookStatusCommand } from '@modules/book/commands/update-book-status.command';
+import { UpdateNumberOfCopiesCommand } from '@modules/book/commands/update-number-of-copies.command';
 import { GetOneBookCopyByBarcodeQuery } from '@modules/book/queries/get-one-book-copy-by-barcode.query';
 import { Command } from '@nestjs-architects/typed-cqrs';
 import { BadRequestException } from '@nestjs/common';
@@ -58,6 +59,7 @@ export class ReturnBookCommandHandler implements ICommandHandler<ReturnBookComma
     );
     const bookStatus: BookStatus = dto.status === ReturnBookType.LOST ? BookStatus.LOST : BookStatus.AVAILABLE;
     await this.commandBus.execute(new UpdateBookStatusCommand([bookCopy.id], bookStatus));
+    await this.commandBus.execute(new UpdateNumberOfCopiesCommand(bookCopy.book.id));
     return {
       message: 'Return book success',
     };
