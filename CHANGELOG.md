@@ -1,5 +1,12 @@
 NestJS Rocket Changelog
 
+# [1.35.0](https://github.com/Notekunn/flex-library-backend/compare/v1.34.0...v1.35.0) (2022-07-13)
+
+
+### Features
+
+* docker change mount directory ([8d7f73b](https://github.com/Notekunn/flex-library-backend/commit/8d7f73b35a71a8b04eab2ee417fbb83834a273e2))
+
 # [1.34.0](https://github.com/Notekunn/flex-library-backend/compare/v1.33.0...v1.34.0) (2022-07-13)
 
 
