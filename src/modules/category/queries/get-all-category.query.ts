@@ -19,7 +19,7 @@ export class GetAllCategoryQueryHandler implements IQueryHandler<GetAllCategoryQ
   ) {}
   async execute(query: GetAllCategoryQuery) {
     const { dto } = query;
-    const categories = await this.categoryRepository.find({ ...dto });
+    const categories = await this.categoryRepository.find({ ...dto, order: { id: 'ASC' } });
     return categories;
   }
 }
