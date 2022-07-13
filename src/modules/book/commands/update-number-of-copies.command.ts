@@ -26,6 +26,9 @@ export class UpdateNumberOfCopiesCommandHandler implements ICommandHandler<Updat
     const numOfCopies = await this.bookCopyRepository.count({
       where: {
         status: BookStatus.AVAILABLE,
+        book: {
+          id: bookId,
+        },
       },
     });
     return this.bookRepository

@@ -50,8 +50,8 @@ export class CreateBookCopyCommandHandler implements ICommandHandler<CreateBookC
       book,
       status: BookStatus.AVAILABLE,
     });
-    const { id } = await this.bookCopyRepository.save(bookCopy);
-    await this.commandBus.execute(new UpdateNumberOfCopiesCommand(id));
+    await this.bookCopyRepository.save(bookCopy);
+    await this.commandBus.execute(new UpdateNumberOfCopiesCommand(book.id));
 
     return bookCopy;
   }
