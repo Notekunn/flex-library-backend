@@ -1,5 +1,12 @@
 NestJS Rocket Changelog
 
+# [1.38.0](https://github.com/Notekunn/flex-library-backend/compare/v1.37.0...v1.38.0) (2022-07-14)
+
+
+### Features
+
+* add barcode to dto ([#50](https://github.com/Notekunn/flex-library-backend/issues/50)) ([f7c11f0](https://github.com/Notekunn/flex-library-backend/commit/f7c11f06108c084ba592d88fbe21b99b3c337dd2))
+
 # [1.37.0](https://github.com/Notekunn/flex-library-backend/compare/v1.36.0...v1.37.0) (2022-07-14)
 
 
