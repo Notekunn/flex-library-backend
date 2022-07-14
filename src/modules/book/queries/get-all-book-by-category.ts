@@ -5,7 +5,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { ILike } from 'typeorm';
 import { BookEntity } from '../entities/book.entity';
 import { BookRepository } from '../repositories/book.repository';
-import { MapBookWithCountQuery } from './map-book-with-count.query';
 
 export class GetAllBookByCategoryQuery extends Query<BookEntity[]> {
   constructor(public readonly categoryId: number, public readonly dto: PaginationDto) {
@@ -39,8 +38,6 @@ export class GetAllBookByCategoryQueryHandler implements IQueryHandler<GetAllBoo
       order,
     });
 
-    const booksWithCount = await this.queryBus.execute(new MapBookWithCountQuery(books));
-
-    return booksWithCount;
+    return books;
   }
 }
