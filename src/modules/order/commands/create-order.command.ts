@@ -4,6 +4,7 @@ import { Command } from '@nestjs-architects/typed-cqrs';
 import { NotFoundException } from '@nestjs/common';
 import { CommandHandler, ICommandHandler, QueryBus } from '@nestjs/cqrs';
 import { InjectRepository } from '@nestjs/typeorm';
+import moment from 'moment';
 import { I18nService } from 'nestjs-i18n';
 import { CreateOrderDto } from '../dto/create-order.dto';
 import { OrderEntity } from '../entities/order.entity';
@@ -46,6 +47,7 @@ export class CreateOrderCommandHandler implements ICommandHandler<CreateOrderCom
     const order = this.orderRepository.create(dataToCreate);
     order.user = user;
     order.store = store;
+    order.dueDate = moment().add('7d').toDate();
     return await this.orderRepository.save(order);
   }
 }

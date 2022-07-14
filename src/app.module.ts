@@ -41,6 +41,7 @@ import { RedisModule } from '@liaoliaots/nestjs-redis';
         // add this to enable live translations
         watch: !env.NODE_ENV || env.NODE_ENV === 'development',
       },
+      //TODO: add
       resolvers: [new QueryResolver(['lang', 'locale', 'l']), new HeaderResolver()],
     }),
     ThrottlerModule.forRoot({
