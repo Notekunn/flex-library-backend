@@ -20,6 +20,12 @@ export class CreateBookDto {
   rentPrice: number;
 
   @ApiProperty()
+  @IsNumber()
+  @Min(0)
+  @Max(100)
+  numOfCopies: number;
+
+  @ApiProperty()
   @IsOptional()
   @IsString()
   author: string;

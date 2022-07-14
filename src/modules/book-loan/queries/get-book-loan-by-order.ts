@@ -3,21 +3,22 @@ import { GetOneOrderQuery } from '@modules/order/queries/get-one-order.query';
 import { StoreEntity } from '@modules/store/entities/store.entity';
 import { GetStoreByOwnerQuery } from '@modules/store/queries/get-store-by-owner.query';
 import { Query } from '@nestjs-architects/typed-cqrs';
-import { ForbiddenException } from '@nestjs/common';
+import { BadRequestException, ForbiddenException } from '@nestjs/common';
 import { IQueryHandler, QueryBus, QueryHandler } from '@nestjs/cqrs';
 import { InjectRepository } from '@nestjs/typeorm';
 import { I18nService } from 'nestjs-i18n';
+import { BookLoanResponseDto } from '../dto/book-loan-response.dto';
 import { BookLoanEntity } from '../entities/book-loan.entity';
 import { BookLoanRepository } from '../repositories/book-loan.repository';
 
-export class GetBookLoanByOrderQuery extends Query<BookLoanEntity[]> {
+export class GetBookLoanByOrderQuery extends Query<BookLoanResponseDto> {
   constructor(public readonly authorId: number, public readonly orderId: number) {
     super();
   }
 }
 
 @QueryHandler(GetBookLoanByOrderQuery)
-export class GetBookLoanByOrderQueryHandler implements IQueryHandler<GetBookLoanByOrderQuery, BookLoanEntity[]> {
+export class GetBookLoanByOrderQueryHandler implements IQueryHandler<GetBookLoanByOrderQuery, BookLoanResponseDto> {
   constructor(
     @InjectRepository(BookLoanEntity)
     private readonly bookLoanRepository: BookLoanRepository,
@@ -32,10 +33,13 @@ export class GetBookLoanByOrderQueryHandler implements IQueryHandler<GetBookLoan
         Promise<StoreEntity | null>,
       ],
     );
+    if (!order) {
+      throw new BadRequestException();
+    }
     if (order?.store?.id == store?.id) {
       throw new ForbiddenException('exception.notStoreOwner');
     }
-    return await this.bookLoanRepository.find({
+    const bookLoans = await this.bookLoanRepository.find({
       where: {
         order: {
           id: query.orderId,
@@ -43,5 +47,9 @@ export class GetBookLoanByOrderQueryHandler implements IQueryHandler<GetBookLoan
       },
       relations: ['order', 'bookCopy'],
     });
+    return {
+      order,
+      bookLoans,
+    } as unknown as BookLoanResponseDto;
   }
 }

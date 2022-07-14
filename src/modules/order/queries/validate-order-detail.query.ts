@@ -21,7 +21,6 @@ export class ValidateOrderDetailQueryHandler implements IQueryHandler<ValidateOr
     const { order } = query;
     const books = await this.bookRepository
       .createQueryBuilder('book')
-      .loadRelationCountAndMap('book.numOfCopies', 'book.copies')
       .where('id IN (:...ids)', {
         ids: order.orderDetails.map((e) => e.book.id),
       })
