@@ -40,6 +40,11 @@ export class CreateBookDto {
   categoryIds: number[];
 
   @ApiProperty()
+  @IsString()
+  @IsOptional()
+  barcode: string;
+
+  @ApiProperty()
   @IsArray({})
   images: string[];
 }
