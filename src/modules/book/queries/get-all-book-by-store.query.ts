@@ -3,19 +3,17 @@ import { Query } from '@nestjs-architects/typed-cqrs';
 import { IQueryHandler, QueryBus, QueryHandler } from '@nestjs/cqrs';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ILike } from 'typeorm';
-import { BookWithCountEntity } from '../entities/book-with-count.entity';
 import { BookEntity } from '../entities/book.entity';
 import { BookRepository } from '../repositories/book.repository';
-import { MapBookWithCountQuery } from './map-book-with-count.query';
 
-export class GetAllBookByStoreQuery extends Query<BookWithCountEntity[]> {
+export class GetAllBookByStoreQuery extends Query<BookEntity[]> {
   constructor(public readonly storeId: number, public readonly dto: PaginationDto) {
     super();
   }
 }
 
 @QueryHandler(GetAllBookByStoreQuery)
-export class GetAllBookByStoreQueryHandler implements IQueryHandler<GetAllBookByStoreQuery, BookWithCountEntity[]> {
+export class GetAllBookByStoreQueryHandler implements IQueryHandler<GetAllBookByStoreQuery, BookEntity[]> {
   constructor(
     @InjectRepository(BookEntity)
     private readonly bookRepository: BookRepository,
@@ -38,8 +36,7 @@ export class GetAllBookByStoreQueryHandler implements IQueryHandler<GetAllBookBy
       relations: ['categories'],
       order,
     });
-    const booksWithCount = await this.queryBus.execute(new MapBookWithCountQuery(books));
 
-    return booksWithCount;
+    return books;
   }
 }

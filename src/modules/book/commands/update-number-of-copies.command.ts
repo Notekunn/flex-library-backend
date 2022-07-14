@@ -18,12 +18,11 @@ export class UpdateNumberOfCopiesCommandHandler implements ICommandHandler<Updat
   ) {}
   async execute(command: UpdateNumberOfCopiesCommand): Promise<any> {
     const { bookId, increaseNumber } = command;
-    // const numOfCopies = await this.bookRepository.
     return this.bookRepository
       .createQueryBuilder()
       .update()
       .set({
-        numOfCopies: increaseNumber,
+        numOfCopies: () => `num_of_copies ${increaseNumber > 0 ? '+' : '-'} ${Math.abs(increaseNumber)}`,
       })
       .where('id = :bookId', { bookId })
       .execute();

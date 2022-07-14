@@ -35,6 +35,9 @@ export class BookEntity extends AbstractEntity {
   @Column({ default: 1 })
   numOfCopies: number;
 
+  @Column({ default: 0 })
+  rentCount: number;
+
   @Column({ type: 'varchar' })
   barcode: string;
 
