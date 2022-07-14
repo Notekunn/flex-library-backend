@@ -1,5 +1,12 @@
 NestJS Rocket Changelog
 
+# [1.36.0](https://github.com/Notekunn/flex-library-backend/compare/v1.35.1...v1.36.0) (2022-07-14)
+
+
+### Features
+
+* remove book copy ([#48](https://github.com/Notekunn/flex-library-backend/issues/48)) ([cbac36a](https://github.com/Notekunn/flex-library-backend/commit/cbac36a02bdc6d1b6f85bac6911c75ae69929e0f))
+
 ## [1.35.1](https://github.com/Notekunn/flex-library-backend/compare/v1.35.0...v1.35.1) (2022-07-13)
 
 
