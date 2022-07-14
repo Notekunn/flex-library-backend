@@ -1,6 +1,7 @@
 import { OrderStatus } from '@constants/order-status.enum';
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEnum, IsNumber, IsString } from 'class-validator';
+import { Type } from 'class-transformer';
+import { IsDate, IsEnum, IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class CreateOrderDto {
   @ApiProperty({
@@ -14,4 +15,10 @@ export class CreateOrderDto {
   @ApiProperty()
   @IsNumber()
   storeId: number;
+
+  @ApiProperty()
+  @IsDate()
+  @IsOptional()
+  @Type(() => Date)
+  dueDate?: Date;
 }

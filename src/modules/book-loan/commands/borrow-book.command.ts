@@ -1,7 +1,7 @@
 import moment from 'moment';
 import { GetOneOrderDetailQuery } from '@modules/order/queries/get-one-order-detail.query';
 import { Command } from '@nestjs-architects/typed-cqrs';
-import { NotFoundException } from '@nestjs/common';
+import { BadRequestException, NotFoundException } from '@nestjs/common';
 import { ICommandHandler, CommandHandler, QueryBus, CommandBus } from '@nestjs/cqrs';
 import { InjectRepository } from '@nestjs/typeorm';
 import { I18nService } from 'nestjs-i18n';
@@ -12,7 +12,6 @@ import { UpdateNumberOfCopiesCommand } from '@modules/book/commands/update-numbe
 import { BookLoanStatus } from '@constants/book-loan-status.enum';
 
 export class BorrowBookCommand extends Command<BookLoanEntity> {
-  //TODO: Add due Date
   constructor(public readonly orderDetailId: number) {
     super();
   }
@@ -33,11 +32,15 @@ export class BorrowBookCommandHandler implements ICommandHandler<BorrowBookComma
     if (!orderDetail) {
       throw new NotFoundException(this.i18n.t('exception.orderDetailNotFound'));
     }
+    const dueDate = orderDetail?.order?.dueDate;
+    if (!dueDate || moment(dueDate).isBefore(moment())) {
+      throw new BadRequestException(this.i18n.t('exception.dueDateExpired'));
+    }
     const { book, quantity } = orderDetail;
     for (let i = 0; i < quantity; i++) {
       await this.bookLoanRepository.create({
         book,
-        dueDate: moment().add(7, 'days'),
+        dueDate: dueDate,
         order: orderDetail.order,
         status: BookLoanStatus.RENTING,
       });

@@ -1,3 +1,5 @@
+import { CancelOrderCommandHandler } from './cancel-order-command';
+import { ConfirmOrderCommandHandler } from './confirm-order-command';
 import { CreateOrderDetailCommandHandler } from './create-order-detail.command';
 import { CreateOrderCommandHandler } from './create-order.command';
 import { DeleteOrderDetailCommandHandler } from './delete-order-detail.command';
@@ -13,6 +15,8 @@ export const OrderCommandHandlers = [
   DeleteOrderCommandHandler,
   PurchaseOrderCommandHandler,
   GetNewQuantityCommandHandler,
+  ConfirmOrderCommandHandler,
+  CancelOrderCommandHandler,
 ];
 
 export const OrderDetailCommandHandlers = [

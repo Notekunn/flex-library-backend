@@ -22,6 +22,7 @@ import { PurchaseOrderCommand } from '../commands/purchase-order.command';
 import { UpdateOrderCommand } from '../commands/update-order.command';
 import { GetAllOrderDto } from '../dto/get-all-order.dto';
 import { OrderResponseDto } from '../dto/order-response.dto';
+import { PurchaseOrderDto } from '../dto/purchase-order-dto';
 import { UpdateOrderDto } from '../dto/update-order.dto';
 import { GetAllOrderQuery } from '../queries/get-all-order.query';
 import { GetOneOrderQuery } from '../queries/get-one-order.query';
@@ -45,8 +46,12 @@ export class OrderController {
   }
 
   @Post(':id/purchase')
-  async purchaseOrder(@AuthUser() user: JwtClaimsDto, @Param('id', ParseIntPipe) orderId: number) {
-    return this.commandBus.execute(new PurchaseOrderCommand(user.id, orderId));
+  async purchaseOrder(
+    @AuthUser() user: JwtClaimsDto,
+    @Param('id', ParseIntPipe) orderId: number,
+    @Body() dto: PurchaseOrderDto,
+  ) {
+    return this.commandBus.execute(new PurchaseOrderCommand(user.id, orderId, dto));
   }
 
   @Get(':id')
