@@ -28,7 +28,7 @@ export class GetAllBookLoanQueryHandler implements IQueryHandler<GetAllBookLoanQ
         },
         status: status || BookLoanStatus.RENTING,
       },
-      relations: ['order', 'bookCopy'],
+      relations: ['order', 'book'],
     });
   }
 }

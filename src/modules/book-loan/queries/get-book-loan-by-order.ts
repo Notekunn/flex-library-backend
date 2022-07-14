@@ -45,7 +45,7 @@ export class GetBookLoanByOrderQueryHandler implements IQueryHandler<GetBookLoan
           id: query.orderId,
         },
       },
-      relations: ['order', 'bookCopy'],
+      relations: ['order', 'book'],
     });
     return {
       order,
