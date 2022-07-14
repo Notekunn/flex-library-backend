@@ -1,5 +1,12 @@
 NestJS Rocket Changelog
 
+# [1.37.0](https://github.com/Notekunn/flex-library-backend/compare/v1.36.0...v1.37.0) (2022-07-14)
+
+
+### Features
+
+* add rent count ([#49](https://github.com/Notekunn/flex-library-backend/issues/49)) ([f1d5234](https://github.com/Notekunn/flex-library-backend/commit/f1d523477eec8a53b04d90b640baa88941d81e71))
+
 # [1.36.0](https://github.com/Notekunn/flex-library-backend/compare/v1.35.1...v1.36.0) (2022-07-14)
 
 
