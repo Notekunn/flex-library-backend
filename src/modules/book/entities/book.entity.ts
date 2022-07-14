@@ -1,8 +1,7 @@
 import { AbstractEntity } from '@common/abstract.entity';
 import { CategoryEntity } from '@modules/category/entities/category.entity';
 import { StoreEntity } from '@modules/store/entities/store.entity';
-import { Column, Entity, JoinTable, ManyToMany, ManyToOne, OneToMany } from 'typeorm';
-import { BookCopyEntity } from './book-copy.entity';
+import { Column, Entity, JoinTable, ManyToMany, ManyToOne } from 'typeorm';
 
 @Entity({ name: 'book' })
 export class BookEntity extends AbstractEntity {
@@ -33,11 +32,11 @@ export class BookEntity extends AbstractEntity {
   })
   categories: CategoryEntity[];
 
-  @OneToMany(() => BookCopyEntity, (bookCopy) => bookCopy.book)
-  copies: BookCopyEntity[];
-
   @Column({ default: 1 })
   numOfCopies: number;
+
+  @Column({ type: 'varchar' })
+  barcode: string;
 
   constructor(partial: Partial<BookEntity>) {
     super();

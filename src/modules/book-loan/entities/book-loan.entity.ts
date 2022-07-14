@@ -1,6 +1,6 @@
 import { AbstractEntity } from '@common/abstract.entity';
 import { BookLoanStatus } from '@constants/book-loan-status.enum';
-import { BookCopyEntity } from '@modules/book/entities/book-copy.entity';
+import { BookEntity } from '@modules/book/entities/book.entity';
 import { OrderEntity } from '@modules/order/entities/order.entity';
 import { Column, Entity, ManyToOne } from 'typeorm';
 
@@ -9,8 +9,8 @@ export class BookLoanEntity extends AbstractEntity {
   @ManyToOne(() => OrderEntity)
   order: OrderEntity;
 
-  @ManyToOne(() => BookCopyEntity)
-  bookCopy: BookCopyEntity;
+  @ManyToOne(() => BookEntity)
+  book: BookEntity;
 
   @Column({ enum: BookLoanStatus, default: BookLoanStatus.RENTING })
   status: BookLoanStatus;

@@ -8,7 +8,6 @@ import { I18nService } from 'nestjs-i18n';
 import { UpdateBookDto } from '../dto/update-book.dto';
 import { BookEntity } from '../entities/book.entity';
 import { BookRepository } from '../repositories/book.repository';
-import { UpdateNumberOfCopiesCommand } from './update-number-of-copies.command';
 
 export class UpdateBookCommand extends Command<UpdateBookDto> {
   constructor(public readonly id: number, public readonly dto: UpdateBookDto) {
@@ -44,10 +43,7 @@ export class UpdateBookCommandHandler implements ICommandHandler<UpdateBookComma
       const categories = await Promise.all(categoryIds.map((id) => this.queryBus.execute(new GetOneCategoryQuery(id))));
       updatedBook.categories = categories.filter((category) => category) as CategoryEntity[];
     }
-    await Promise.all([
-      this.bookRepository.save(updatedBook),
-      this.commandBus.execute(new UpdateNumberOfCopiesCommand(id)),
-    ]);
+    await this.bookRepository.save(updatedBook);
 
     return updatedBook;
   }
