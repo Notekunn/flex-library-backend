@@ -1,5 +1,12 @@
 NestJS Rocket Changelog
 
+## [1.39.1](https://github.com/Notekunn/flex-library-backend/compare/v1.39.0...v1.39.1) (2022-07-15)
+
+
+### Bug Fixes
+
+* order confirm cancel implement ([c546124](https://github.com/Notekunn/flex-library-backend/commit/c546124c22758a42b9bbcc2a14ce92bd829efc0f))
+
 # [1.39.0](https://github.com/Notekunn/flex-library-backend/compare/v1.38.0...v1.39.0) (2022-07-14)
 
 
