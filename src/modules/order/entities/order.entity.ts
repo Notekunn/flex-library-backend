@@ -28,14 +28,14 @@ export class OrderEntity extends AbstractEntity {
 
   @Expose()
   get totalAmount(): number {
-    const weeks = this.dueDate ? moment(this.dueDate).startOf('day').diff(moment().startOf('day'), 'days') / 7 : 1;
-    const factor = Math.abs(weeks);
+    // const weeks = this.dueDate ? moment(this.dueDate).startOf('day').diff(moment().startOf('day'), 'days') / 7 : 1;
+    // const factor = Math.abs(weeks);
     if (this.orderDetails) {
       const amount = this.orderDetails.reduce((amount, orderDetail) => {
         return amount + (orderDetail.book?.rentPrice || 0) * (orderDetail.quantity || 0);
       }, 0);
 
-      return Math.ceil((factor * amount) / 1000) * 1000;
+      return amount;
     }
     return 0;
   }

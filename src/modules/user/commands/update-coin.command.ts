@@ -18,11 +18,13 @@ export class UpdateCoinCommandHandler implements ICommandHandler<UpdateCoinComma
   ) {}
   async execute(command: UpdateCoinCommand): Promise<void> {
     const { userId, amount } = command;
+    console.log(`Add ${amount} for ${userId}`);
+
     this.userRepository
       .createQueryBuilder()
       .update()
       .set({
-        coin: () => `coin ${amount > 0 ? '+' : '-'} ${Math.abs(+amount)}`,
+        coin: () => `coin ${amount > 0 ? '+' : '-'} ${Math.abs(amount)}`,
       })
       .where('id = :userId', { userId })
       .execute();

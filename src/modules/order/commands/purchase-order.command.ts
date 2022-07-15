@@ -52,6 +52,8 @@ export class PurchaseOrderCommandHandler implements ICommandHandler<PurchaseOrde
 
     // TODO: Use transaction
     // Tru tien user
+    console.log('Tru tien user');
+
     await this.commandBus.execute(new UpdateCoinCommand(order.user.id, -coinChange));
     await this.commandBus.execute(
       new UpdateOrderCommand(order.id, {

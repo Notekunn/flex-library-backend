@@ -36,7 +36,7 @@ export class GetBookLoanByOrderQueryHandler implements IQueryHandler<GetBookLoan
     if (!order) {
       throw new BadRequestException();
     }
-    if (order?.store?.id == store?.id) {
+    if (order?.store?.id != store?.id) {
       throw new ForbiddenException('exception.notStoreOwner');
     }
     const bookLoans = await this.bookLoanRepository.find({

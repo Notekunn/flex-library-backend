@@ -38,6 +38,8 @@ export class ConfirmOrderCommandHandler implements ICommandHandler<ConfirmOrderC
 
     const store = await this.queryBus.execute(new GetOneStoreQuery(order.store.id));
     const coinChange = Math.ceil(order.totalAmount / 1000);
+    console.log('Add money to store', coinChange);
+
     await this.commandBus.execute(new UpdateCoinCommand(store?.owner?.id || -1, coinChange));
 
     await this.commandBus.execute(
