@@ -25,6 +25,7 @@ import { OrderResponseDto } from '../dto/order-response.dto';
 import { PurchaseOrderDto } from '../dto/purchase-order-dto';
 import { UpdateOrderDto } from '../dto/update-order.dto';
 import { GetAllOrderQuery } from '../queries/get-all-order.query';
+import { GetAllOrdersByStoreQuery } from '../queries/get-all-orders-by-store.query';
 import { GetOneOrderQuery } from '../queries/get-one-order.query';
 
 @ApiTags('order')
@@ -54,6 +55,15 @@ export class OrderController {
     return this.commandBus.execute(new PurchaseOrderCommand(user.id, orderId, dto));
   }
 
+  @Get('/store')
+  @ApiResponse({
+    type: OrderResponseDto,
+    isArray: true,
+    status: 200,
+  })
+  async getAllOrdersByStore(@AuthUser() user: JwtClaimsDto, @Query() paginationDto: GetAllOrderDto) {
+    return this.queryBus.execute(new GetAllOrdersByStoreQuery(user.id, paginationDto));
+  }
   @Get(':id')
   @ApiResponse({
     type: OrderResponseDto,

@@ -1,4 +1,5 @@
 import { BookEntity } from '@modules/book/entities/book.entity';
+import { UserEntity } from '@modules/user/entities/user.entity';
 import { Module } from '@nestjs/common';
 import { CqrsModule } from '@nestjs/cqrs';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -17,6 +18,6 @@ import { OrderDetailQueryHandlers, OrderQueryHandlers } from './queries';
     ...OrderQueryHandlers,
     ...OrderDetailQueryHandlers,
   ],
-  imports: [TypeOrmModule.forFeature([OrderEntity, OrderDetailEntity, BookEntity]), CqrsModule],
+  imports: [TypeOrmModule.forFeature([OrderEntity, OrderDetailEntity, BookEntity, UserEntity]), CqrsModule],
 })
 export class OrderModule {}
