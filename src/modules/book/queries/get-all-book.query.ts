@@ -20,7 +20,7 @@ export class GetAllBookQueryHandler implements IQueryHandler<GetAllBookQuery, Bo
   ) {}
   async execute(query: GetAllBookQuery) {
     const { dto } = query;
-    const { q, store } = dto;
+    const { q, store, barcode } = dto;
     const categories = dto.categories ? (Array.isArray(dto.categories) ? dto.categories : [dto.categories]) : [];
 
     const builder = this.bookRepository.createQueryBuilder('book');
@@ -30,7 +30,9 @@ export class GetAllBookQueryHandler implements IQueryHandler<GetAllBookQuery, Bo
     } else {
       builder.leftJoinAndSelect('book.store', 'store');
     }
-
+    if (barcode) {
+      builder.andWhere('book.barcode = :barcode', { barcode });
+    }
     if (categories.length > 0) {
       builder.innerJoinAndSelect('book.categories', 'category', 'category.id IN (:...categories)', { categories });
     } else {

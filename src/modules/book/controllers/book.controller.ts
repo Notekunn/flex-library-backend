@@ -12,6 +12,7 @@ import {
 import { QueryBus } from '@nestjs/cqrs';
 import { ApiTags } from '@nestjs/swagger';
 import { GetAllBookDto } from '../dto/get-all-book.dto';
+import { GetAllBookByBarcodeQuery } from '../queries/get-all-book-by-barcode.query';
 import { GetAllBookByCategoryQuery } from '../queries/get-all-book-by-category';
 import { GetAllBookQuery } from '../queries/get-all-book.query';
 import { GetOneBookQuery } from '../queries/get-one-book.query';
@@ -30,6 +31,12 @@ export class BookController {
   @Get(':id')
   getOne(@Param('id', ParseIntPipe) id: number) {
     return this.queryBus.execute(new GetOneBookQuery(id));
+  }
+
+  @Get('/barcode/:id')
+  getByBarcode(@Param('id', ParseIntPipe) id: string) {
+    console.log('đâsd');
+    return this.queryBus.execute(new GetAllBookByBarcodeQuery(id));
   }
 
   @Get('/category/:id')

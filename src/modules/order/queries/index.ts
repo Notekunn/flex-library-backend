@@ -6,8 +6,14 @@ import { GetOneOrderQueryHandler } from './get-one-order.query';
 import { GetOneOrderByUserQueryHandler } from './get-order-by-user.query';
 import { GetOrderDetailByBookQueryHandler } from './get-order-detail-by-book';
 import { ValidateOrderDetailQueryHandler } from './validate-order-detail.query';
+import { GetAllOrdersByStoreQueryHandler } from './get-all-orders-by-store.query';
 
-export const OrderQueryHandlers = [GetAllOrderQueryHandler, GetOneOrderQueryHandler, GetOneOrderByUserQueryHandler];
+export const OrderQueryHandlers = [
+  GetAllOrderQueryHandler,
+  GetOneOrderQueryHandler,
+  GetOneOrderByUserQueryHandler,
+  GetAllOrdersByStoreQueryHandler,
+];
 
 export const OrderDetailQueryHandlers = [
   GetAllOrderDetailQueryHandler,
