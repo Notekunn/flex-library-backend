@@ -12,4 +12,9 @@ export class GetAllBookDto extends PaginationDto {
   @IsString({ each: true })
   @IsOptional()
   categories?: string[];
+
+  @ApiProperty({ required: false })
+  @IsString({ each: true })
+  @IsOptional()
+  barcode?: string;
 }
