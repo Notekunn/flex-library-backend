@@ -16,6 +16,7 @@ import { CategoryModule } from './modules/category/category.module';
 import { OrderModule } from '@modules/order/order.module';
 import { BookLoanModule } from '@modules/book-loan/book-loan.module';
 import { RedisModule } from '@liaoliaots/nestjs-redis';
+import { PaymentPackageModule } from '@modules/payment/payment-package.module';
 
 @Module({
   imports: [
@@ -57,6 +58,7 @@ import { RedisModule } from '@liaoliaots/nestjs-redis';
     CategoryModule,
     OrderModule,
     BookLoanModule,
+    PaymentPackageModule,
   ],
 })
 export class AppModule {}
