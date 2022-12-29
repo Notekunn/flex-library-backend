@@ -8,6 +8,7 @@ import {
   Body,
   ClassSerializerInterceptor,
   Controller,
+  Delete,
   Get,
   Post,
   Query,
@@ -16,17 +17,19 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
-import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
-import Stripe from 'stripe';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { ConfirmPaymentCommand } from '../commands/confirm-payment.command';
 import { CreateCustomerCommand } from '../commands/create-customer.command';
 import { CreatePaymentIntentCommand } from '../commands/create-payment-intent';
 import { CreatePaymentPackageCommand } from '../commands/create-payment-package';
+import { DeleteCustomerCommand } from '../commands/delete-customer.command';
 import { ConfirmPaymentDto } from '../dto/confirm-payment.dto';
 import { CreatePaymentPackageDto } from '../dto/create-payment-package.dto';
 import { CreatePaymentDto } from '../dto/create-payment.dto';
+import { DeleteCustomerDto } from '../dto/delete-customer.dto';
+import { GetCustomerQuery } from '../queries/get-customer-by-email.query';
 import { GetPaymentPackagesQuery } from '../queries/get-payment-packages.query';
-import { GetTransactionsQuery } from '../queries/get-transactions.query';
+import { GetHistoryPaymentQuery } from '../queries/get-history-payment-customer.query';
 
 @ApiTags('payment')
 @UseInterceptors(ClassSerializerInterceptor)
@@ -36,50 +39,42 @@ import { GetTransactionsQuery } from '../queries/get-transactions.query';
 export class PaymentPackageController {
   constructor(private readonly commandBus: CommandBus, private readonly queryBus: QueryBus) {}
   @Post()
-  @ApiResponse({
-    status: 200,
-  })
   async createPayment(@AuthUser() user: JwtClaimsDto, @Body() createPaymentDto: CreatePaymentDto) {
     return this.commandBus.execute(new CreatePaymentIntentCommand(user.id, createPaymentDto));
   }
 
   @Get()
-  @ApiResponse({
-    status: 200,
-  })
-  async getTransactions() {
-    return this.queryBus.execute(new GetTransactionsQuery(1));
+  async getHistoryPayment(@AuthUser() user: JwtClaimsDto) {
+    return this.queryBus.execute(new GetHistoryPaymentQuery(user.id));
   }
 
   @Post('/customer')
-  @ApiResponse({
-    status: 200,
-  })
-  async createCustomer(@AuthUser() user: JwtClaimsDto, @Body() createCustomerDto: Stripe.CustomerCreateParams) {
-    return this.commandBus.execute(new CreateCustomerCommand(user.id, createCustomerDto));
+  async createCustomer(@AuthUser() user: JwtClaimsDto) {
+    return this.commandBus.execute(new CreateCustomerCommand(user.id));
   }
 
-  @Post('/confirmPayment')
-  @ApiResponse({
-    status: 200,
-  })
+  @Get('/customer')
+  async getCustomer(@AuthUser() user: JwtClaimsDto) {
+    return this.queryBus.execute(new GetCustomerQuery(user.id));
+  }
+
+  @Delete('/customer')
+  async deleteCustomer(@Body() dto: DeleteCustomerDto) {
+    return this.commandBus.execute(new DeleteCustomerCommand(dto.customerId));
+  }
+
+  @Post('/confirm-payment')
   async confirmPayment(@AuthUser() user: JwtClaimsDto, @Body() confirmPaymentDto: ConfirmPaymentDto) {
     return this.commandBus.execute(new ConfirmPaymentCommand(user.id, confirmPaymentDto));
   }
 
   @Roles(UserRole.Administrator)
-  @Post('/createPaymentPackage')
-  @ApiResponse({
-    status: 200,
-  })
+  @Post('/payment-package')
   async createPaymentPackage(@Body() createPaymentPackageDto: CreatePaymentPackageDto) {
     return this.commandBus.execute(new CreatePaymentPackageCommand(createPaymentPackageDto));
   }
 
-  @Get('/paymentPackages')
-  @ApiResponse({
-    status: 200,
-  })
+  @Get('/payment-package')
   async getPaymentPackages(@Query(new ValidationPipe({ transform: true })) getallPaymentPackageDto: PaginationDto) {
     return this.queryBus.execute(new GetPaymentPackagesQuery(getallPaymentPackageDto));
   }

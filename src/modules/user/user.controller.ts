@@ -29,6 +29,8 @@ import { UserRole } from '@constants/user-role.enum';
 import { RolesGuard } from '@guards/roles.guard';
 import { AuthUser } from '@decorators/auth-user.decorator';
 import { JwtClaimsDto } from '@modules/auth/dto/jwt-claims.dto';
+import { UpdateCoinDto } from './dto/update-coin.dto';
+import { UpdateCoinCommand } from './commands/update-coin.command';
 
 @Controller('user')
 @ApiTags('user')
@@ -72,6 +74,11 @@ export class UserController {
   @Roles(UserRole.Administrator)
   update(@Param('id', ParseIntPipe) id: number, @Body() updateUserDto: UpdateUserDto) {
     return this.commandBus.execute(new UpdateUserCommand(id, updateUserDto));
+  }
+
+  @Patch('coin')
+  updateCoin(@AuthUser() user: JwtClaimsDto, @Body() updateCoinDto: UpdateCoinDto) {
+    return this.commandBus.execute(new UpdateCoinCommand(user.id, updateCoinDto.coin));
   }
 
   @Delete(':id')
