@@ -16,17 +16,15 @@ export class UpdateCoinCommandHandler implements ICommandHandler<UpdateCoinComma
     @InjectRepository(UserEntity)
     private readonly userRepository: UserRepository,
   ) {}
-  async execute(command: UpdateCoinCommand): Promise<void> {
+  async execute(command: UpdateCoinCommand): Promise<any> {
     const { userId, amount } = command;
-    console.log(`Add ${amount} for ${userId}`);
-
-    this.userRepository
+    const query = this.userRepository
       .createQueryBuilder()
       .update()
       .set({
         coin: () => `coin ${amount > 0 ? '+' : '-'} ${Math.abs(amount)}`,
       })
-      .where('id = :userId', { userId })
-      .execute();
+      .where('id = :userId', { userId });
+    return query.execute();
   }
 }

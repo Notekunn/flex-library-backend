@@ -87,8 +87,8 @@ async function bootstrap(): Promise<void> {
     setupSwagger(app);
   }
 
-  const port = configService.getNumber('PORT') || 3000;
-  await app.listen(port, '0.0.0.0');
+  const port = configService.getNumber('PORT') || 8080;
+  await app.listen(port);
 
   logger.log(`server running on port ${port}`);
 }

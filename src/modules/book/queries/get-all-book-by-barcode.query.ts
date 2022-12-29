@@ -16,11 +16,8 @@ export class GetAllBookByBarcodeQueryHandler implements IQueryHandler<GetAllBook
   constructor(
     @InjectRepository(BookEntity)
     private readonly bookRepository: BookRepository,
-  ) {
-    console.log('adsadads');
-  }
+  ) {}
   async execute(query: GetAllBookByBarcodeQuery) {
-    console.log('adsadads');
     const { id } = query;
     // const { q, sort, ...paginationDto } = dto;
     const data = this.bookRepository.find({
