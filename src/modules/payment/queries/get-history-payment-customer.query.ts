@@ -12,17 +12,13 @@ export class GetHistoryPaymentQuery extends Query<Stripe.PaymentIntent> {
 @QueryHandler(GetHistoryPaymentQuery)
 export class GetHistoryPaymentQueryHandler implements IQueryHandler<GetHistoryPaymentQuery> {
   private stripe: Stripe;
-  constructor(
-    private readonly commandBus: CommandBus,
-    private readonly queryBus: QueryBus,
-    private readonly configService: ConfigService,
-  ) {
+  constructor(private readonly queryBus: QueryBus, private readonly configService: ConfigService) {
     const secretKey: string = this.configService.get('STRIPE_SK');
     this.stripe = new Stripe(secretKey, {
       apiVersion: '2022-11-15',
     });
   }
-  async execute(query: GetHistoryPaymentQuery): Promise<Stripe.ApiList<Stripe.PaymentIntent>> {
+  async execute(query: GetHistoryPaymentQuery): Promise<Stripe.PaymentIntent[]> {
     const { userId } = query;
     const customer = await this.queryBus.execute(new GetCustomerQuery(userId));
     const { data } = customer;
@@ -31,7 +27,8 @@ export class GetHistoryPaymentQueryHandler implements IQueryHandler<GetHistoryPa
     }
     const historyPayment = await this.stripe.paymentIntents.list({
       customer: data[0].id,
+      limit: 1000,
     });
-    return historyPayment;
+    return historyPayment.data;
   }
 }
